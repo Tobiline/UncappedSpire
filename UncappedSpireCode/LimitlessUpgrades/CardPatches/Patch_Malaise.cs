@@ -4,23 +4,32 @@ using System.Runtime.CompilerServices;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Models.Cards;
 
-namespace UncappedSpire.UncappedSpireCode.CardPatches;
+namespace UncappedSpire.UncappedSpireCode.LimitlessUpgrades.CardPatches;
 
 [HarmonyPatch]
-public class Patch_MultiCast
+public class Patch_Malaise
 {
     static MethodBase TargetMethod()
     {
-        var m = AccessTools.Method(typeof(MultiCast), "OnPlay");
+        var m = AccessTools.Method(typeof(Malaise), "OnPlay");
         var attr = m.GetCustomAttribute<AsyncStateMachineAttribute>();
-        return attr.StateMachineType.GetMethod("MoveNext", BindingFlags.NonPublic | BindingFlags.Instance);
+        if (attr == null)
+        {
+            throw new NullReferenceException("OnPlay AsyncStateMachineAttribute attribute not found");
+        }
+        var moveNextMethod = attr.StateMachineType.GetMethod("MoveNext", BindingFlags.NonPublic | BindingFlags.Instance);
+        if (moveNextMethod == null)
+        {
+            throw new NullReferenceException("AsyncStateMachineAttribute state machine method not found");
+        }
+        return moveNextMethod;
     }
     
     [HarmonyTranspiler]
     static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, MethodBase original)
     {
         var code = new List<CodeInstruction>(instructions);
-        var currentUpgradeLevelField = AccessTools.Field(typeof(MultiCast), "_currentUpgradeLevel");
+        var currentUpgradeLevelField = AccessTools.Field(typeof(Malaise), "_currentUpgradeLevel");
         
         for (var i = 0; i < code.Count; i++)
         {

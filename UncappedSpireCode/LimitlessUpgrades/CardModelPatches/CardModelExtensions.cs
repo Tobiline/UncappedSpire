@@ -1,8 +1,7 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using MegaCrit.Sts2.Core.Models;
 
-namespace UncappedSpire.UncappedSpireCode.CardModelPatches;
+namespace UncappedSpire.UncappedSpireCode.LimitlessUpgrades.CardModelPatches;
 
 public static class CardModelExtensions
 {

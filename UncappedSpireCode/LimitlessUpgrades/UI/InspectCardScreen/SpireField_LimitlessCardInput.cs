@@ -1,8 +1,7 @@
 ﻿using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Nodes.Screens;
-using UncappedSpire.UncappedSpireCode.UI;
 
-namespace UncappedSpire.UncappedSpireCode.CardModelPatches;
+namespace UncappedSpire.UncappedSpireCode.LimitlessUpgrades.UI.InspectCardScreen;
 
 public class SpireField_LimitlessCardInput
 {

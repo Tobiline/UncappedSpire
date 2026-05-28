@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using MegaCrit.Sts2.Core.Models;
 
-namespace UncappedSpire.UncappedSpireCode.CardModelPatches;
+namespace UncappedSpire.UncappedSpireCode.LimitlessUpgrades.CardModelPatches;
 
 [HarmonyPatch(typeof(CardModel), nameof(CardModel.MaxUpgradeLevel), MethodType.Getter)]
 public static class Patch_MaxUpgradeLevel

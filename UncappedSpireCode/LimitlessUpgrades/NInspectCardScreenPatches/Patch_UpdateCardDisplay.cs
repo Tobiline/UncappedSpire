@@ -8,9 +8,10 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.HoverTips;
 using MegaCrit.Sts2.Core.Nodes.Screens;
-using UncappedSpire.UncappedSpireCode.CardModelPatches;
+using UncappedSpire.UncappedSpireCode.LimitlessUpgrades.CardModelPatches;
+using UncappedSpire.UncappedSpireCode.LimitlessUpgrades.UI.InspectCardScreen;
 
-namespace UncappedSpire.UncappedSpireCode.NInspectCardScreenPatches;
+namespace UncappedSpire.UncappedSpireCode.LimitlessUpgrades.NInspectCardScreenPatches;
 
 [HarmonyPatch(typeof(NInspectCardScreen), "UpdateCardDisplay")]
 public class Patch_UpdateCardDisplay

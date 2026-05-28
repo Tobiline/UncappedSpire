@@ -61,8 +61,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="UncappedSpireCode\inspect_card_limitless_upgrade_input.tscn" />
-      <Content Include="UncappedSpireCode\UI\kreon_regular_shared.tres" />
+      <Folder Include="UncappedSpireCode\LimitlessEnchantments\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="UncappedSpireCode\LimitlessUpgrades\UI\CardLibrary\card_library_limitless_upgrade_input.tscn" />
+      <Content Include="UncappedSpireCode\LimitlessUpgrades\UI\DeckViewScreen\deck_view_limitless_upgrade_input.tscn" />
+      <Content Include="UncappedSpireCode\LimitlessUpgrades\UI\InspectCardScreen\inspect_card_limitless_upgrade_input.tscn" />
     </ItemGroup>
 
     <Target Name="CheckDependencyPaths">

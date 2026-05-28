@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using MegaCrit.Sts2.Core.Localization;
 
-namespace UncappedSpire.UncappedSpireCode.LocalizationPatches.LocManagerPatches;
+namespace UncappedSpire.UncappedSpireCode.LimitlessUpgrades.LocalizationPatches.LocManagerPatches;
 
 [HarmonyPatch(typeof(LocManager), "LoadTable")]
 public class Patch_LoadTable

@@ -2,7 +2,7 @@
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 
-namespace UncappedSpire.UncappedSpireCode.CardModelPatches;
+namespace UncappedSpire.UncappedSpireCode.LimitlessUpgrades.CardModelPatches;
 
 [HarmonyPatch(typeof(CardModel), "AddExtraArgsToDescription")]
 public class Patch_AddExtraArgsToDescription
