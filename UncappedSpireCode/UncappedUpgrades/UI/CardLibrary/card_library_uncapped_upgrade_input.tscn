@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ct5wirbramyb"]
+
+[ext_resource type="Script" uid="uid://d1m2jwp3gtf1b" path="res://UncappedSpireCode/UncappedUpgrades/UI/CardLibrary/NCardLibraryUncappedUpgradeInput.cs" id="1_tpyl3"]
+
+[node name="CardLibraryUncappedUpgradeInput" type="SpinBox"]
+min_value = 1.0
+max_value = 1000000.0
+value = 1.0
+alignment = 1
+script = ExtResource("1_tpyl3")

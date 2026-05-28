@@ -61,13 +61,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="UncappedSpireCode\LimitlessEnchantments\" />
+      <Folder Include="UncappedSpireCode\UncappedEnchantments\" />
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="UncappedSpireCode\LimitlessUpgrades\UI\CardLibrary\card_library_limitless_upgrade_input.tscn" />
-      <Content Include="UncappedSpireCode\LimitlessUpgrades\UI\DeckViewScreen\deck_view_limitless_upgrade_input.tscn" />
-      <Content Include="UncappedSpireCode\LimitlessUpgrades\UI\InspectCardScreen\inspect_card_limitless_upgrade_input.tscn" />
+      <Content Include="UncappedSpireCode\UncappedUpgrades\UI\CardLibrary\card_library_uncapped_upgrade_input.tscn" />
+      <Content Include="UncappedSpireCode\UncappedUpgrades\UI\DeckViewScreen\deck_view_uncapped_upgrade_input.tscn" />
+      <Content Include="UncappedSpireCode\UncappedUpgrades\UI\InspectCardScreen\inspect_card_uncapped_upgrade_input.tscn" />
     </ItemGroup>
 
     <Target Name="CheckDependencyPaths">

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://doxlwysi66dht"]
+
+[ext_resource type="Script" uid="uid://1mloa2l5qstt" path="res://UncappedSpireCode/UncappedUpgrades/UI/InspectCardScreen/NInspectCardUncappedUpgradeInput.cs" id="1_f5eic"]
+
+[node name="InspectCardUncappedUpgradeInput" type="SpinBox"]
+custom_minimum_size = Vector2(160, 40)
+size_flags_horizontal = 2
+size_flags_vertical = 4
+min_value = 1.0
+max_value = 1000000.0
+value = 1.0
+alignment = 1
+script = ExtResource("1_f5eic")
