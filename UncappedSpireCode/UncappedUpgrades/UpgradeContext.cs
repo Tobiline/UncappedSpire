@@ -2,23 +2,40 @@
 
 public static class UpgradeContext
 {
-    private static AsyncLocal<int> _localMultiplier = new();
+    private static int _multiplier = 1;
+    private static readonly AsyncLocal<bool> _multiplierEnabled = new();
+    public static event Action<int> MultiplierChanged;
 
     public static int GetMultiplier()
     {
-        MainFile.Logger.Info("Obtained Multiplier: " + _localMultiplier.Value);
-        return _localMultiplier.Value;
+        return _multiplierEnabled.Value ? _multiplier : 1;
     }
 
-    public static void AddOrUpdateMultiplier(int multiplier)
+    /// <summary>
+    /// Use only if you know what you're doing
+    /// </summary>
+    /// <returns></returns>
+    public static int GetMultiplierRaw()
     {
-        MainFile.Logger.Info("Added / Updated Multiplier: " + multiplier);
-        _localMultiplier.Value = multiplier;
+        return _multiplier;
     }
 
-    public static void RemoveMultiplier()
+    public static void UpdateMultiplier(int multiplier)
     {
-        MainFile.Logger.Info("Removed Multiplier: " + _localMultiplier.Value);
-        _localMultiplier.Value = 1;
+        if (_multiplier == multiplier)
+            return;
+        
+        _multiplier = multiplier;
+        MultiplierChanged?.Invoke(multiplier);
+    }
+
+    public static void EnableMultiplier()
+    {
+        _multiplierEnabled.Value = true;
+    }
+
+    public static void DisableMultiplier()
+    {
+        _multiplierEnabled.Value = false;
     }
 }

@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Nodes.Cards;
+using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.Nodes.Screens;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedUpgrades.UI.DeckViewScreen;
@@ -8,22 +9,47 @@ namespace UncappedSpire.UncappedSpireCode.UncappedUpgrades.UI.DeckViewScreen;
 public partial class NDeckViewUncappedUpgradeInput : SpinBox
 {
 	private static readonly string _scenePath = "res://UncappedSpireCode/UncappedUpgrades/UI/DeckViewScreen/deck_view_uncapped_upgrade_input.tscn";
+	private static bool isInternalUpdate;
+	private static Action<int> MultiplierChanged;
 	
 	public static AddedNode<NDeckViewScreen, NDeckViewUncappedUpgradeInput>? Node = new(_scenePath,
 		(parent, node) =>
 		{
+			node.Value = UpgradeContext.GetMultiplierRaw();
+			MultiplierChanged = v =>
+			{
+				isInternalUpdate = true;
+				node.SetValue(v);
+				isInternalUpdate = false;
+			};
+			UpgradeContext.MultiplierChanged += MultiplierChanged;
+			node.TreeExiting += () =>
+			{
+				UpgradeContext.MultiplierChanged -= MultiplierChanged;
+			};
+			
 			var _gridField = HarmonyLib.AccessTools.Field(typeof(NCardsViewScreen), "_grid");
 			var _grid = (NCardGrid)_gridField.GetValue(parent)!;
 			
+			var _viewUpgradesField = HarmonyLib.AccessTools.Field(typeof(NDeckViewScreen), "_showUpgrades");
 			node.ValueChanged += value =>
 			{
-				UpgradeContext.AddOrUpdateMultiplier((int)value);
-				if (_grid.IsShowingUpgrades)
+				if (!isInternalUpdate)
 				{
-					_grid.IsShowingUpgrades = false;
-					_grid.IsShowingUpgrades = true;
+					UpgradeContext.UpdateMultiplier((int)value);
 				}
-				UpgradeContext.RemoveMultiplier();
+				
+				if (_viewUpgradesField.GetValue(parent) is NTickbox _viewUpgrades && _viewUpgrades.IsTicked)
+				{
+					UpgradeContext.EnableMultiplier();
+					if (_grid.IsShowingUpgrades)
+					{
+						_grid.IsShowingUpgrades = false;
+						_grid.IsShowingUpgrades = true;
+					}
+
+					UpgradeContext.DisableMultiplier();
+				}
 			};
 			
 			var lineEdit = node.GetLineEdit();
