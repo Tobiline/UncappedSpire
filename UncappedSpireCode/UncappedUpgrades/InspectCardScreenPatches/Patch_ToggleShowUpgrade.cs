@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using MegaCrit.Sts2.Core.Nodes.Screens;
 
-namespace UncappedSpire.UncappedSpireCode.UncappedUpgrades.NInspectCardScreenPatches;
+namespace UncappedSpire.UncappedSpireCode.UncappedUpgrades.InspectCardScreenPatches;
 
 [HarmonyPatch(typeof(NInspectCardScreen), "ToggleShowUpgrade")]
 public class Patch_ToggleShowUpgrade

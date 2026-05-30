@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Localization;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedUpgrades.LocalizationPatches.LocManagerPatches;
 
+// TODO: Look at implementing more performant way to do this - not that important though
 [HarmonyPatch(typeof(LocManager), "LoadTable")]
 public class Patch_LoadTable
 {
