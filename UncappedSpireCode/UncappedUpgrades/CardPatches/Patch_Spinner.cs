@@ -26,6 +26,7 @@ public class Patch_Spinner
         return moveNextMethod;
     }
     
+    // TODO: Simplify?
     [HarmonyTranspiler]
     static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
     {
