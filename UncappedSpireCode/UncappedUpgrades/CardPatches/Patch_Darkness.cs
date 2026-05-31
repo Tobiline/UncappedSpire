@@ -2,16 +2,17 @@
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedUpgrades.CardPatches;
 
 [HarmonyPatch]
-public class Patch_Cascade
+public class Patch_Darkness
 {
     static MethodBase TargetMethod()
     {
-        var m = AccessTools.Method(typeof(Cascade), "OnPlay");
+        var m = AccessTools.Method(typeof(Darkness), "OnPlay");
         var attr = m.GetCustomAttribute<AsyncStateMachineAttribute>();
         if (attr == null)
         {
@@ -26,17 +27,25 @@ public class Patch_Cascade
     }
     
     [HarmonyTranspiler]
-    static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, MethodBase original)
+    static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, MethodBase original, ILGenerator generator)
     {
         var code = new List<CodeInstruction>(instructions);
-        var currentUpgradeLevelField = AccessTools.Field(typeof(Cascade), "_currentUpgradeLevel");
+        
+        var methodToFind = AccessTools.PropertyGetter(typeof(CardModel), "IsUpgraded");
+        var methodToCall = AccessTools.PropertyGetter(typeof(CardModel), "CurrentUpgradeLevel");
         
         for (var i = 0; i < code.Count; i++)
         {
-            if (code[i].opcode == OpCodes.Ldc_I4_1)
+            if (code[i].opcode == OpCodes.Call && code[i].operand is MethodInfo methodInfo && methodInfo == methodToFind)
             {
-                code[i] = new CodeInstruction(OpCodes.Ldloc_1);
-                code.Insert(i + 1, new CodeInstruction(OpCodes.Ldfld, currentUpgradeLevelField));
+                code.RemoveRange(i - 2, 7);
+                code.InsertRange(i - 2, [
+                    new CodeInstruction(OpCodes.Ldarg_0),
+                    new CodeInstruction(OpCodes.Ldloc_1),
+                    new CodeInstruction(OpCodes.Call, methodToCall),
+                    new CodeInstruction(OpCodes.Ldc_I4_1),
+                    new CodeInstruction(OpCodes.Add)
+                ]);
                 break;
             }
         }

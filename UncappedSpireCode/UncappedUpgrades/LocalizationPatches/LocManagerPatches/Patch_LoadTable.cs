@@ -1,9 +1,9 @@
-﻿using HarmonyLib;
+﻿using System.Text.RegularExpressions;
+using HarmonyLib;
 using MegaCrit.Sts2.Core.Localization;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedUpgrades.LocalizationPatches.LocManagerPatches;
 
-// TODO: Look at implementing more performant way to do this - not that important though
 [HarmonyPatch(typeof(LocManager), "LoadTable")]
 public class Patch_LoadTable
 {
@@ -17,11 +17,29 @@ public class Patch_LoadTable
             __result[key] = Transform(value);
         }
     }
+
+    private static readonly (Regex regex, MatchEvaluator transform)[] Rules =
+    [
+        (
+            // Specific creatable card
+            new(@"(\{[^}]*IfUpgraded[^}]*\+)(1)?([^}]*\})"),
+            m => $"{m.Groups[1].Value}{{UpgradeLevel}}{m.Groups[3].Value}"
+        ), (
+            // Random creatable card
+            new(@"(\{[^}]*IfUpgraded:show:\s?\[gold\])([^}]*)(\[\/gold\][^}]*\})"),
+            m => $"{m.Groups[1].Value}+{{UpgradeLevel}}{m.Groups[3].Value}"
+        ) 
+    ];
     
     static string Transform(string text)
     {
-        return text
-            .Replace("{IfUpgraded:show:+1}", "[green]{UpgradeLevel:cond:>0?+{}|}[/green]")
-            .Replace("{IfUpgraded:show:X+1|X}", "X[green]{UpgradeLevel:cond:>0?+{}|}[/green]");
+        foreach (var (regex, transform) in Rules)
+        {
+            var modified = regex.Replace(text, transform);
+            if (modified != text) 
+                return modified;
+        }
+
+        return text;
     }
 }

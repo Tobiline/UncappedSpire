@@ -8,10 +8,8 @@ namespace UncappedSpire.UncappedSpireCode.UncappedUpgrades.CardModelPatches;
 public class Patch_AddExtraArgsToDescription
 {
     [HarmonyPrefix]
-    public static bool Prefix(CardModel __instance, LocString description)
+    public static void Prefix(CardModel __instance, LocString description)
     {
         description.Add("UpgradeLevel", __instance.CurrentUpgradeLevel);
-        
-        return false;
     }
 }
