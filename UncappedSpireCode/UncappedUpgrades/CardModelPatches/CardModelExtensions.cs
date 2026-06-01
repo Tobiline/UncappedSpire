@@ -14,9 +14,15 @@ public static class CardModelExtensions
     public static void UpgradeInternal(this CardModel card, int levelsToUpgrade)
     {
         card.AssertMutable();
-        SetCurrentUpgradeLevel.Invoke(card, [(int)GetCurrentUpgradeLevel.Invoke(card, [])! + levelsToUpgrade]);
+        card.SafelySetCurrentUpgradeLevel((int)GetCurrentUpgradeLevel.Invoke(card, [])! + levelsToUpgrade);
         OnUpgrade.Invoke(card, []);
         card.DynamicVars.RecalculateForUpgradeOrEnchant();
         ((Delegate?)Upgraded.GetValue(card))?.DynamicInvoke();
+    }
+
+    public static void SafelySetCurrentUpgradeLevel(this CardModel card, int levelsToSet)
+    {
+        var boundedNewMaxLevel = Math.Min(card.MaxUpgradeLevel, levelsToSet);
+        SetCurrentUpgradeLevel.Invoke(card, [boundedNewMaxLevel]);
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using HarmonyLib;
-using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedUpgrades.CardPatches;

@@ -3,6 +3,7 @@ using HarmonyLib;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
+using UncappedSpire.UncappedSpireCode.UncappedUpgrades.DynamicVarPatches;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedUpgrades.CardModelPatches;
 
@@ -205,27 +206,25 @@ public static class Patch_MaxUpgradeLevel
     
     public static void Postfix(CardModel __instance, ref int __result)
     {
-        // var instanceType = __instance.GetType();
-        // if (CardsWithOnlyEnergyUpgrades.Contains(instanceType))
-        // {
-        //     __result = __instance.EnergyCost.Canonical;
-        // }
-        // else if (CardsWithOnlyDrawUpgrades.Contains(instanceType))
-        // {
-        //     var canonicalVars = (IEnumerable<DynamicVar>)AccessTools.PropertyGetter(instanceType, "CanonicalVars").Invoke(__instance, null);
-        //     var cardsVar = canonicalVars.FirstOrDefault(x => x is CardsVar) as CardsVar;
-        //
-        //     __result = 10 - (int)cardsVar.BaseValue;
-        // }
-        // else if (CardUpgradeMaxMap.TryGetValue(instanceType, out var maxLevel))
-        // {
-        //     __result = maxLevel;
-        // }
-        // else
-        // {
-        //     __result = int.MaxValue;
-        // }
-        
-        __result = int.MaxValue;
+        var instanceType = __instance.GetType();
+        if (CardsWithOnlyEnergyUpgrades.Contains(instanceType))
+        {
+            __result = __instance.EnergyCost.Canonical;
+        }
+        else if (CardsWithOnlyDrawUpgrades.Contains(instanceType))
+        {
+            var canonicalVars = (IEnumerable<DynamicVar>)AccessTools.PropertyGetter(instanceType, "CanonicalVars").Invoke(__instance, null);
+            var cardsVar = canonicalVars.FirstOrDefault(x => x is CardsVar) as CardsVar;
+
+            __result = 10 - (int)SpireField_InitialValue._initialValue.Get(cardsVar);
+        }
+        else if (CardUpgradeMaxMap.TryGetValue(instanceType, out var maxLevel))
+        {
+            __result = maxLevel;
+        }
+        else
+        {
+            __result = int.MaxValue;
+        }
     }
 }
