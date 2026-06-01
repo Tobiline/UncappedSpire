@@ -1,5 +1,7 @@
 using BaseLib.Utils;
 using Godot;
+using HarmonyLib;
+using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Screens.CardLibrary;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedUpgrades.UI.CardLibrary;
@@ -13,7 +15,8 @@ public partial class NCardLibraryUncappedUpgradeInput : SpinBox
 	public static AddedNode<NCardLibrary, NCardLibraryUncappedUpgradeInput>? Node = new(_scenePath,
 		(parent, node) =>
 		{
-			node.Value = UpgradeContext.GetMultiplierRaw();
+			// Add sync with other inputs
+			node.Value = UpgradeContext.GetMultiplier();
 			MultiplierChanged = v =>
 			{
 				isInternalUpdate = true;
@@ -26,8 +29,12 @@ public partial class NCardLibraryUncappedUpgradeInput : SpinBox
 				UpgradeContext.MultiplierChanged -= MultiplierChanged;
 			};
 			
-			var updateFilter = HarmonyLib.AccessTools.Method(typeof(NCardLibrary), "UpdateFilter");
-			var _viewUpgradesField = HarmonyLib.AccessTools.Field(typeof(NCardLibrary), "_viewUpgrades");
+			// Update related components when changed
+			var _gridField = AccessTools.Field(typeof(NCardLibrary), "_grid");
+			var _grid = (NCardGrid)_gridField.GetValue(parent)!;
+			
+			var updateFilter = AccessTools.Method(typeof(NCardLibrary), "UpdateFilter");
+			var _viewUpgradesField = AccessTools.Field(typeof(NCardLibrary), "_viewUpgrades");
 			node.ValueChanged += value =>
 			{
 				if (!isInternalUpdate)
@@ -37,9 +44,11 @@ public partial class NCardLibraryUncappedUpgradeInput : SpinBox
 				
 				if (_viewUpgradesField.GetValue(parent) is NLibraryStatTickbox _viewUpgrades && _viewUpgrades.IsTicked)
 				{
-					UpgradeContext.EnableMultiplier();
-					updateFilter.Invoke(parent, [false]);
-					UpgradeContext.DisableMultiplier();
+					if (_grid.IsShowingUpgrades)
+					{
+						_grid.IsShowingUpgrades = false;
+						_grid.IsShowingUpgrades = true;
+					}
 				}
 			};
 			

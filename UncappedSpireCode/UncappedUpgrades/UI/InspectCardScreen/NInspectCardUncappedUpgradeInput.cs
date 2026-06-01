@@ -14,7 +14,8 @@ public partial class NInspectCardUncappedUpgradeInput : SpinBox
 	public static AddedNode<NInspectCardScreen, NInspectCardUncappedUpgradeInput>? Node = new(_scenePath,
 		(parent, node) =>
 		{
-			node.Value = UpgradeContext.GetMultiplierRaw();
+			// Add sync with other inputs
+			node.Value = UpgradeContext.GetMultiplier();
 			MultiplierChanged = v =>
 			{
 				isInternalUpdate = true;
@@ -27,6 +28,7 @@ public partial class NInspectCardUncappedUpgradeInput : SpinBox
 				UpgradeContext.MultiplierChanged -= MultiplierChanged;
 			};
 			
+			// Update related components when changed
 			var updateCardDisplay = HarmonyLib.AccessTools.Method(typeof(NInspectCardScreen), "UpdateCardDisplay");
 			var _viewUpgradesField = HarmonyLib.AccessTools.Field(typeof(NInspectCardScreen), "_upgradeTickbox");
 			node.ValueChanged += value =>
@@ -38,9 +40,7 @@ public partial class NInspectCardUncappedUpgradeInput : SpinBox
 				
 				if (_viewUpgradesField.GetValue(parent) is NTickbox _viewUpgrades && _viewUpgrades.IsTicked)
 				{
-					UpgradeContext.EnableMultiplier();
 					updateCardDisplay.Invoke(parent, []);
-					UpgradeContext.DisableMultiplier();
 				}
 			};
 

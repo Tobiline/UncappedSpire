@@ -9,7 +9,7 @@ namespace UncappedSpire.UncappedSpireCode.UncappedUpgrades.CardPatches;
 [HarmonyPatch]
 public class Patch_UpgradableCreatedCards
 {
-    private static int cachedMultiplier = UpgradeContext.GetMultiplierRaw();
+    private static int cachedMultiplier = UpgradeContext.GetMultiplier();
     static readonly Type[] Targets =
     [
         typeof(PrimalForce),
@@ -49,29 +49,5 @@ public class Patch_UpgradableCreatedCards
             
             yield return moveNextMethod;
         }
-    }
-    
-    [HarmonyPrefix]
-    public static bool Prefix(object __instance)
-    {
-        var caller = __instance .GetType().GetField("<>4__this");
-
-        if (caller == null)
-            return true;
-       
-        var card = (CardModel)caller.GetValue(__instance)!;
-
-        cachedMultiplier = UpgradeContext.GetMultiplierRaw();
-        UpgradeContext.UpdateMultiplier(card.CurrentUpgradeLevel);
-        UpgradeContext.EnableMultiplier();
-        
-        return true;
-    }
-    
-    [HarmonyPostfix]
-    public static void PostFix()
-    {
-        UpgradeContext.DisableMultiplier();
-        UpgradeContext.UpdateMultiplier(cachedMultiplier);
     }
 }

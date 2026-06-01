@@ -9,12 +9,6 @@ namespace UncappedSpire.UncappedSpireCode.UncappedUpgrades.InspectCardScreenPatc
 [HarmonyPatch(typeof(NInspectCardScreen), "UpdateCardDisplay")]
 public class Patch_UpdateCardDisplay
 {
-    [HarmonyPrefix]
-    static void Prefix(NInspectCardScreen __instance)
-    {
-        UpgradeContext.EnableMultiplier();
-    }
-
     [HarmonyTranspiler]
     static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
@@ -34,13 +28,7 @@ public class Patch_UpdateCardDisplay
                 break;
             }
         }
-
-        return code;
-    }
     
-    [HarmonyFinalizer]
-    public static void Finalizer(NInspectCardScreen __instance)
-    {
-        UpgradeContext.DisableMultiplier();
+        return code;
     }
 }

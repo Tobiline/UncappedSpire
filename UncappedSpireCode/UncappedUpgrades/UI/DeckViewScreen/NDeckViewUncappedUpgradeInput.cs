@@ -15,7 +15,8 @@ public partial class NDeckViewUncappedUpgradeInput : SpinBox
 	public static AddedNode<NDeckViewScreen, NDeckViewUncappedUpgradeInput>? Node = new(_scenePath,
 		(parent, node) =>
 		{
-			node.Value = UpgradeContext.GetMultiplierRaw();
+			// Add sync with other inputs
+			node.Value = UpgradeContext.GetMultiplier();
 			MultiplierChanged = v =>
 			{
 				isInternalUpdate = true;
@@ -28,9 +29,9 @@ public partial class NDeckViewUncappedUpgradeInput : SpinBox
 				UpgradeContext.MultiplierChanged -= MultiplierChanged;
 			};
 			
+			// Update related components when changed
 			var _gridField = HarmonyLib.AccessTools.Field(typeof(NCardsViewScreen), "_grid");
 			var _grid = (NCardGrid)_gridField.GetValue(parent)!;
-			
 			var _viewUpgradesField = HarmonyLib.AccessTools.Field(typeof(NDeckViewScreen), "_showUpgrades");
 			node.ValueChanged += value =>
 			{
@@ -41,14 +42,11 @@ public partial class NDeckViewUncappedUpgradeInput : SpinBox
 				
 				if (_viewUpgradesField.GetValue(parent) is NTickbox _viewUpgrades && _viewUpgrades.IsTicked)
 				{
-					UpgradeContext.EnableMultiplier();
 					if (_grid.IsShowingUpgrades)
 					{
 						_grid.IsShowingUpgrades = false;
 						_grid.IsShowingUpgrades = true;
 					}
-
-					UpgradeContext.DisableMultiplier();
 				}
 			};
 			
