@@ -13,7 +13,6 @@ public static class CardModelExtensions
     
     public static void UpgradeInternal(this CardModel card, int levelsToUpgrade)
     {
-        MainFile.Logger.Info("Upgrading " + card.Title + " to " + levelsToUpgrade);
         card.AssertMutable();
         SetCurrentUpgradeLevel.Invoke(card, [(int)GetCurrentUpgradeLevel.Invoke(card, [])! + levelsToUpgrade]);
         OnUpgrade.Invoke(card, []);

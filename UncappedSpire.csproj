@@ -62,7 +62,6 @@
 
     <ItemGroup>
       <Folder Include="UncappedSpireCode\UncappedEnchantments\" />
-      <Folder Include="UncappedSpireCode\UncappedUpgrades\HoverTipSetPatches\" />
     </ItemGroup>
 
     <ItemGroup>
