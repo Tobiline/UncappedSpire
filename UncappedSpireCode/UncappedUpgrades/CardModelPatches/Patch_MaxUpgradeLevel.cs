@@ -86,54 +86,12 @@ public static class Patch_MaxUpgradeLevel
         typeof(SovereignBlade),
     ];
 
-    // Only for +1 draw per upgrade
-    public static readonly HashSet<Type> CardsWithOnlyDrawUpgrades =
-    [
-        // Ironclad
-        typeof(BattleTrance),
-        typeof(BurningPact),
-        typeof(DrumOfBattle),
-        typeof(Vicious),
-        
-        // Silent
-        typeof(Prepared),
-        typeof(Acrobatics),
-        typeof(Expertise),
-        typeof(Reflex),
-        
-        // Regent
-        typeof(Glimmer),
-        typeof(PaleBlueDot),
-        typeof(BundleOfJoy),
-        typeof(ForegoneConclusion),
-        
-        // Necrobinder
-        typeof(Parse),
-        
-        // Defect
-        typeof(Coolheaded),
-        typeof(Overclock),
-        typeof(Skim),
-        typeof(Iteration),
-        typeof(Modded),
-        
-        // Colorless
-        typeof(Impatience),
-        typeof(JackOfAllTrades),
-        typeof(HuddleUp),
-        typeof(MasterOfStrategy),
-        
-        // Special
-        typeof(Soul)
-    ];
-
     public static readonly Dictionary<Type, int> CardUpgradeMaxMap = new()
     {
         // Ironclad
         [typeof(Armaments)] = 1,
         [typeof(DemonicShield)] = 1,
         [typeof(Juggling)] = 1,
-        [typeof(Offering)] = 4,
         [typeof(Aggression)] = 1,
         
         // Silent
@@ -152,9 +110,7 @@ public static class Patch_MaxUpgradeLevel
         [typeof(KnowThyPlace)] = 1,
         [typeof(Monologue)] = 1,
         [typeof(RoyalGamble)] = 1,
-        [typeof(Prophesize)] = 2,
         [typeof(BigBang)] = 1,
-        [typeof(DecisionsDecisions)] = 4,
         [typeof(Arsenal)] = 1,
         [typeof(Tyranny)] = 1,
         [typeof(VoidForm)] = 1,
@@ -173,8 +129,7 @@ public static class Patch_MaxUpgradeLevel
         [typeof(Hotfix)] = 1,
         [typeof(Chill)] = 1,
         [typeof(Synchronize)] = 1,
-        // Capacitor?????
-        [typeof(Reboot)] = 3,
+        [typeof(Capacitor)] = 8,
         [typeof(Ignition)] = 1,
         [typeof(Rainbow)] = 1,
         [typeof(Voltaic)] = 1,
@@ -210,13 +165,6 @@ public static class Patch_MaxUpgradeLevel
         if (CardsWithOnlyEnergyUpgrades.Contains(instanceType))
         {
             __result = __instance.EnergyCost.Canonical;
-        }
-        else if (CardsWithOnlyDrawUpgrades.Contains(instanceType))
-        {
-            var canonicalVars = (IEnumerable<DynamicVar>)AccessTools.PropertyGetter(instanceType, "CanonicalVars").Invoke(__instance, null);
-            var cardsVar = canonicalVars.FirstOrDefault(x => x is CardsVar) as CardsVar;
-
-            __result = 10 - (int)SpireField_InitialValue._initialValue.Get(cardsVar);
         }
         else if (CardUpgradeMaxMap.TryGetValue(instanceType, out var maxLevel))
         {

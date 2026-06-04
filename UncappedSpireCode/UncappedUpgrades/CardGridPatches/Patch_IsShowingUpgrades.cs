@@ -9,13 +9,14 @@ namespace UncappedSpire.UncappedSpireCode.UncappedUpgrades.CardGridPatches;
 [HarmonyPatch(typeof(NCardGrid), "set_" + nameof(NCardGrid.IsShowingUpgrades))]
 public class Patch_IsShowingUpgrades
 {
+    private static readonly MethodInfo methodToFind =
+        AccessTools.Method(typeof(NGridCardHolder), "SetIsPreviewingUpgrade");
+    private static readonly MethodInfo methodToCall = AccessTools.Method(typeof(NGridCardHolder), "UpdateCardModel");
+    
     [HarmonyTranspiler]
     static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
         var code = new List<CodeInstruction>(instructions);
-        
-        var methodToFind = AccessTools.Method(typeof(NGridCardHolder), "SetIsPreviewingUpgrade");
-        var methodToCall = AccessTools.Method(typeof(NGridCardHolder), "UpdateCardModel");
         
         for (var i = 0; i < code.Count; i++)
         {

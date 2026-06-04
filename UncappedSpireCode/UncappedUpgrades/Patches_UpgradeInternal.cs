@@ -16,7 +16,7 @@ public class Patches_UpgradeInternal
         return
         [
             AccessTools.Method(typeof(NGridCardHolder), "UpdateCardModel"),
-            AccessTools.Method(typeof(NInspectCardScreen), "UpdateCardDisplay"),
+            AccessTools.Method(typeof(NInspectCardScreen), "UpdateCardDisplay")
         ];
     }
     

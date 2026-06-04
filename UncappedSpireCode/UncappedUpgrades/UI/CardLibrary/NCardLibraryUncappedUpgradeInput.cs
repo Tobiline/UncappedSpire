@@ -33,7 +33,6 @@ public partial class NCardLibraryUncappedUpgradeInput : SpinBox
 			var _gridField = AccessTools.Field(typeof(NCardLibrary), "_grid");
 			var _grid = (NCardGrid)_gridField.GetValue(parent)!;
 			
-			var updateFilter = AccessTools.Method(typeof(NCardLibrary), "UpdateFilter");
 			var _viewUpgradesField = AccessTools.Field(typeof(NCardLibrary), "_viewUpgrades");
 			node.ValueChanged += value =>
 			{
