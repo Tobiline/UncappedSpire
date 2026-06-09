@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://b16r41ar5uo1o"]
+
+[ext_resource type="Script" uid="uid://mewpy1r4s1jb" path="res://UncappedSpireCode/UncappedEnchantments/UI/NEnchantmentTabContainer.cs" id="1_csxjk"]
+
+[node name="EnchantmentTabContainer" type="HBoxContainer"]
+offset_left = -166.0
+offset_top = -116.0
+offset_right = 166
+mouse_filter = 2
+script = ExtResource("1_csxjk")
+
+[node name="LeftContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(72, 0)
+mouse_filter = 2
+
+[node name="Spacer" type="Control" parent="."]
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="RightContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(72, 0)
+mouse_filter = 2
