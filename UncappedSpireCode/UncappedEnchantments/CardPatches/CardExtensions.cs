@@ -94,7 +94,7 @@ public static class CardExtensions
         {
             throw new InvalidOperationException("Cannot show enchantment with no model.");
         }
-        var enchantments = nCard.Model.Enchantment != null ? SpireField_Enchantments.Enchantments[nCard.Model.Enchantment] : [];
+        var enchantments = nCard.Model.Enchantment != null ? ((MultiEnchantment)nCard.Model.Enchantment).GetEnchantments().ToList() : [];
         var _enchantmentTabContainerLeft = SpireField__enchantmentTabContainer._enchantmentTabContainerLeft.Get(nCard);
         if (_enchantmentTabContainerLeft != null && GodotObject.IsInstanceValid(_enchantmentTabContainerLeft))
         {

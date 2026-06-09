@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using System.Reflection;
+using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Models;
 using UncappedSpire.UncappedSpireCode.UncappedEnchantments.EnchantmentModelPatches;
@@ -8,6 +9,8 @@ namespace UncappedSpire.UncappedSpireCode.UncappedEnchantments.CardModelPatches;
 [HarmonyPatch(typeof(CardModel), "set_Enchantment")]
 public class Patch_set_Enchantment
 {
+    static readonly FieldInfo Field_EnchantmentBackingField = AccessTools.Field(typeof(CardModel), "<Enchantment>k__BackingField");
+    
     [HarmonyPrefix]
     public static bool Prefix(CardModel __instance, EnchantmentModel? value)
     {
@@ -17,28 +20,27 @@ public class Patch_set_Enchantment
         var enchantmentType = value.GetType();
         if (enchantmentType == typeof(MultiEnchantment))
         {
-            SpireField__multiEnchantment._multiEnchantment.Set(__instance, (MultiEnchantment)value);
+            Field_EnchantmentBackingField.SetValue(__instance, value);
             return false;
         }
+
+        var isEnchantmentStorageCard = __instance.GetType() == typeof(EnchantmentStorageCard);
         
-        var _multiEnchantment = SpireField__multiEnchantment._multiEnchantment.Get(__instance);
-        if (_multiEnchantment == null)
+        var enchantmentBackingField = (EnchantmentModel?)Field_EnchantmentBackingField.GetValue(__instance);
+        if (enchantmentBackingField == null && !isEnchantmentStorageCard)
         {
+            //var multiEnchantment = ModelDb.Enchantment<MultiEnchantment>().ToMutable();
             CardCmd.Enchant<MultiEnchantment>(__instance, 1M);
-            _multiEnchantment = SpireField__multiEnchantment._multiEnchantment.Get(__instance);
         }
-        
-        var matchingEnchantment = SpireField_Enchantments.Enchantments[_multiEnchantment!]!.Find(e => e.GetType() == enchantmentType);
-        if (matchingEnchantment != null && matchingEnchantment.ShowAmount)
+
+        if (!isEnchantmentStorageCard)
         {
-            matchingEnchantment.Amount += value.Amount;
-            MainFile.Logger.Info("Enchantment: " + value.Title.GetRawText());
-            MainFile.Logger.Info("Enchantment: " + value.Amount);
-            MainFile.Logger.Info("Enchantment: " + value.DisplayAmount);
+            enchantmentBackingField = (EnchantmentModel)Field_EnchantmentBackingField.GetValue(__instance)!;
+            ((MultiEnchantment)enchantmentBackingField).AddEnchantment(value);
         }
         else
         {
-            SpireField_Enchantments.Enchantments[_multiEnchantment!]!.Add(value);
+            Field_EnchantmentBackingField.SetValue(__instance, value);
         }
         
         return false;

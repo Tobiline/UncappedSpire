@@ -1,7 +1,13 @@
 using System.Reflection;
+using BaseLib.Patches.Saves;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Modding;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Saves.Runs;
+using UncappedSpire.UncappedSpireCode.UncappedEnchantments;
+using UncappedSpire.UncappedSpireCode.UncappedEnchantments.CardModelPatches;
+using UncappedSpire.UncappedSpireCode.Util;
 
 namespace UncappedSpire.UncappedSpireCode;
 
@@ -18,12 +24,14 @@ public partial class MainFile : Node
     {
         //If you want to use scripts defined in your mod for Godot scenes, uncomment the following line.
         //Godot.Bridge.ScriptManagerBridge.LookupScriptsInAssembly(Assembly.GetExecutingAssembly());
-
+        
         var assembly = Assembly.GetExecutingAssembly();
         Godot.Bridge.ScriptManagerBridge.LookupScriptsInAssembly(assembly);
         
         Harmony harmony = new(ModId);
 
         harmony.PatchAll();
+        
+        SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(MultiEnchantment));
     }
 }
