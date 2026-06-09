@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://y5khrgbg61jo"]
-
-[ext_resource type="Script" uid="uid://bowrhgyoknni5" path="res://UncappedSpireCode/UncappedEnchantments/UI/NEnchantmentTabContainerLeft.cs" id="1_csxjk"]
-
-[node name="EnchantmentTabContainerLeft" type="VBoxContainer"]
-offset_left = -166.0
-offset_top = -116.0
-offset_right = -94.0
-script = ExtResource("1_csxjk")
