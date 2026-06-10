@@ -2,7 +2,6 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Models;
-using UncappedSpire.UncappedSpireCode.UncappedEnchantments.EnchantmentModelPatches;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedEnchantments.CardModelPatches;
 
@@ -29,7 +28,6 @@ public class Patch_set_Enchantment
         var enchantmentBackingField = (EnchantmentModel?)Field_EnchantmentBackingField.GetValue(__instance);
         if (enchantmentBackingField == null && !isEnchantmentStorageCard)
         {
-            //var multiEnchantment = ModelDb.Enchantment<MultiEnchantment>().ToMutable();
             CardCmd.Enchant<MultiEnchantment>(__instance, 1M);
         }
 

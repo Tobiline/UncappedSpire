@@ -11,6 +11,7 @@ public class Patch_EnchantInternal
     private static readonly MethodInfo ToFind_Method_ApplyInternal = AccessTools.Method(typeof(EnchantmentModel), nameof(EnchantmentModel.ApplyInternal));
     private static readonly MethodInfo ToFind_Method_set_Enchantment = AccessTools.PropertySetter(typeof(CardModel), nameof(CardModel.Enchantment));
     
+    // As Enchantment setter points towards the underlying list, ApplyInternal needs to be used on the parameter and not the property.
     [HarmonyTranspiler]
     static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
@@ -33,5 +34,11 @@ public class Patch_EnchantInternal
         }
 
         return code;
+    }
+
+    [HarmonyPrefix]
+    public static void Prefix(CardModel __instance, EnchantmentModel enchantment, decimal amount)
+    {
+        enchantment.Amount = (int)amount;
     }
 }

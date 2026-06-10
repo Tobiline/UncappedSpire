@@ -1,32 +1,31 @@
-﻿using HarmonyLib;
-using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Models;
-using UncappedSpire.UncappedSpireCode.UncappedEnchantments.CardModelPatches;
-using UncappedSpire.UncappedSpireCode.UncappedEnchantments.EnchantmentModelPatches;
+﻿using System.Reflection;
+using HarmonyLib;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models.Enchantments;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedEnchantments;
 
-[HarmonyPatch(typeof(CombatState), "CloneCard")]
+[HarmonyPatch(typeof(Glam), "AfterCardPlayed")]
 public static class Debug
 {
-    // [HarmonyPrefix]
-    // public static void Prefix(CombatState __instance, CardModel mutableCard)
-    // {
-    //     var model1 = ModelDb.Enchantment<MultiEnchantment>().ToMutable();
-    //     var model2 = ModelDb.Enchantment<MultiEnchantment>().ToMutable();
-    //
-    //     if (mutableCard.Enchantment is not null)
-    //     {
-    //         MainFile.Logger.Info($"Card: {mutableCard.Title}, {((MultiEnchantment)mutableCard.Enchantment).SerializableEnchantmentOnCards.Count}");
-    //     }
-    // }
+    private static readonly MethodInfo Method_get_UsedThisCombat = AccessTools.PropertyGetter(typeof(Glam), "UsedThisCombat");
     
-    // [HarmonyPostfix]
-    // public static void Postfix(CombatState __instance, CardModel __result, CardModel mutableCard)
-    // {
-    //     if (__result.Enchantment is not null)
-    //     {
-    //         MainFile.Logger.Info("After: " + ((MultiEnchantment)__result.Enchantment).RandomNumber);
-    //     }
-    // }
+    [HarmonyPrefix]
+    public static void Prefix(Glam __instance, PlayerChoiceContext context, CardPlay cardPlay)
+    {
+        //MainFile.Logger.Info($"UsedThisCombat? {Method_get_UsedThisCombat.Invoke(__instance, null)}, cardPlayCard: {cardPlay.Card.Title}, GlamCard: {__instance.Card.Title}");
+    }
+}
+
+[HarmonyPatch(typeof(Vigorous), "AfterCardPlayed")]
+public static class Debug_Vig
+{
+    private static readonly MethodInfo Method_get_UsedThisCombat = AccessTools.PropertyGetter(typeof(Vigorous), "UsedThisCombat");
+    
+    [HarmonyPrefix]
+    public static void Prefix(Vigorous __instance, PlayerChoiceContext context, CardPlay cardPlay)
+    {
+        //MainFile.Logger.Info($"UsedThisCombat? {Method_get_UsedThisCombat?.Invoke(__instance, null)}, cardPlayCard: {cardPlay?.Card.Title}, VigorousCard: {__instance?.Card.Title}");
+    }
 }

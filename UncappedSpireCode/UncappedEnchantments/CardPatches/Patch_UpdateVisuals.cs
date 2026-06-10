@@ -11,6 +11,7 @@ public class Patch_UpdateVisuals
     private static readonly MethodInfo ToFind_Method_SubscribeToModel = AccessTools.Method(typeof(NCard), "UpdateEnchantmentVisuals");
     private static readonly MethodInfo ToReplace_Method_SubscribeToModel = AccessTools.Method(typeof(CardExtensions), nameof(CardExtensions.UpdateEnchantmentVisuals));
     
+    // Swaps out to use the multi-enchantment nodes
     [HarmonyTranspiler]
     static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {

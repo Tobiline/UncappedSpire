@@ -2,9 +2,7 @@
 using System.Reflection.Emit;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Runs.History;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedEnchantments.CardCmdPatches;
 
@@ -13,6 +11,7 @@ public class Patch_Enchant
 {
     private static readonly MethodInfo ToFind_Method_EnchantInternal = AccessTools.Method(typeof(CardModel), "EnchantInternal");
     
+    // Removes checks for single enchantments, always enchants if able
     [HarmonyTranspiler]
     static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
@@ -40,30 +39,5 @@ public class Patch_Enchant
         }
     
         return code;
-    }
-    
-    [HarmonyPrefix]
-    public static bool Prefix(EnchantmentModel enchantment, CardModel card, decimal amount, ref EnchantmentModel? __result)
-    {
-        enchantment.Amount = (int)amount;
-        return true;
-        // MainFile.Logger.Info("ENCHANTING");
-        // enchantment.AssertMutable();
-        // if (!enchantment.CanEnchant(card))
-        // {
-        //     throw new InvalidOperationException($"Cannot enchant {card.Id} with {enchantment.Id}.");
-        // }
-        // enchantment.Amount = (int)amount;
-        // card.EnchantInternal(enchantment, amount);
-        // enchantment.ModifyCard();
-        // card.FinalizeUpgradeInternal();
-        // var pile = card.Pile;
-        // if (pile != null && pile.Type == PileType.Deck)
-        // {
-        //     card.Owner.RunState.CurrentMapPointHistoryEntry?.GetEntry(card.Owner.NetId).CardsEnchanted.Add(new CardEnchantmentHistoryEntry(card, enchantment.Id));
-        // }
-        // __result = card.Enchantment;
-        //
-        // return false;
     }
 }

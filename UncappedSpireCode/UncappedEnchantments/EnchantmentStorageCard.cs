@@ -15,7 +15,7 @@ public class EnchantmentStorageCard() : CustomCardModel(1, CardType.Attack, Card
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [];
 
-    protected override async Task OnPlay( PlayerChoiceContext choiceContext, CardPlay play) 
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play) 
     { }
 
     protected override void OnUpgrade()
