@@ -6,26 +6,20 @@ using MegaCrit.Sts2.Core.Models.Enchantments;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedEnchantments;
 
-[HarmonyPatch(typeof(Glam), "AfterCardPlayed")]
+[HarmonyPatch(typeof(Goopy), "AfterCardPlayed")]
 public static class Debug
 {
-    private static readonly MethodInfo Method_get_UsedThisCombat = AccessTools.PropertyGetter(typeof(Glam), "UsedThisCombat");
+    //private static readonly MethodInfo Method_get_UsedThisCombat = AccessTools.PropertyGetter(typeof(Goopy), "UsedThisCombat");
     
     [HarmonyPrefix]
-    public static void Prefix(Glam __instance, PlayerChoiceContext context, CardPlay cardPlay)
+    public static void Prefix(Goopy __instance, PlayerChoiceContext context, CardPlay cardPlay)
     {
-        //MainFile.Logger.Info($"UsedThisCombat? {Method_get_UsedThisCombat.Invoke(__instance, null)}, cardPlayCard: {cardPlay.Card.Title}, GlamCard: {__instance.Card.Title}");
-    }
-}
-
-[HarmonyPatch(typeof(Vigorous), "AfterCardPlayed")]
-public static class Debug_Vig
-{
-    private static readonly MethodInfo Method_get_UsedThisCombat = AccessTools.PropertyGetter(typeof(Vigorous), "UsedThisCombat");
-    
-    [HarmonyPrefix]
-    public static void Prefix(Vigorous __instance, PlayerChoiceContext context, CardPlay cardPlay)
-    {
-        //MainFile.Logger.Info($"UsedThisCombat? {Method_get_UsedThisCombat?.Invoke(__instance, null)}, cardPlayCard: {cardPlay?.Card.Title}, VigorousCard: {__instance?.Card.Title}");
+        MainFile.Logger.Info($"Cards Equal?: {cardPlay.Card.Title == __instance.Card.Title}");
+        // MainFile.Logger.Info("DeckVersion: " + (__instance.Card.DeckVersion != null ? "HAS IT!" : " Does not... :("));
+        // if (__instance.Card.DeckVersion != null)
+        // {
+        //     MainFile.Logger.Info($"DeckVersion Card: {__instance.Card.DeckVersion.Title}");
+        //     MainFile.Logger.Info($"DeckVersion Enchantment: {__instance.Card.DeckVersion.Enchantment!.Title.GetRawText()}");
+        // }
     }
 }

@@ -122,6 +122,11 @@ public static class CardExtensions
             var newTabLabel = (MegaLabel)newTab.GetChild(1);
 
             newTab.Visible = true;
+            var isVisible = !SpireFields_EnchantmentModel.HideForAnim.Get(enchantment);
+            newTab.SelfModulate = new Color(newTab.Modulate.R, newTab.Modulate.G, newTab.Modulate.B, isVisible ? 1f : 0f);
+            newTabIcon.SelfModulate = new Color(newTabIcon.Modulate.R, newTabIcon.Modulate.G, newTabIcon.Modulate.B, isVisible ? 1f : 0f);
+            newTabLabel.SelfModulate = new Color(newTabLabel.Modulate.R, newTabLabel.Modulate.G, newTabLabel.Modulate.B, isVisible ? 1f : 0f);
+            
             newTabIcon.Texture = enchantment.Icon;
             newTabLabel.SetTextAutoSize(enchantment.DisplayAmount.ToString());
             newTabLabel.Visible = enchantment.ShowAmount;

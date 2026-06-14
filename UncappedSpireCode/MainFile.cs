@@ -4,6 +4,9 @@ using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Cards;
+using MegaCrit.Sts2.Core.Models.Cards.Mocks;
+using MegaCrit.Sts2.Core.Models.Enchantments.Mocks;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using UncappedSpire.UncappedSpireCode.UncappedEnchantments;
 using UncappedSpire.UncappedSpireCode.UncappedEnchantments.CardModelPatches;
@@ -31,7 +34,5 @@ public partial class MainFile : Node
         Harmony harmony = new(ModId);
 
         harmony.PatchAll();
-        
-        SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(MultiEnchantment));
     }
 }

@@ -47,7 +47,7 @@ public class Patch_ScalablePlayX
         
         for (var i = 0; i < code.Count; i++)
         {
-            if (code[i].opcode == OpCodes.Ldc_I4_1)
+            if (code[i].opcode == OpCodes.Ldc_I4_1 && code[i + 1].opcode == OpCodes.Add)
             {
                 code[i] = new CodeInstruction(OpCodes.Ldloc_1);
                 code.Insert(i + 1, new CodeInstruction(OpCodes.Ldfld, currentUpgradeLevelField));

@@ -2,7 +2,6 @@
 using BaseLib.Abstracts;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Enchantments;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -13,11 +12,18 @@ using UncappedSpire.UncappedSpireCode.UncappedEnchantments.EnchantmentModelPatch
 
 namespace UncappedSpire.UncappedSpireCode.UncappedEnchantments;
 
+// TODO: Can put most of the pipeline method code into a helper method
+
 /// <summary>
 /// This is not to be used as an actual Enchantment!
 /// </summary>
 public class MultiEnchantment : CustomEnchantmentModel
 {
+    static MultiEnchantment()
+    {
+        SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(MultiEnchantment));
+    }
+    
     [SavedProperty] 
     private List<SerializableCard> SerializableEnchantmentsOnCards { get; set; } = [];
 
@@ -36,6 +42,9 @@ public class MultiEnchantment : CustomEnchantmentModel
             return _enchantmentsOnCards;
         }
     }
+    
+    // Used to track for NCardEnchantVfx
+    public int NextIndexToAnim { get; set; } = -1;
 
     public void SetSerializableCards(List<CardModel> cards)
     {
@@ -55,12 +64,14 @@ public class MultiEnchantment : CustomEnchantmentModel
         {
             matchingEnchantment.Amount += enchantment.Amount;
             EnchantmentsOnCards[matchingEnchantmentIndex] = matchingEnchantmentCard!;
+            NextIndexToAnim = matchingEnchantmentIndex;
         }
         else
         {
             var card = ModelDb.Card<EnchantmentStorageCard>().ToMutable();
             Method_set_Enchantment.Invoke(card, [enchantment]);
             EnchantmentsOnCards.Add(card);
+            NextIndexToAnim = EnchantmentsOnCards.Count - 1;
         }
         SetSerializableCards(EnchantmentsOnCards);
     }
@@ -79,6 +90,7 @@ public class MultiEnchantment : CustomEnchantmentModel
     
     public override bool ShouldGlowGold => EnchantmentsOnCards.Select(c => c.Enchantment!).Any(e => e.ShouldGlowGold);
     public override bool ShouldGlowRed => EnchantmentsOnCards.Select(c => c.Enchantment!).Any(e => e.ShouldGlowRed);
+    public override bool ShouldStartAtBottomOfDrawPile => EnchantmentsOnCards.Select(c => c.Enchantment!).Any(e => e.ShouldStartAtBottomOfDrawPile);
 
     protected override string CustomIconPath => "res://UncappedSpire/images/enchantments/uncappedspire-multi_enchantment.png";
     
@@ -174,22 +186,12 @@ public class MultiEnchantment : CustomEnchantmentModel
     
     // Abstract Model Overrides
     // TODO: Probably best to add all at some point, or even make a base class to handle pipelined AbstractModel methods
-    public static MethodInfo Method_set_Card = AccessTools.PropertySetter(typeof(CardPlay), "Card");
     public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
     {
         foreach (var enchantmentCard in EnchantmentsOnCards)
         {
-            //var original = cardPlay.Card;
-            //Method_set_Card.Invoke(cardPlay, [enchantmentCard]);
             await enchantmentCard.Enchantment!.AfterCardPlayed(context, cardPlay);
-            //Method_set_Card.Invoke(cardPlay, [original]);
         }
-        
-        foreach (var enchantmentCard in EnchantmentsOnCards)
-        {
-            MainFile.Logger.Info($"[BEFORE] Enchantment {enchantmentCard.Enchantment!.Title.GetRawText()} is {(enchantmentCard.Enchantment!.Status == EnchantmentStatus.Disabled ? "DISABLED" : "ENABLED")}");
-        }
-
         SetSerializableCards(EnchantmentsOnCards);
     }
 
