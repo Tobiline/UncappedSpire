@@ -70,7 +70,7 @@ public static class CardExtensions
 
             if (i <= 5)
             {
-                _enchantmentTabContainerLeft.AddChild(newTab);
+                _enchantmentTabContainerLeft!.AddChild(newTab);
             }
             else
             {
@@ -80,7 +80,7 @@ public static class CardExtensions
                 newTabIcon.OffsetRight += offsetShift;
                 newTabLabel.OffsetLeft += offsetShift;
                 newTabLabel.OffsetRight += offsetShift;
-                _enchantmentTabContainerRight.AddChild(newTab);
+                _enchantmentTabContainerRight!.AddChild(newTab);
             }
         }
 
@@ -88,11 +88,11 @@ public static class CardExtensions
         var _defaultEnchantmentPosition = (Vector2)Field__defaultEnchantmentPosition.GetValue(nCard)!;
         if (nCard.Model.HasStarCostX || nCard.Model.CurrentStarCost >= 0)
         {
-            _enchantmentTabContainer.Position = _defaultEnchantmentPosition;
+            _enchantmentTabContainer!.Position = _defaultEnchantmentPosition;
         }
         else
         {
-            _enchantmentTabContainer.Position = _defaultEnchantmentPosition + Vector2.Up * 45f;
+            _enchantmentTabContainer!.Position = _defaultEnchantmentPosition + Vector2.Up * 45f;
         }
     }
 
