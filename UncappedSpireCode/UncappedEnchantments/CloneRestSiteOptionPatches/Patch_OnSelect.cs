@@ -1,52 +1,45 @@
 ﻿using System.Reflection;
-using System.Reflection.Emit;
-using System.Runtime.CompilerServices;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.RestSite;
-using UncappedSpire.UncappedSpireCode.UncappedEnchantments.Deck;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Enchantments;
+using MegaCrit.Sts2.Core.Nodes.CommonUi;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedEnchantments.CloneRestSiteOptionPatches;
 
-[HarmonyPatch]
+[HarmonyPatch(typeof(CloneRestSiteOption), nameof(CloneRestSiteOption.OnSelect))]
 public class Patch_OnSelect
 {
-    static MethodBase TargetMethod()
+    public static MethodInfo Method_get_Owner = AccessTools.PropertyGetter(typeof(RestSiteOption), "Owner");
+    
+    [HarmonyPrefix]
+    public static bool Prefix(CloneRestSiteOption __instance, ref Task<bool> __result)
     {
-        var m = AccessTools.Method(typeof(CloneRestSiteOption), nameof(CloneRestSiteOption.OnSelect));
-        var attr = m.GetCustomAttribute<AsyncStateMachineAttribute>();
-        if (attr == null)
-        {
-            throw new NullReferenceException("OnPlay AsyncStateMachineAttribute attribute not found");
-        }
-        var moveNextMethod = attr.StateMachineType.GetMethod("MoveNext", BindingFlags.NonPublic | BindingFlags.Instance);
-        if (moveNextMethod == null)
-        {
-            throw new NullReferenceException("AsyncStateMachineAttribute state machine method not found");
-        }
-        return moveNextMethod;
+        __result = Replacement(__instance);
+        return false;
     }
-    
-    public static MethodInfo Method_get_Cards = AccessTools.PropertyGetter(typeof(CardPile), nameof(CardPile.Cards));
-    public static MethodInfo Method_GetClonable = AccessTools.Method(typeof(DeckExtensions), nameof(DeckExtensions.GetCloneable));
-    
-    [HarmonyTranspiler]
-    public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+
+    public static async Task<bool> Replacement(CloneRestSiteOption __instance)
     {
-        var code = new List<CodeInstruction>(instructions);
-        
-        for (var i = 0; i < code.Count; i++)
+        IEnumerable<CardModel> enumerable = ((Player)Method_get_Owner.Invoke(__instance, null)!).Deck.Cards
+            .Where(c => c.Enchantment != null && ((MultiEnchantment)c.Enchantment!).EnchantmentsOnCards
+                .Any(ec => ec.Enchantment is Clone)).ToList();
+        var results = new List<CardPileAddResult>();
+        foreach (var item in enumerable)
         {
-            if (code[i].opcode == OpCodes.Callvirt && code[i].operand is MethodInfo method && method == Method_get_Cards)
+            var cloneAmount = ((MultiEnchantment)item.Enchantment!).EnchantmentsOnCards.Count(c => c.Enchantment is Clone);
+
+            for (var i = 0; i < cloneAmount; i++)
             {
-                code.RemoveRange(i, 12);
-                code.InsertRange(i, [
-                    new CodeInstruction(OpCodes.Call, Method_GetClonable)
-                ]);
-                break;
+                var card = ((Player)Method_get_Owner.Invoke(__instance, null)!).RunState.CloneCard(item);
+                var list = results;
+                list.Add(await CardPileCmd.Add(card, PileType.Deck));
             }
         }
-
-        return code;
+        CardCmd.PreviewCardPileAdd(results, 1.2f, CardPreviewStyle.MessyLayout);
+        return true;
     }
 }

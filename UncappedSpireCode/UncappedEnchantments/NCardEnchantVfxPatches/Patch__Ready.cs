@@ -94,9 +94,4 @@ public class Patch__Ready
         
         return false;
     }
-
-    public static void SetPosition(NCard cardNode, Vector2 position)
-    {
-        cardNode.EnchantmentVfxOverride.Position = position;
-    }
 }
