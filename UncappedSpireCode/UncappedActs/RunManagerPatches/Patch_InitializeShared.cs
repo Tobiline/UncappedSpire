@@ -13,7 +13,7 @@ public class Patch_InitializeShared
     [HarmonyPostfix]
     public static void Postfix(RunManager __instance)
     {
-        SpireFields_RunManager.ChapterChangeSynchronizer.Set(__instance, new ChapterChangeSynchronizer(
+        SpireFields_RunManager.ChapterChangeSynchronizer.Set(__instance, new SeedChangeSynchronizer(
             __instance.RunLocationTargetedBuffer,
             __instance.NetService,
             (RunState)Method_get_State.Invoke(__instance, null)!,

@@ -6,11 +6,9 @@ using MegaCrit.Sts2.Core.Runs;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs;
 
-public class ChapterChangeMessage : INetMessage, IPacketSerializable, IRunLocationTargetedMessage
+public class SeedChangeMessage : INetMessage, IPacketSerializable, IRunLocationTargetedMessage
 {
     public string seed;
-    public float scalingHp;
-    public float scalingDmg;
     
     public RunLocation Location { get; set; }
     
@@ -21,16 +19,12 @@ public class ChapterChangeMessage : INetMessage, IPacketSerializable, IRunLocati
     public void Serialize(PacketWriter writer)
     {
         writer.WriteString(seed);
-        writer.WriteFloat(scalingHp);
-        writer.WriteFloat(scalingDmg);
         writer.Write(Location);
     }
 
     public void Deserialize(PacketReader reader)
     {
         seed = reader.ReadString();
-        scalingHp = reader.ReadFloat();
-        scalingDmg = reader.ReadFloat();
         Location = reader.Read<RunLocation>();
     }
     

@@ -1,16 +1,9 @@
 using System.Reflection;
+using System.Text.Json.Serialization.Metadata;
 using BaseLib.Patches.Saves;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Modding;
-using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Cards;
-using MegaCrit.Sts2.Core.Models.Cards.Mocks;
-using MegaCrit.Sts2.Core.Models.Enchantments.Mocks;
-using MegaCrit.Sts2.Core.Saves.Runs;
-using UncappedSpire.UncappedSpireCode.UncappedEnchantments;
-using UncappedSpire.UncappedSpireCode.UncappedEnchantments.CardModelPatches;
-using UncappedSpire.UncappedSpireCode.Util;
 
 namespace UncappedSpire.UncappedSpireCode;
 
@@ -27,6 +20,9 @@ public partial class MainFile : Node
     {
         //If you want to use scripts defined in your mod for Godot scenes, uncomment the following line.
         //Godot.Bridge.ScriptManagerBridge.LookupScriptsInAssembly(Assembly.GetExecutingAssembly());
+        
+        ExtendedSaveTypes.RegisterAdditionalSaveType<float>((resolver, options) =>
+            JsonTypeInfo.CreateJsonTypeInfo<float>(options));
         
         var assembly = Assembly.GetExecutingAssembly();
         Godot.Bridge.ScriptManagerBridge.LookupScriptsInAssembly(assembly);

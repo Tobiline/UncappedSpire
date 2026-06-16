@@ -58,11 +58,12 @@ public class Patch_EnterNextAct
                 if (__instance.NetService.Type is NetGameType.Host or NetGameType.Singleplayer)
                 {
                     var seedChangeSynchronizer = SpireFields_RunManager.ChapterChangeSynchronizer.Get(RunManager.Instance)!;
-                    await seedChangeSynchronizer.DoLocalSeedChange(
-                        SeedHelper.GetRandomSeed(),
-                        ChapterManager.Config_ScalingHp,
-                        ChapterManager.Config_ScalingDmg);
+                    _ = await seedChangeSynchronizer.DoLocalSeedChange(
+                        SeedHelper.GetRandomSeed());
                 }
+                
+                var uncappedActsModifier = state.Modifiers.First(m => m is UncappedActs) as UncappedActs;
+                uncappedActsModifier!.CurrentChapter++;
                 await __instance.EnterAct(0);
             }
         }

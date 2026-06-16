@@ -14,6 +14,6 @@ public class AttackCommandPatches
     public static void Prefix(AttackCommand __instance)
     {
         var damagePerHit = (decimal)Field__damagePerHit.GetValue(__instance)!;
-        Field__damagePerHit.SetValue(__instance, damagePerHit * (decimal)ChapterManager.Session_ScalingDmg);
+        Field__damagePerHit.SetValue(__instance, damagePerHit * (decimal)ChapterManager.Current_ScalingDmg);
     }
 }

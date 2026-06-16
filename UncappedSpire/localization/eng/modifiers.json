@@ -1,0 +1,4 @@
+﻿{
+  "UNCAPPED_ACTS.title": "Uncapped Acts",
+  "UNCAPPED_ACTS.description": "Chapter [gold]{CurrentChapter}[/gold]\nHP Scaling: x[red]{ScalingHp}[/red]\nDmg Scaling: x[red]{ScalingDmg}[/red]"
+}

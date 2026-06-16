@@ -7,7 +7,7 @@ using UncappedSpire.UncappedSpireCode.UncappedActs;
 
 namespace UncappedSpire.UncappedSpireCode;
 
-public class ChapterChangeSynchronizer : IDisposable
+public class SeedChangeSynchronizer : IDisposable
 {
     private readonly RunLocationTargetedMessageBuffer _messageBuffer;
     
@@ -19,51 +19,47 @@ public class ChapterChangeSynchronizer : IDisposable
 
     private Player LocalPlayer => _playerCollection.GetPlayer(_localPlayerId);
     
-    public ChapterChangeSynchronizer(RunLocationTargetedMessageBuffer messageBuffer, INetGameService gameService, IPlayerCollection playerCollection, ulong localPlayerId)
+    public SeedChangeSynchronizer(RunLocationTargetedMessageBuffer messageBuffer, INetGameService gameService, IPlayerCollection playerCollection, ulong localPlayerId)
     {
         _playerCollection = playerCollection;
         _localPlayerId = localPlayerId;
         _gameService = gameService;
         _messageBuffer = messageBuffer;
-        messageBuffer.RegisterMessageHandler<ChapterChangeMessage>(HandleSeedChange);
+        messageBuffer.RegisterMessageHandler<SeedChangeMessage>(HandleSeedChange);
     }
     
     public void Dispose()
     {
-        _messageBuffer.UnregisterMessageHandler<ChapterChangeMessage>(HandleSeedChange);
+        _messageBuffer.UnregisterMessageHandler<SeedChangeMessage>(HandleSeedChange);
     }
     
-    public Task<bool> DoLocalSeedChange(string seed, float scalingHp, float scalingDmg)
+    public Task<bool> DoLocalSeedChange(string seed)
     {
-        var message = new ChapterChangeMessage
+        var message = new SeedChangeMessage
         {
             seed = seed,
-            scalingHp = scalingHp,
-            scalingDmg = scalingDmg,
             Location = _messageBuffer.CurrentLocation
         };
         _gameService.SendMessage(message);
-        return DoSeedChange(LocalPlayer, seed, scalingHp, scalingDmg);
+        return DoSeedChange(LocalPlayer, seed);
     }
     
-    private void HandleSeedChange(ChapterChangeMessage message, ulong senderId)
+    private void HandleSeedChange(SeedChangeMessage message, ulong senderId)
     {
         var player = _playerCollection.GetPlayer(senderId);
         if (player == LocalPlayer)
         {
             throw new InvalidOperationException("SeedChangeSynchronizer should not be sent to the Host!");
         }
-        TaskHelper.RunSafely(DoSeedChange(player, message.seed, message.scalingHp, message.scalingDmg));
+        TaskHelper.RunSafely(DoSeedChange(player, message.seed));
     }
     
-    private async Task<bool> DoSeedChange(Player player, string seed, float scalingHp, float scalingDmg)
+    private async Task<bool> DoSeedChange(Player player, string seed)
     {
         var Method_set_Rng = AccessTools.PropertySetter(typeof(RunState), nameof(RunState.Rng));
         var runRngSet = new RunRngSet(seed);
         Method_set_Rng.Invoke(player.RunState, [runRngSet]);
         player.InitializeSeed(seed);
-        ChapterManager.Session_ScalingHp = scalingHp;
-        ChapterManager.Session_ScalingDmg = scalingDmg;
         return true;
     }
 }

@@ -7,15 +7,17 @@ public static class ChapterManager
 {
     public static float Config_ScalingHp { get; private set; } = 6f;
     public static float Config_ScalingDmg { get; private set; } = 2.4f;
-    public static float Session_ScalingHp { get; set; } = 1000f;
-    public static float Session_ScalingDmg { get; set; } = 1000f;
 
+    public static int Current_Chapter { get; set; } = 1;
+    public static float Current_ScalingHp { get; set; } = 1f;
+    public static float Current_ScalingDmg { get; set; } = 1f;
+    
     public static float GetScaling(ScaleType scaleType)
     {
         return scaleType switch
         {
-            ScaleType.Dmg => Session_ScalingDmg,
-            ScaleType.Hp => Session_ScalingHp,
+            ScaleType.Hp => Current_ScalingHp,
+            ScaleType.Dmg => Current_ScalingDmg,
             _ => 1f
         };
     }
@@ -41,6 +43,7 @@ public static class ChapterManager
         [typeof(DexterityPower)] = ScaleType.Hp,
         //[typeof(EnragePower)] = ScaleType.Dmg, // TODO: FIX THIS AS IT APPLIES STRENGTH POWER
         [typeof(CurlUpPower)] = ScaleType.Hp,
+        //[typeof(CrabRagePower)] = // TODO: FIX THIS AS IT APPLIES STRENGTH POWER
     };
 
     public static Dictionary<string, ScaleType> ScalingStatusDynamicVarKeys = new()
