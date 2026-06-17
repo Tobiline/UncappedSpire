@@ -1,0 +1,24 @@
+﻿using HarmonyLib;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Models.Monsters;
+
+namespace UncappedSpire.UncappedSpireCode.UncappedActs.SpecificMonsterPatches;
+
+[HarmonyPatch(typeof(TestSubject), "Revive")]
+public class TestSubjectPatches
+{
+    [HarmonyPrefix]
+    public static bool Prefix(TestSubject __instance, int baseRespawnHp, ref Task __result)
+    {
+        __result = Replacement(__instance, baseRespawnHp);
+        return false;
+    }
+    
+    public static async Task Replacement(TestSubject __instance, int baseRespawnHp)
+    {
+        __instance.AssertMutable();
+        int scaledHp = baseRespawnHp * __instance.Creature.CombatState.Players.Count;
+        await CreatureCmd.SetMaxHp(__instance.Creature, (int)(scaledHp * ChapterManager.Current_ScalingHp));
+        await CreatureCmd.Heal(__instance.Creature, scaledHp);
+    }
+}

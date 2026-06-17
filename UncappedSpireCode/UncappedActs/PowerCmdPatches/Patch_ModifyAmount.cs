@@ -11,13 +11,16 @@ public class Patch_ModifyAmount
     [HarmonyPrefix]
     static void Prefix(PowerModel power, ref decimal offset, Creature? applier, CardModel? cardSource, bool silent)
     {
-        if (power.Owner.IsMonster && applier != null && applier.IsMonster)
+        if (((power.Target != null && power.Target.IsMonster) || (power.Owner != null && power.Owner.IsMonster))
+            && (applier == null || applier.IsMonster)
+            && power.TryGetScaling(ScalingImplementationType.DataModify, out var scaling))
         {
-            var powerType = power.GetType();
-            if (ChapterManager.MonsterScalingPowers.TryGetValue(powerType, out var scalingType))
-            {
-                offset *= (decimal)ChapterManager.GetScaling(scalingType);
-            }
+            offset *= (decimal)scaling;
+        }
+        else if (applier != null && applier.IsMonster 
+            && power.TryGetScaling(ScalingImplementationType.NonSelfAppliedDataModify, out var scaling2))
+        {
+            offset *= (decimal)scaling2;
         }
     }
 }

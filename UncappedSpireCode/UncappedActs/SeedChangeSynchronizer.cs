@@ -33,7 +33,7 @@ public class SeedChangeSynchronizer : IDisposable
         _messageBuffer.UnregisterMessageHandler<SeedChangeMessage>(HandleSeedChange);
     }
     
-    public Task<bool> DoLocalSeedChange(string seed)
+    public async Task<bool> DoLocalSeedChange(string seed)
     {
         var message = new SeedChangeMessage
         {
@@ -41,7 +41,7 @@ public class SeedChangeSynchronizer : IDisposable
             Location = _messageBuffer.CurrentLocation
         };
         _gameService.SendMessage(message);
-        return DoSeedChange(LocalPlayer, seed);
+        return await DoSeedChange(LocalPlayer, seed);
     }
     
     private void HandleSeedChange(SeedChangeMessage message, ulong senderId)

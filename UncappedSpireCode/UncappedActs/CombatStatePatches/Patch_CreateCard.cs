@@ -48,10 +48,8 @@ public class Patch_CreateCard
             var dynamicVar = card.DynamicVars[key];
             var scaleType = ChapterManager.ScalingStatusDynamicVarKeys[key];
             var baseValue = (decimal)Field__baseValue.GetValue(dynamicVar)!;
-            //var upgradeValueBy = (dynamicVar.BaseValue * (decimal)ChapterManager.GetScaling(scaleType)) - dynamicVar.BaseValue;
             var upgradeValueBy = baseValue * (decimal)ChapterManager.GetScaling(scaleType);
 
-            //dynamicVar.UpgradeValueBy(upgradeValueBy);
             Field__baseValue.SetValue(dynamicVar, upgradeValueBy);
         }
     }

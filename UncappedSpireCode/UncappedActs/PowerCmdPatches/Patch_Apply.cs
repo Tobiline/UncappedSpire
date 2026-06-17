@@ -2,6 +2,7 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs.PowerCmdPatches;
 
@@ -14,13 +15,16 @@ public class Patch_Apply
     [HarmonyPrefix]
     public static void Prefix(PowerModel power, Creature target, ref decimal amount, Creature? applier, CardModel? cardSource, bool silent = false)
     {
-        if (target.IsMonster && applier != null && applier.IsMonster)
+        if (((target != null && target.IsMonster) || (power.Owner != null && power.Owner.IsMonster))
+            && (applier == null || applier.IsMonster)
+            && power.TryGetScaling(ScalingImplementationType.DataModify, out var scaling))
         {
-            var powerType = power.GetType();
-            if (ChapterManager.MonsterScalingPowers.TryGetValue(powerType, out var scalingType))
-            {
-                amount *= (decimal)ChapterManager.GetScaling(scalingType);
-            }
+            amount *= (decimal)scaling;
+        }
+        else if (applier != null && applier.IsMonster 
+            && power.TryGetScaling(ScalingImplementationType.NonSelfAppliedDataModify, out var scaling2))
+        {
+            amount *= (decimal)scaling2;
         }
     }
 }

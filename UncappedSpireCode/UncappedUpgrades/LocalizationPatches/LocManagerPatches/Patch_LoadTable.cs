@@ -67,6 +67,12 @@ public class Patch_LoadTable
                 return new Regex(@"{IfUpgraded:show:triple\|double}").Replace(text,
                     m => "x{IfUpgraded:show:[gold]{UpgradeLevelPlusTwo}[/gold]|{UpgradeLevelPlusTwo}}");
             }
+
+            if (key == "HARD_TO_KILL_POWER.smartDescription")
+            {
+                return new Regex(@"(\[blue\])(9)(\[\/blue\])").Replace(text,
+                    m => $"{m.Groups[1]}{{Amount}}{m.Groups[3]}");
+            }
             
             var modified = regex.Replace(text, transform);
             if (modified != text) 

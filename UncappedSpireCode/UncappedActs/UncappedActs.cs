@@ -21,16 +21,14 @@ public class UncappedActs : ModifierModel
         {
             var baseString = new LocString("modifiers", Id.Entry + ".description");
             baseString.Add("CurrentChapter", CurrentChapter);
-            baseString.Add("ScalingHp", ChapterManager.Current_ScalingHp.ToString());
-            baseString.Add("ScalingDmg", ChapterManager.Current_ScalingDmg.ToString());
+            baseString.Add("ScalingHp", ChapterManager.Current_ScalingHp.ToString("G3"));
+            baseString.Add("ScalingDmg", ChapterManager.Current_ScalingDmg.ToString("G3"));
             
             return baseString;
         }
     }
 
     private int _currentChapter = 1;
-    //private float _scalingHpIncrement = 1f;
-    //private float _scalingDmgIncrement = 1f;
     
     [SavedProperty]
     public int CurrentChapter
@@ -45,9 +43,6 @@ public class UncappedActs : ModifierModel
         }
     }
     
-    
-    //public SavedSpireField<UncappedActs, float> SP_ScalingHpIncrement = new(() => 1f, "UncappedActs-SP_ScalingHpIncrement");
-    
     [SavedProperty] 
     public string SerializedScalingHpIncrement { get; set; } = "1";
     public float ScalingHpIncrement
@@ -58,15 +53,7 @@ public class UncappedActs : ModifierModel
             SerializedScalingHpIncrement = value.ToString("R", CultureInfo.InvariantCulture);
             SetScalingHp();
         }
-        // get => SP_ScalingHpIncrement.Get(this);
-        // set
-        // {
-        //     
-        //     SP_ScalingHpIncrement.Set(this, value);
-        //     SetScalingHp();
-        // }
     }
-    //public SavedSpireField<UncappedActs, float> SP_ScalingDmgIncrement = new(() => 1f, "UncappedActs-SP_ScalingDmgIncrement");
 
     [SavedProperty] 
     public string SerializedScalingDmgIncrement { get; set; } = "1";
@@ -78,12 +65,6 @@ public class UncappedActs : ModifierModel
             SerializedScalingDmgIncrement = value.ToString("R", CultureInfo.InvariantCulture);
             SetScalingHp();
         }
-        // get => SP_ScalingDmgIncrement.Get(this);
-        // set
-        // {
-        //     SP_ScalingDmgIncrement.Set(this, value);
-        //     SetScalingDmg();
-        // }
     }
 
     private void SetChapter()
@@ -92,12 +73,12 @@ public class UncappedActs : ModifierModel
     }
     private void SetScalingHp()
     {
-        var newScalingHp = CurrentChapter <= 1 ? 1 : (CurrentChapter - 1) * ScalingHpIncrement;
+        var newScalingHp = (float)Math.Pow(ScalingHpIncrement, CurrentChapter - 1);
         ChapterManager.Current_ScalingHp = newScalingHp;
     }
     private void SetScalingDmg()
     {
-        var newScalingDmg = CurrentChapter <= 1 ? 1 : (CurrentChapter - 1) * ScalingDmgIncrement;
+        var newScalingDmg = (float)Math.Pow(ScalingDmgIncrement, CurrentChapter - 1);
         ChapterManager.Current_ScalingDmg = newScalingDmg;
     }
     
@@ -113,7 +94,5 @@ public class UncappedActs : ModifierModel
     {
         SerializedScalingHpIncrement = ChapterManager.Config_ScalingHp.ToString("R", CultureInfo.InvariantCulture);
         SerializedScalingDmgIncrement = ChapterManager.Config_ScalingDmg.ToString("R", CultureInfo.InvariantCulture);
-        // SP_ScalingHpIncrement.Set(this, ChapterManager.Config_ScalingHp);
-        // SP_ScalingDmgIncrement.Set(this, ChapterManager.Config_ScalingDmg);
     }
 }

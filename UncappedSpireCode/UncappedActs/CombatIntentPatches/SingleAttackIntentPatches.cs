@@ -15,8 +15,9 @@ public class SingleAttackIntentPatches
     
     [HarmonyPatch(MethodType.Constructor, [typeof(Func<decimal>)])]
     [HarmonyPrefix]
-    public static void Prefix2(SingleAttackIntent __instance, Func<decimal> damageCalc)
+    public static void Prefix2(SingleAttackIntent __instance, ref Func<decimal> damageCalc)
     {
-        damageCalc = () => damageCalc() * (decimal)ChapterManager.Current_ScalingDmg;
+        var originalCalc = damageCalc;
+        damageCalc = () => originalCalc() * (decimal)ChapterManager.Current_ScalingDmg;
     }
 }
