@@ -1,9 +1,11 @@
 using System.Reflection;
 using System.Text.Json.Serialization.Metadata;
+using BaseLib.Config;
 using BaseLib.Patches.Saves;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Modding;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode;
 
@@ -23,6 +25,8 @@ public partial class MainFile : Node
         
         ExtendedSaveTypes.RegisterAdditionalSaveType<float>((resolver, options) =>
             JsonTypeInfo.CreateJsonTypeInfo<float>(options));
+        
+        ModConfigRegistry.Register(ModId, new UncappedConfig());
         
         var assembly = Assembly.GetExecutingAssembly();
         Godot.Bridge.ScriptManagerBridge.LookupScriptsInAssembly(assembly);

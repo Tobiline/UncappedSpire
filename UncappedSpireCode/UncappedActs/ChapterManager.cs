@@ -3,12 +3,8 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs;
 
-// TODO: Default it if out of run
 public static class ChapterManager
 {
-    public static float Config_ScalingHp { get; private set; } = 6f;
-    public static float Config_ScalingDmg { get; private set; } = 2.4f;
-
     public static int Current_Chapter { get; set; } = 1;
     public static float Current_ScalingHp { get; set; } = 1f;
     public static float Current_ScalingDmg { get; set; } = 1f;

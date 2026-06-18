@@ -1,0 +1,63 @@
+﻿using BaseLib.Config;
+
+namespace UncappedSpire.UncappedSpireCode.Config;
+
+internal class UncappedConfig : SimpleModConfig
+{
+    #region Uncapped Acts
+    [ConfigSection("Uncapped Acts")] 
+    public static bool UncappedActsEnabled { get; set; } = true;
+    [ConfigHoverTip]
+    public static ScalingDifficulty ScalingDifficulty { get; set; } = ScalingDifficulty.Normal;
+    [ConfigVisibleIf(nameof(ScalingDifficulty), ScalingDifficulty.Custom)]
+    [ConfigSlider(min: 1, max: 20, step: 0.1, Format = "x{0:F1}")]
+    public static float CustomHpScaling { get; set; } = 6f;
+    [ConfigVisibleIf(nameof(ScalingDifficulty), ScalingDifficulty.Custom)]
+    [ConfigSlider(min: 1, max: 20, step: 0.1, Format = "x{0:F1}")]
+    public static float CustomDmgScaling { get; set; } = 2.4f;
+    
+    [ConfigIgnore]
+    public static float HpScaling => GetHpScaling();
+    [ConfigIgnore]
+    public static float DmgScaling => GetDmgScaling();
+
+    private static float GetHpScaling()
+    {
+        return _scalingDiffultyDefaults.TryGetValue(ScalingDifficulty, out var scaling) 
+            ? scaling.hpScaling 
+            : CustomHpScaling;
+    }
+    
+    private static float GetDmgScaling()
+    {
+        return _scalingDiffultyDefaults.TryGetValue(ScalingDifficulty, out var scaling) 
+            ? scaling.dmgScaling 
+            : CustomDmgScaling;
+    }
+    
+    private static Dictionary<ScalingDifficulty, (float hpScaling, float dmgScaling)> _scalingDiffultyDefaults = new()
+    {
+        [ScalingDifficulty.Easy] = (3f, 1.2f),
+        [ScalingDifficulty.Normal] = (6f, 2.4f),
+        [ScalingDifficulty.Hard] = (9f, 3.6f)
+    };
+    #endregion
+    
+    #region Uncapped Enchantments
+    [ConfigSection("Uncapped Enchantments")]
+    public static bool UncappedEnchantmentsEnabled { get; set; } = true;
+    #endregion
+    
+    #region Uncapped Upgrades
+    [ConfigSection("Uncapped Upgrades")]
+    public static bool UncappedUpgradesEnabled { get; set; } = true;
+    #endregion
+}
+
+internal enum ScalingDifficulty
+{
+    Easy,
+    Normal,
+    Hard,
+    Custom
+}

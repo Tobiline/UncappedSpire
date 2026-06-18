@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves.Runs;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs;
 
@@ -21,6 +22,8 @@ public class UncappedActs : ModifierModel
         {
             var baseString = new LocString("modifiers", Id.Entry + ".description");
             baseString.Add("CurrentChapter", CurrentChapter);
+            baseString.Add("ScalingHpIncrement", ScalingHpIncrement.ToString("F1"));
+            baseString.Add("ScalingDmgIncrement", ScalingDmgIncrement.ToString("F1"));
             baseString.Add("ScalingHp", ChapterManager.Current_ScalingHp.ToString("G3"));
             baseString.Add("ScalingDmg", ChapterManager.Current_ScalingDmg.ToString("G3"));
             
@@ -92,7 +95,7 @@ public class UncappedActs : ModifierModel
 
     protected override void AfterRunCreated(RunState runState)
     {
-        SerializedScalingHpIncrement = ChapterManager.Config_ScalingHp.ToString("R", CultureInfo.InvariantCulture);
-        SerializedScalingDmgIncrement = ChapterManager.Config_ScalingDmg.ToString("R", CultureInfo.InvariantCulture);
+        SerializedScalingHpIncrement = UncappedConfig.HpScaling.ToString("R", CultureInfo.InvariantCulture);
+        SerializedScalingDmgIncrement = UncappedConfig.DmgScaling.ToString("R", CultureInfo.InvariantCulture);
     }
 }
