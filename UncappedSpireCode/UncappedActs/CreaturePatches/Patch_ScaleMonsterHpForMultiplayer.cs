@@ -2,6 +2,7 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Models;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs.CreaturePatches;
 
@@ -15,7 +16,7 @@ public class Patch_ScaleMonsterHpForMultiplayer
     {
         if (playerCount == 1)
         {
-            var scaledHp = (int)(__instance.MaxHp * ChapterManager.Current_ScalingHp);
+            var scaledHp = (int)(__instance.MaxHp * ContextManager.Current_ScalingHp);
             Method_set_MaxHp.Invoke(__instance, [scaledHp]);
             __instance.SetCurrentHpInternal(__instance.MaxHp);
         }

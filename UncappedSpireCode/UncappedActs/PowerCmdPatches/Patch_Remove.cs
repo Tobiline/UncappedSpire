@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Models;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs.PowerCmdPatches;
 
@@ -12,7 +13,7 @@ public class Patch_Remove
     {
         if (power != null)
         {
-            ChapterManager.JustRemovedPower = power;
+            ContextManager.JustRemovedPower = power;
         }
     }
 }

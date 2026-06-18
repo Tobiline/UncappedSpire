@@ -5,6 +5,7 @@ using HarmonyLib;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs.PowerModelPatches;
 
@@ -47,7 +48,7 @@ public class Patch_HoverTips
             && powerModel.TryGetScaling(ScalingImplementationType.DisplayModify, out var scaling))
         {
             var variables = (Dictionary<string, object>)Field__variables.GetValue(locString)!;
-            foreach (var key in ChapterManager.LocStringVariablesToScale)
+            foreach (var key in ContextManager.LocStringVariablesToScale)
             {
                 if (variables.TryGetValue(key, out var value))
                 {

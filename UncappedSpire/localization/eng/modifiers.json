@@ -1,4 +1,4 @@
 ﻿{
-  "UNCAPPED_ACTS.title": "Uncapped Acts",
-  "UNCAPPED_ACTS.description": "Chapter [green]{CurrentChapter}[/green]\nCurrent HP Scaling: x[gold]{ScalingHp}[/gold]\nCurrent DMG Scaling: x[gold]{ScalingDmg}[/gold]\nHP Scaling Increment: x[red]{ScalingHpIncrement}[/red]\nDMG Scaling Increment: x[red]{ScalingDmgIncrement}[/red]"
+  "UNCAPPED_SPIRE_MODIFIER.title": "UncappedSpire",
+  "UNCAPPED_SPIRE_MODIFIER.description": "{UncappedActsEnabled}{UncappedEnchantmentsEnabled}{UncappedUpgradesEnabled}{CurrentChapter}{ScalingHp}{ScalingDmg}{ScalingHpIncrement}{ScalingDmgIncrement}"
 }

@@ -3,6 +3,8 @@ using System.Reflection.Emit;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Enchantments;
+using UncappedSpire.UncappedSpireCode.Config;
+using UncappedSpire.UncappedSpireCode.UncappedActs;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedEnchantments.EnchantmentModelPatches;
 
@@ -45,9 +47,15 @@ public class Patch_CanEnchant
                 ]);
                 i += 6;
             }
-            else if (instruction.opcode == OpCodes.Call && instruction.operand is MethodInfo method3 && method3 == methodToFind)
+            else if (instruction.opcode == OpCodes.Call && instruction.operand is MethodInfo method2 && method2 == methodToFind)
             {
-                code[i + 3].opcode = OpCodes.Ldc_I4_1;
+                var labelToKeep = code[i + 3].labels;
+                code[i + 3] = new CodeInstruction(
+                    OpCodes.Call, 
+                    AccessTools.PropertyGetter(typeof(ContextManager), nameof(ContextManager.UncappedEnchantmentsEnabled)))
+                    {
+                        labels = labelToKeep
+                    };
                 break;
             }
         }

@@ -3,9 +3,8 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Runs;
-using UncappedSpire.UncappedSpireCode.UncappedActs;
 
-namespace UncappedSpire.UncappedSpireCode;
+namespace UncappedSpire.UncappedSpireCode.UncappedActs;
 
 public class SeedChangeSynchronizer : IDisposable
 {

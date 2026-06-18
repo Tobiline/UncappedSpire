@@ -3,6 +3,8 @@ using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Screens.CardLibrary;
+using UncappedSpire.UncappedSpireCode.Config;
+using UncappedSpire.UncappedSpireCode.UncappedActs;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedUpgrades.UI.CardLibrary;
 
@@ -11,10 +13,17 @@ public partial class NCardLibraryUncappedUpgradeInput : SpinBox
 	private static readonly string _scenePath = "res://UncappedSpireCode/UncappedUpgrades/UI/CardLibrary/card_library_uncapped_upgrade_input.tscn";
 	private static bool isInternalUpdate;
 	private static Action<int>? MultiplierChanged;
+	public static Action EnabledInConfig;
 	
 	public static AddedNode<NCardLibrary, NCardLibraryUncappedUpgradeInput>? Node = new(_scenePath,
 		(parent, node) =>
 		{
+			EnabledInConfig = () =>
+			{
+				node.Visible = ContextManager.UncappedUpgradesEnabled;
+			};
+			UpgradeContext.EnabledInConfig += EnabledInConfig;
+			
 			// Add sync with other inputs
 			node.Value = UpgradeContext.GetMultiplier();
 			MultiplierChanged = v =>
@@ -26,6 +35,7 @@ public partial class NCardLibraryUncappedUpgradeInput : SpinBox
 			UpgradeContext.MultiplierChanged += MultiplierChanged;
 			node.TreeExiting += () =>
 			{
+				UpgradeContext.EnabledInConfig -= EnabledInConfig;
 				UpgradeContext.MultiplierChanged -= MultiplierChanged;
 			};
 			

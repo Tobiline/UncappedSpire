@@ -1,13 +1,28 @@
-﻿using MegaCrit.Sts2.Core.Models;
+﻿using System.Reflection;
+using HarmonyLib;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Runs;
 
-namespace UncappedSpire.UncappedSpireCode.UncappedActs;
+namespace UncappedSpire.UncappedSpireCode.Config;
 
-public static class ChapterManager
+// Holds the UncappedActs context globally
+public static class ContextManager
 {
-    public static int Current_Chapter { get; set; } = 1;
-    public static float Current_ScalingHp { get; set; } = 1f;
-    public static float Current_ScalingDmg { get; set; } = 1f;
+    public static UncappedSpireModifier? State { get; set; }
+    
+    private static MethodInfo Method_get_State = AccessTools.PropertyGetter(typeof(RunManager), "State");
+    public static bool IsCurrentlyInRun => Method_get_State.Invoke(RunManager.Instance, null) != null;
+    
+    // Assume all features are on when serializing as State hasn't been populated yet
+    public static bool IsInitializing { get; set; }
+    public static bool UncappedActsEnabled => IsInitializing || (IsCurrentlyInRun ? State!.UncappedActsEnabled : UncappedConfig.UncappedActsEnabled);
+    public static bool UncappedEnchantmentsEnabled => IsInitializing || (IsCurrentlyInRun ? State!.UncappedEnchantmentsEnabled : UncappedConfig.UncappedEnchantmentsEnabled);
+    public static bool UncappedUpgradesEnabled => IsInitializing || (IsCurrentlyInRun ? State!.UncappedUpgradesEnabled : UncappedConfig.UncappedUpgradesEnabled);
+    
+    public static int Current_Chapter => IsCurrentlyInRun ? State!.CurrentChapter : 1;
+    public static float Current_ScalingHp => IsCurrentlyInRun ? State!.GetHpScaling() : 1;
+    public static float Current_ScalingDmg => IsCurrentlyInRun ? State!.GetDmgScaling() : 1;
     
     public static float GetScaling(ScalingType scalingType)
     {

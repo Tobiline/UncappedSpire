@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Models.Monsters;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs.SpecificMonsterPatches;
 
@@ -18,7 +19,7 @@ public class TestSubjectPatches
     {
         __instance.AssertMutable();
         int scaledHp = baseRespawnHp * __instance.Creature.CombatState.Players.Count;
-        await CreatureCmd.SetMaxHp(__instance.Creature, (int)(scaledHp * ChapterManager.Current_ScalingHp));
+        await CreatureCmd.SetMaxHp(__instance.Creature, (int)(scaledHp * ContextManager.Current_ScalingHp));
         await CreatureCmd.Heal(__instance.Creature, scaledHp);
     }
 }

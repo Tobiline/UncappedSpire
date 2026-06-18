@@ -2,13 +2,14 @@
 using System.Reflection.Emit;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Models.Events;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs.NeowPatches;
 
 [HarmonyPatch(typeof(Neow), "GenerateInitialOptions")]
 public class Patch_GenerateInitialOptions
 {
-    public static readonly MethodInfo Method_get_Current_Chapter = AccessTools.PropertyGetter(typeof(ChapterManager), nameof(ChapterManager.Current_Chapter));
+    public static readonly MethodInfo Method_get_Current_Chapter = AccessTools.PropertyGetter(typeof(ContextManager), nameof(ContextManager.Current_Chapter));
     
     [HarmonyTranspiler]
     static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

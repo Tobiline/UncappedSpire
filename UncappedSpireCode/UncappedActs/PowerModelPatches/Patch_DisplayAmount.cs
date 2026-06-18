@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Models;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs.PowerModelPatches;
 
@@ -10,7 +11,7 @@ public class Patch_DisplayAmount
     static IEnumerable<MethodBase> TargetMethods()
     {
         var propName = nameof(PowerModel.DisplayAmount);
-        var displayOnlyTypes = ChapterManager.PowerScalingImplementationTypes
+        var displayOnlyTypes = ContextManager.PowerScalingImplementationTypes
             .Where(kvp => kvp.Value == ScalingImplementationType.DisplayModify)
             .Select(kvp => kvp.Key);
 

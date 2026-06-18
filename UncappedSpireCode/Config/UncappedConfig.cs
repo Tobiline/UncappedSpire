@@ -1,4 +1,7 @@
 ﻿using BaseLib.Config;
+using MegaCrit.Sts2.Core.Nodes;
+using UncappedSpire.UncappedSpireCode.UncappedActs;
+using UncappedSpire.UncappedSpireCode.UncappedUpgrades;
 
 namespace UncappedSpire.UncappedSpireCode.Config;
 
@@ -49,8 +52,18 @@ internal class UncappedConfig : SimpleModConfig
     #endregion
     
     #region Uncapped Upgrades
+    private static bool _uncappedUpgradesEnabled = true;
+
     [ConfigSection("Uncapped Upgrades")]
-    public static bool UncappedUpgradesEnabled { get; set; } = true;
+    public static bool UncappedUpgradesEnabled
+    {
+        get => _uncappedUpgradesEnabled;
+        set
+        {
+            _uncappedUpgradesEnabled = value;
+            UpgradeContext.UpdateEnabled();
+        }
+    }
     #endregion
 }
 

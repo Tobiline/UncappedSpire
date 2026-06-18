@@ -2,6 +2,7 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Models;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs.CreaturePatches;
 
@@ -13,6 +14,6 @@ public class Patch_ScaleHpForMultiplayer
     [HarmonyPrefix]
     public static void Prefix(Creature __instance, ref decimal hp, EncounterModel? encounter, int playerCount, int actIndex)
     {
-        hp *= (decimal)ChapterManager.Current_ScalingHp;
+        hp *= (decimal)ContextManager.Current_ScalingHp;
     }
 }

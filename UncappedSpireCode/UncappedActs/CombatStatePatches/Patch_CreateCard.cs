@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs.CombatStatePatches;
 
@@ -43,12 +44,12 @@ public class Patch_CreateCard
         if (card.Type != CardType.Status)
             return;
 
-        foreach (var key in card.DynamicVars.Keys.Where(k => ChapterManager.ScalingStatusDynamicVarKeys.ContainsKey(k)))
+        foreach (var key in card.DynamicVars.Keys.Where(k => ContextManager.ScalingStatusDynamicVarKeys.ContainsKey(k)))
         {
             var dynamicVar = card.DynamicVars[key];
-            var scaleType = ChapterManager.ScalingStatusDynamicVarKeys[key];
+            var scaleType = ContextManager.ScalingStatusDynamicVarKeys[key];
             var baseValue = (decimal)Field__baseValue.GetValue(dynamicVar)!;
-            var upgradeValueBy = baseValue * (decimal)ChapterManager.GetScaling(scaleType);
+            var upgradeValueBy = baseValue * (decimal)ContextManager.GetScaling(scaleType);
 
             Field__baseValue.SetValue(dynamicVar, upgradeValueBy);
         }

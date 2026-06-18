@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs.CreatureCmdPatches;
 
@@ -12,7 +13,7 @@ public class Patch_Heal
     {
         if (creature.IsMonster)
         {
-            amount *= (decimal)ChapterManager.Current_ScalingHp;
+            amount *= (decimal)ContextManager.Current_ScalingHp;
         }
     }
 }

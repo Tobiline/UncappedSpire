@@ -1,9 +1,8 @@
-﻿using System.Reflection;
-using HarmonyLib;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
+﻿using HarmonyLib;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
-using UncappedSpire.UncappedSpireCode.UncappedUpgrades.DynamicVarPatches;
+using UncappedSpire.UncappedSpireCode.Config;
+using UncappedSpire.UncappedSpireCode.UncappedActs;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedUpgrades.CardModelPatches;
 
@@ -161,18 +160,21 @@ public static class Patch_MaxUpgradeLevel
     
     public static void Postfix(CardModel __instance, ref int __result)
     {
-        var instanceType = __instance.GetType();
-        if (CardsWithOnlyEnergyUpgrades.Contains(instanceType))
+        if (ContextManager.UncappedUpgradesEnabled)
         {
-            __result = __instance.EnergyCost.Canonical;
-        }
-        else if (CardUpgradeMaxMap.TryGetValue(instanceType, out var maxLevel))
-        {
-            __result = maxLevel;
-        }
-        else
-        {
-            __result = int.MaxValue;
+            var instanceType = __instance.GetType();
+            if (CardsWithOnlyEnergyUpgrades.Contains(instanceType))
+            {
+                __result = __instance.EnergyCost.Canonical;
+            }
+            else if (CardUpgradeMaxMap.TryGetValue(instanceType, out var maxLevel))
+            {
+                __result = maxLevel;
+            }
+            else
+            {
+                __result = int.MaxValue;
+            }
         }
     }
 }

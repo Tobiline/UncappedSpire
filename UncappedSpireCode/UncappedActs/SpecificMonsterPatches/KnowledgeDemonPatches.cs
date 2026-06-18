@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.Monsters;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs.SpecificMonsterPatches;
 
@@ -38,7 +39,7 @@ public class KnowledgeDemonPatches
         {
             var card = __instance.CombatState.CreateCard((CardModel) c, target.Player);
             if (card is Disintegration)
-                card.DynamicVars["DisintegrationPower"].BaseValue = disintegrationDamage * (decimal)ChapterManager.Current_ScalingDmg;
+                card.DynamicVars["DisintegrationPower"].BaseValue = disintegrationDamage * (decimal)ContextManager.Current_ScalingDmg;
             return card;
         })).ToList(), target.Player);
         if (cardModel == null)

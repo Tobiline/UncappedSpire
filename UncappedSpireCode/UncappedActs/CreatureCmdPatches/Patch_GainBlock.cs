@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.ValueProps;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs.CreatureCmdPatches;
 
@@ -17,7 +18,7 @@ public class Patch_GainBlock
     {
         if (creature.IsMonster)
         {
-            amount *= (decimal)ChapterManager.Current_ScalingHp;
+            amount *= (decimal)ContextManager.Current_ScalingHp;
         }
     }
 }

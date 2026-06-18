@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs.RunManagerPatches;
 
@@ -74,7 +75,7 @@ public class Patch_EnterNextAct
                         SeedHelper.GetRandomSeed());
                 }
                 
-                var uncappedActsModifier = state.Modifiers.First(m => m is UncappedActs) as UncappedActs;
+                var uncappedActsModifier = state.Modifiers.First(m => m is UncappedSpireModifier) as UncappedSpireModifier;
                 uncappedActsModifier!.CurrentChapter++;
                 await __instance.EnterAct(0);
             }
