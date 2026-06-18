@@ -1,7 +1,12 @@
 ﻿using System.Reflection;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Entities.Ascension;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Events;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
+using MegaCrit.Sts2.Core.Nodes;
+using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs.RunManagerPatches;
@@ -10,6 +15,8 @@ namespace UncappedSpire.UncappedSpireCode.UncappedActs.RunManagerPatches;
 public class Patch_EnterNextAct
 {
     public static readonly MethodInfo Method_get_State = AccessTools.PropertyGetter(typeof(RunManager), "State");
+    public static readonly MethodInfo Method_ClearScreens = AccessTools.Method(typeof(RunManager), "ClearScreens");
+    public static readonly MethodInfo Method_FadeIn = AccessTools.Method(typeof(RunManager), "FadeIn");
     
     [HarmonyPrefix]
     public static bool Prefix(RunManager __instance, ref Task __result)
@@ -55,6 +62,11 @@ public class Patch_EnterNextAct
             }
             else
             {
+                // await NGame.Instance!.Transition.RoomFadeOut();
+                // Method_ClearScreens.Invoke(__instance, null);
+                // await __instance.EnterRoom(new EventRoom(ModelDb.Event<TheArchitect>()));
+                // await (Task)Method_FadeIn.Invoke(__instance, null)!;
+                
                 if (__instance.NetService.Type is NetGameType.Host or NetGameType.Singleplayer)
                 {
                     var seedChangeSynchronizer = SpireFields_RunManager.ChapterChangeSynchronizer.Get(RunManager.Instance)!;
