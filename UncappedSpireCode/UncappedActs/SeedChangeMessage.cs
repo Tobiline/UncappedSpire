@@ -11,7 +11,8 @@ public class SeedChangeMessage : INetMessage, IPacketSerializable, IRunLocationT
     public string seed;
     
     public RunLocation Location { get; set; }
-    
+
+    public bool ShouldBuffer => true;
     public bool ShouldBroadcast => true;
     public NetTransferMode Mode => NetTransferMode.Reliable;
     public LogLevel LogLevel => LogLevel.VeryDebug;

@@ -6,8 +6,8 @@ using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs.NTopBarModifierPatches;
 
-[HarmonyPatch(typeof(NTopBarModifier),"OnMouseEntered")]
-public class Patch_OnMouseEntered
+[HarmonyPatch(typeof(NTopBarModifier),"OnFocus")]
+public class Patch_OnFocus
 {
     public static readonly FieldInfo Field__hoverTip = AccessTools.Field(typeof(NTopBarModifier), "_hoverTip");
     public static readonly FieldInfo Field__modifier = AccessTools.Field(typeof(NTopBarModifier), "_modifier");

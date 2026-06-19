@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using UncappedSpire.UncappedSpireCode.Config;
@@ -8,7 +9,7 @@ using UncappedSpire.UncappedSpireCode.Config;
 namespace UncappedSpire.UncappedSpireCode.UncappedActs.PowerCmdPatches;
 
 [HarmonyPatch(typeof(PowerCmd), nameof(PowerCmd.Apply), [
-    typeof(PowerModel), typeof(Creature), typeof(decimal),
+    typeof(PlayerChoiceContext), typeof(PowerModel), typeof(Creature), typeof(decimal),
     typeof(Creature), typeof(CardModel), typeof(bool)
 ])]
 public class Patch_Apply

@@ -12,7 +12,7 @@ namespace UncappedSpire.UncappedSpireCode.UncappedActs.PowerModelPatches;
 [HarmonyPatch(typeof(PowerModel), nameof(PowerModel.HoverTips), MethodType.Getter)]
 public class Patch_HoverTips
 {
-    public static readonly MethodInfo MethodToFind = AccessTools.Method(typeof(LocString), nameof(LocString.GetFormattedText));
+    public static readonly MethodInfo MethodToFind = AccessTools.Method(typeof(PowerModel), "AddDumbVariablesToDescription");
     public static readonly MethodInfo Method_ModifyDisplayAmount = AccessTools.Method(typeof(Patch_HoverTips), nameof(ModifyDisplayAmount));
     
     [HarmonyTranspiler]
@@ -23,12 +23,12 @@ public class Patch_HoverTips
         for (var i = 0; i < code.Count; i++)
         {
             var instruction = code[i];
-            if (instruction.opcode == OpCodes.Callvirt && instruction.operand is MethodInfo methodInfo && methodInfo == MethodToFind)
+            if (instruction.opcode == OpCodes.Call && instruction.operand is MethodInfo methodInfo && methodInfo == MethodToFind)
             {
-                var ldLocString = new CodeInstruction(code[i - 1]);
-                var ldPowerModel = new CodeInstruction(code[i - 6]);
+                var ldLocString = new CodeInstruction(code[i + 3]);
+                var ldPowerModel = new CodeInstruction(code[i + 1]);
                     
-                code.InsertRange(i - 2, [
+                code.InsertRange(i + 5, [
                     ldLocString,
                     ldPowerModel,
                     new CodeInstruction(OpCodes.Call, Method_ModifyDisplayAmount)

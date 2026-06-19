@@ -129,23 +129,23 @@ public class MultiEnchantment : CustomEnchantmentModel
         SetSerializableCards(EnchantmentsOnCards);
     }
     
-    public override decimal EnchantBlockAdditive(decimal originalBlock, ValueProp props)
+    public override decimal EnchantBlockAdditive(decimal originalBlock)
     {
-        var sum = base.EnchantBlockAdditive(originalBlock, props);
+        var sum = base.EnchantBlockAdditive(originalBlock);
         foreach (var enchantmentCard in EnchantmentsOnCards)
         {
-            sum += enchantmentCard.Enchantment!.EnchantBlockAdditive(originalBlock, props);
+            sum += enchantmentCard.Enchantment!.EnchantBlockAdditive(originalBlock);
         }
         SetSerializableCards(EnchantmentsOnCards);
         return sum;
     }
     
-    public override decimal EnchantBlockMultiplicative(decimal originalBlock, ValueProp props)
+    public override decimal EnchantBlockMultiplicative(decimal originalBlock)
     {
-        var product = base.EnchantBlockMultiplicative(originalBlock, props);
+        var product = base.EnchantBlockMultiplicative(originalBlock);
         foreach (var enchantmentCard in EnchantmentsOnCards)
         {
-            product *= enchantmentCard.Enchantment!.EnchantBlockMultiplicative(originalBlock, props);
+            product *= enchantmentCard.Enchantment!.EnchantBlockMultiplicative(originalBlock);
         }
         SetSerializableCards(EnchantmentsOnCards);
         return product;
@@ -195,11 +195,11 @@ public class MultiEnchantment : CustomEnchantmentModel
         SetSerializableCards(EnchantmentsOnCards);
     }
 
-    public override async Task BeforePlayPhaseStart(PlayerChoiceContext choiceContext, Player player)
+    public override async Task AfterAutoPrePlayPhaseEntered(PlayerChoiceContext choiceContext, Player player)
     {
         foreach (var enchantmentCard in EnchantmentsOnCards)
         {
-            await enchantmentCard.Enchantment!.BeforePlayPhaseStart(choiceContext, player);
+            await enchantmentCard.Enchantment!.AfterAutoPrePlayPhaseEntered(choiceContext, player);
         }
         SetSerializableCards(EnchantmentsOnCards);
     }
