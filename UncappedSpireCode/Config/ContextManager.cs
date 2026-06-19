@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Afflictions;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Runs;
 
@@ -137,11 +136,6 @@ public static class ContextManager
     {
         ["Damage"] = ScalingType.Dmg,
     };
-
-    // public static Dictionary<Type, ScalingType> AfflicationScalingTypes = new()
-    // {
-    //     [typeof(Tainted)] = ScalingType.Dmg,
-    // };
 
     public static HashSet<string> LocStringVariablesToScale =
     [

@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Rewards;
+using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Runs.History;
 using UncappedSpire.UncappedSpireCode.Config;
@@ -17,6 +18,7 @@ public static class UncappedActsCore
 {
     public static readonly MethodInfo Method_get_State = AccessTools.PropertyGetter(typeof(RunManager), "State");
     public static readonly FieldInfo Field__mapPointHistory = AccessTools.Field(typeof(RunState), "_mapPointHistory");
+    public static readonly FieldInfo Field__rooms = AccessTools.Field(typeof(ActModel), "_rooms");
     
     public static async Task EnterNextChapter()
     {
@@ -43,7 +45,8 @@ public static class UncappedActsCore
 
     public static void AddFinalBossRewards(RewardsSet rewardsSet)
     {
-        if (ContextManager.UncappedActsEnabled)
+        var rooms = (RoomSet)Field__rooms.GetValue(rewardsSet.Player.RunState.Act)!;
+        if (ContextManager.UncappedActsEnabled && rooms.NextBossEncounter.Id == rewardsSet.Player.RunState.CurrentRoom!.ModelId)
         {
             var ancientRelics = ModelDb.AllRelics.Where(r => r.Rarity == RelicRarity.Ancient);
             var shuffledAncientRelics = ancientRelics.ToList().UnstableShuffle(rewardsSet.Player.RunState.Rng.UpFront);
@@ -54,9 +57,11 @@ public static class UncappedActsCore
                 CardRarityOddsType.BossEncounter);
         
             rewardsSet.Rewards.AddRange([
-                new GoldReward(200, rewardsSet.Player),
+                new GoldReward(100, 300, rewardsSet.Player),
+                new GoldReward(100, 200, rewardsSet.Player),
                 new RelicReward(shuffledAncientRelics[0].ToMutable(), rewardsSet.Player),
                 new RelicReward(shuffledAncientRelics[1].ToMutable(), rewardsSet.Player),
+                new CardReward(rareCardRewardOptions, 3, rewardsSet.Player),
                 new CardReward(rareCardRewardOptions, 3, rewardsSet.Player),
             ]);
         }

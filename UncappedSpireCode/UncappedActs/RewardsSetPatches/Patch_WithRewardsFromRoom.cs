@@ -22,7 +22,6 @@ public class Patch_WithRewardsFromRoom
             {
                 var ldRewardSet = code[i - 1].opcode;
                 
-                code.RemoveRange(i - 1, 2);
                 code.InsertRange(i - 1, [
                     new CodeInstruction(ldRewardSet),
                     new CodeInstruction(OpCodes.Call, Method_AddFinalBossRewards)
