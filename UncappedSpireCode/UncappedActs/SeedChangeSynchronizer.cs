@@ -1,8 +1,12 @@
 ﻿using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
+using MegaCrit.Sts2.Core.Multiplayer.Game.Lobby;
+using MegaCrit.Sts2.Core.Random;
 using MegaCrit.Sts2.Core.Runs;
+using MegaCrit.Sts2.Core.Unlocks;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs;
 
@@ -58,7 +62,22 @@ public class SeedChangeSynchronizer : IDisposable
         var Method_set_Rng = AccessTools.PropertySetter(typeof(RunState), nameof(RunState.Rng));
         var runRngSet = new RunRngSet(seed);
         Method_set_Rng.Invoke(player.RunState, [runRngSet]);
+        
         player.InitializeSeed(seed);
+        
+        var rng = new Rng((uint)StringHelper.GetDeterministicHashCode(seed));
+        var acts = ActModel.GetRandomList(rng, UnlockState.all, _gameService.Type.IsMultiplayer());
+        var mutableActs = acts.Select(a => a.ToMutable()).ToList();
+        foreach (var act in mutableActs)
+        {
+            act.AssertMutable();
+        }
+        
+        var actsSetter = AccessTools.PropertySetter(typeof(RunState), nameof(RunState.Acts));
+        actsSetter.Invoke(player.RunState, [mutableActs]);
+        
+        RunManager.Instance.GenerateRooms();
+        
         return true;
     }
 }

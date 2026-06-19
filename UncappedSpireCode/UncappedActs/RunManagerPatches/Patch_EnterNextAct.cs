@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
+using MegaCrit.Sts2.Core.Runs.History;
 using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs.RunManagerPatches;
@@ -18,10 +19,14 @@ public class Patch_EnterNextAct
     public static readonly MethodInfo Method_get_State = AccessTools.PropertyGetter(typeof(RunManager), "State");
     public static readonly MethodInfo Method_ClearScreens = AccessTools.Method(typeof(RunManager), "ClearScreens");
     public static readonly MethodInfo Method_FadeIn = AccessTools.Method(typeof(RunManager), "FadeIn");
+    public static readonly FieldInfo Field__mapPointHistory = AccessTools.Field(typeof(RunState), "_mapPointHistory");
     
     [HarmonyPrefix]
     public static bool Prefix(RunManager __instance, ref Task __result)
     {
+        if (!ContextManager.UncappedActsEnabled)
+            return true;
+        
         __result = Replacement(__instance);
         return false;
     }
@@ -67,6 +72,9 @@ public class Patch_EnterNextAct
                 // Method_ClearScreens.Invoke(__instance, null);
                 // await __instance.EnterRoom(new EventRoom(ModelDb.Event<TheArchitect>()));
                 // await (Task)Method_FadeIn.Invoke(__instance, null)!;
+
+                // TODO: Save the old run history somewhere to display???
+                Field__mapPointHistory.SetValue(state, new List<List<MapPointHistoryEntry>>());
                 
                 if (__instance.NetService.Type is NetGameType.Host or NetGameType.Singleplayer)
                 {
