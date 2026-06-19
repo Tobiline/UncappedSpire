@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Events;
 using MegaCrit.Sts2.Core.Models.Events;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Runs;
+using UncappedSpire.UncappedSpireCode.Config;
 using UncappedSpire.UncappedSpireCode.UncappedActs.RunManagerPatches;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs.TheArchitectPatches;
@@ -79,7 +80,7 @@ public class Patch_AdvanceDialogue
     public static IReadOnlyList<EventOption> AddMoveToNextChapterOption(TheArchitect __instance, IReadOnlyList<EventOption> __result)
     {
         var isOnLastLine = (bool)Method_get_IsOnLastLine.Invoke(__instance, null)!;
-        if (isOnLastLine)
+        if (isOnLastLine && ContextManager.UncappedActsEnabled)
         {
             var winEventOption = new EventOption(
                 __instance,
