@@ -1,7 +1,15 @@
 ﻿using System.Reflection;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
+using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
+using MegaCrit.Sts2.Core.Rewards;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Runs.History;
 using UncappedSpire.UncappedSpireCode.Config;
@@ -16,11 +24,6 @@ public static class UncappedActsCore
     
     public static async Task EnterNextChapter()
     {
-        MainFile.Logger.Info("Entering next chapter");
-        MainFile.Logger.Info("Entering next chapter");
-        MainFile.Logger.Info("Entering next chapter");
-        MainFile.Logger.Info("Entering next chapter");
-        
         var state = (RunState?)Method_get_State.Invoke(RunManager.Instance, null);
         if (state == null)
         {
@@ -40,5 +43,26 @@ public static class UncappedActsCore
         var uncappedActsModifier = state.Modifiers.First(m => m is UncappedSpireModifier) as UncappedSpireModifier;
         uncappedActsModifier!.CurrentChapter++;
         await RunManager.Instance.EnterAct(0);
+    }
+
+    public static void AddFinalBossRewards(RewardsSet rewardsSet)
+    {
+        if (ContextManager.UncappedActsEnabled)
+        {
+            var ancientRelics = ModelDb.AllRelics.Where(r => r.Rarity == RelicRarity.Ancient);
+            var shuffledAncientRelics = ancientRelics.ToList().UnstableShuffle(rewardsSet.Player.RunState.Rng.UpFront);
+        
+            var rareCardRewardOptions = new CardCreationOptions(
+                [rewardsSet.Player.Character.CardPool],
+                CardCreationSource.Encounter,
+                CardRarityOddsType.BossEncounter);
+        
+            rewardsSet.Rewards.AddRange([
+                new GoldReward(200, rewardsSet.Player),
+                new RelicReward(shuffledAncientRelics[0].ToMutable(), rewardsSet.Player),
+                new RelicReward(shuffledAncientRelics[1].ToMutable(), rewardsSet.Player),
+                new CardReward(rareCardRewardOptions, 3, rewardsSet.Player),
+            ]);
+        }
     }
 }
