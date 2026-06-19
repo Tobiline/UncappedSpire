@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Afflictions;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Runs;
 
@@ -79,6 +80,7 @@ public static class ContextManager
         [typeof(SteamEruptionPower)] = ScalingType.Dmg,
         [typeof(SuckPower)] = ScalingType.Dmg,
         [typeof(VigorPower)] = ScalingType.Dmg,
+        [typeof(VitalSparkPower)] = ScalingType.Dmg,
         
         // Hp
         [typeof(PlatingPower)] = ScalingType.Hp,
@@ -107,6 +109,7 @@ public static class ContextManager
         [typeof(HardToKillPower)] = ScalingImplementationType.DataModify,
         [typeof(DexterityPower)] = ScalingImplementationType.DataModify,
         [typeof(VigorPower)] = ScalingImplementationType.DataModify,
+        [typeof(VitalSparkPower)] = ScalingImplementationType.DataModify,
         
         // Display Modify
         [typeof(RitualPower)] = ScalingImplementationType.DisplayModify,
@@ -134,6 +137,11 @@ public static class ContextManager
     {
         ["Damage"] = ScalingType.Dmg,
     };
+
+    // public static Dictionary<Type, ScalingType> AfflicationScalingTypes = new()
+    // {
+    //     [typeof(Tainted)] = ScalingType.Dmg,
+    // };
 
     public static HashSet<string> LocStringVariablesToScale =
     [

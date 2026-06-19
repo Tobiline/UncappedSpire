@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 
@@ -13,7 +14,7 @@ public class Patch_UpgradeValueBy
     [HarmonyPrefix]
     static void Prefix(DynamicVar __instance, ref decimal addend)
     {
-        if (getOwner.GetValue(__instance) is CardModel card)
+        if (getOwner.GetValue(__instance) is CardModel card && card.Type != CardType.Status)
         {
             __instance.BaseValue = SpireField_InitialValue._initialValue.Get(__instance);
             addend *= card.CurrentUpgradeLevel;
