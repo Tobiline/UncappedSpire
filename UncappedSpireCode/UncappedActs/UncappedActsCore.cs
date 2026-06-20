@@ -34,13 +34,13 @@ public static class UncappedActsCore
         if (RunManager.Instance.NetService.Type is NetGameType.Host or NetGameType.Singleplayer)
         {
             var chapterChangeSynchronizer = SpireFields_RunManager.ChapterChangeSynchronizer.Get(RunManager.Instance)!;
-            _ = await chapterChangeSynchronizer.DoLocalSeedChange(
-                SeedHelper.GetRandomSeed());
+            _ = chapterChangeSynchronizer.DoLocalSeedChange(SeedHelper.GetRandomSeed());
         }
                 
         var uncappedActsModifier = state.Modifiers.First(m => m is UncappedSpireModifier) as UncappedSpireModifier;
         uncappedActsModifier!.CurrentChapter++;
-        await RunManager.Instance.EnterAct(0);
+
+        TaskHelper.RunSafely(RunManager.Instance.EnterAct(0));
     }
 
     public static void AddFinalBossRewards(RewardsSet rewardsSet)

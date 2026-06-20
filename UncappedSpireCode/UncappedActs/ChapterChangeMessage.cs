@@ -6,31 +6,31 @@ using MegaCrit.Sts2.Core.Runs;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs;
 
-public class SeedChangeMessage : INetMessage, IPacketSerializable, IRunLocationTargetedMessage
+public class ChapterChangeMessage : INetMessage, IPacketSerializable, IRunLocationTargetedMessage
 {
     public string seed;
     
-    public RunLocation Location { get; set; }
-
-    public bool ShouldBuffer => true;
+    public RunLocation location;
+    public RunLocation Location => location;
     public bool ShouldBroadcast => true;
     public NetTransferMode Mode => NetTransferMode.Reliable;
     public LogLevel LogLevel => LogLevel.VeryDebug;
+    public bool ShouldBuffer => true;
     
     public void Serialize(PacketWriter writer)
     {
         writer.WriteString(seed);
-        writer.Write(Location);
+        writer.Write(location);
     }
 
     public void Deserialize(PacketReader reader)
     {
         seed = reader.ReadString();
-        Location = reader.Read<RunLocation>();
+        location = reader.Read<RunLocation>();
     }
     
     public override string ToString()
     {
-        return $"SeedChangeMessage seed {seed}";
+        return $"SharedChapterChangeOptionChosenMessage seed {seed}";
     }
 }

@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Ancients;
 using MegaCrit.Sts2.Core.Events;
 using MegaCrit.Sts2.Core.Models.Events;
+using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Runs;
 using UncappedSpire.UncappedSpireCode.Config;
@@ -48,26 +49,12 @@ public class Patch_AdvanceDialogue
                 var ldEventOptions = code[i + 5].opcode;
                 var stEventOptions = code[i + 2].opcode;
                 
-                // code.InsertRange(i + 3, [
-                //     new CodeInstruction(ldTheArchitect),
-                //     new CodeInstruction(ldEventOptions),
-                //     new CodeInstruction(OpCodes.Call, methodToCall),
-                //     new CodeInstruction(stEventOptions)
-                // ]);
-                
                 code.InsertRange(i - 2, [
                     new CodeInstruction(ldTheArchitect),
                     new CodeInstruction(ldEventOptions),
                     new CodeInstruction(OpCodes.Call, methodToCall),
                     new CodeInstruction(stEventOptions)
                 ]);
-                
-                // code.InsertRange(i - 51, [
-                //     new CodeInstruction(ldTheArchitect),
-                //     new CodeInstruction(ldEventOptions),
-                //     new CodeInstruction(OpCodes.Call, methodToCall),
-                //     new CodeInstruction(stEventOptions)
-                // ]);
                 break;
             }
         }
@@ -107,8 +94,7 @@ public class Patch_AdvanceDialogue
                 NCombatRoom.Instance?.SetWaitingForOtherPlayersOverlayVisible(visible: true);
             }
             
-            var chapterChangeSynchronizer = SpireFields_RunManager.ChapterChangeSynchronizer.Get(RunManager.Instance)!;
-            chapterChangeSynchronizer.SetLocalPlayerReady();
+            await UncappedActsCore.EnterNextChapter();
         }
     }
 }
