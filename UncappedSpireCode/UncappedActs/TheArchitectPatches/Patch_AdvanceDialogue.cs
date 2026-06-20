@@ -95,6 +95,7 @@ public class Patch_AdvanceDialogue
             }
             
             await UncappedActsCore.EnterNextChapter();
+            RunManager.Instance.ActChangeSynchronizer.SetLocalPlayerReady();
         }
     }
 }

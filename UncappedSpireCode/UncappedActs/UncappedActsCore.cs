@@ -40,7 +40,8 @@ public static class UncappedActsCore
         var uncappedActsModifier = state.Modifiers.First(m => m is UncappedSpireModifier) as UncappedSpireModifier;
         uncappedActsModifier!.CurrentChapter++;
 
-        TaskHelper.RunSafely(RunManager.Instance.EnterAct(0));
+        state.CurrentActIndex = -1;
+        //TaskHelper.RunSafely(RunManager.Instance.EnterAct(0));
     }
 
     public static void AddFinalBossRewards(RewardsSet rewardsSet)

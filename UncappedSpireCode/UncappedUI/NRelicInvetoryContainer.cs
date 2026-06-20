@@ -13,11 +13,16 @@ public partial class NRelicInvetoryContainer : Control
 		{
 			var relicInventory = parent.GetNode<Control>("%RelicInventory");
 			var scrollContainer = node.GetNode<ScrollContainer>("RelicInventoryScrollContainer");
+
+			var index = relicInventory.GetIndex();
 			
 			parent.RemoveChild(relicInventory);
 			scrollContainer.AddChild(relicInventory);
 
 			relicInventory.SizeFlagsHorizontal = SizeFlags.ExpandFill;
 			relicInventory.SizeFlagsVertical = SizeFlags.ExpandFill;
+			
+			parent.AddChild(node);
+			parent.MoveChild(node, index);
 		});
 }
