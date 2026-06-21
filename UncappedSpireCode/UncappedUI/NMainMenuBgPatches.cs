@@ -2,7 +2,6 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Nodes.Screens.MainMenu;
 
-
 namespace UncappedSpire.UncappedSpireCode.UncappedUI;
 
 [HarmonyPatch(typeof(NMainMenuBg), "_Ready")]

@@ -7,6 +7,7 @@
   "UNCAPPEDSPIRE-SCALING_DIFFICULTY.hover.desc": "[[green]Easy[/green]] HP: x[green]3[/green], DMG: x[green]1.2[/green]\n[[gold]Normal[/gold]] HP: x[gold]6[/gold], DMG: x[gold]2.4[/gold]\n[[red]Hard[/red]] HP: x[red]9[/red], DMG: x[red]3.6[/red]",
   "UNCAPPEDSPIRE-CUSTOM_HP_SCALING.title": "HP Scaling",
   "UNCAPPEDSPIRE-CUSTOM_DMG_SCALING.title": "DMG Scaling",
+  "UNCAPPEDSPIRE-ACT_THREE_BOSS_REWARDS_ENABLED.title": "Act 3 Boss Rewards Enabled",
 
   "UNCAPPEDSPIRE-UNCAPPED_ENCHANTMENTS_ENABLED.title": "Enabled",
   

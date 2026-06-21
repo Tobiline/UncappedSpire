@@ -18,6 +18,7 @@ internal class UncappedConfig : SimpleModConfig
     [ConfigVisibleIf(nameof(ScalingDifficulty), ScalingDifficulty.Custom)]
     [ConfigSlider(min: 1, max: 20, step: 0.1, Format = "x{0:F1}")]
     public static float CustomDmgScaling { get; set; } = 2.4f;
+    public static bool ActThreeBossRewardsEnabled { get; set; } = true;
     
     [ConfigIgnore]
     public static float HpScaling => GetHpScaling();

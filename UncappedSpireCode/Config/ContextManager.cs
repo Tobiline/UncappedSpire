@@ -20,6 +20,7 @@ public static class ContextManager
     public static bool UncappedEnchantmentsEnabled => IsInitializing || (IsCurrentlyInRun ? State!.UncappedEnchantmentsEnabled : UncappedConfig.UncappedEnchantmentsEnabled);
     public static bool UncappedUpgradesEnabled => IsInitializing || (IsCurrentlyInRun ? State!.UncappedUpgradesEnabled : UncappedConfig.UncappedUpgradesEnabled);
     
+    public static bool ActThreeBossRewardsEnabled => IsCurrentlyInRun ? State!.ActThreeBossRewardsEnabled : UncappedConfig.ActThreeBossRewardsEnabled;
     public static int Current_Chapter => IsCurrentlyInRun ? State!.CurrentChapter : 1;
     public static float Current_ScalingHp => IsCurrentlyInRun ? State!.GetHpScaling() : 1;
     public static float Current_ScalingDmg => IsCurrentlyInRun ? State!.GetDmgScaling() : 1;

@@ -28,7 +28,7 @@ public class Patch_EnterNextAct
     }
     
     public static readonly MethodInfo MethodToFind = AccessTools.Method(typeof(ModelDb), nameof(ModelDb.Event), null, [typeof(TheArchitect)]);
-    public static readonly MethodInfo MethodToReplace = AccessTools.Method(typeof(ModelDb), nameof(ModelDb.Event), null, [typeof(ClosingTheChapter)]);
+    public static readonly MethodInfo MethodToReplace = AccessTools.Method(typeof(UncappedActsCore), nameof(UncappedActsCore.EnterPostActThreeBossRoom));
     
     [HarmonyTranspiler]
     static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -40,7 +40,10 @@ public class Patch_EnterNextAct
             var instruction = code[i];
             if (instruction.opcode == OpCodes.Call && instruction.operand is MethodInfo methodInfo && methodInfo == MethodToFind)
             {
-                code[i].operand = MethodToReplace;
+                code.RemoveRange(i - 1, 4);
+                code.InsertRange(i - 1, [
+                    new CodeInstruction(OpCodes.Call, MethodToReplace)
+                ]);
                 break;
             }
         }

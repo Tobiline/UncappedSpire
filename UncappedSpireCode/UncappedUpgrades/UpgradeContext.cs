@@ -2,7 +2,7 @@
 
 public static class UpgradeContext
 {
-    private static int _multiplier = 1;
+    private static int _multiplier;
     public static event Action<int>? MultiplierChanged;
     public static event Action? EnabledInConfig;
 

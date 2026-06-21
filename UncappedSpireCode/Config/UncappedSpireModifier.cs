@@ -27,6 +27,7 @@ public class UncappedSpireModifier : ModifierModel
             baseString.Add("UncappedActsEnabled","Uncapped Acts: " + (ContextManager.UncappedActsEnabled ? "[green]✓[/green]" : "[red]✗[/red]"));
             baseString.Add("UncappedEnchantmentsEnabled","\nUncapped Enchantments: " + (ContextManager.UncappedEnchantmentsEnabled ? "[green]✓[/green]" : "[red]✗[/red]"));
             baseString.Add("UncappedUpgradesEnabled","\nUncapped Upgrades: " + (ContextManager.UncappedUpgradesEnabled ? "[green]✓[/green]" : "[red]✗[/red]"));
+            baseString.Add("ActThreeBossRewardsEnabled", "\nAct 3 Boss Rewards: " + (ContextManager.ActThreeBossRewardsEnabled ? "[green]✓[/green]" : "[red]✗[/red]"));
             baseString.Add("CurrentChapter",ContextManager.UncappedActsEnabled ? $"\nChapter [green]{CurrentChapter}[/green]" : string.Empty);
             baseString.Add("ScalingHp",ContextManager.UncappedActsEnabled ? $"\nCurrent HP Scaling: x[gold]{ContextManager.Current_ScalingHp:G3}[/gold]" : string.Empty);
             baseString.Add("ScalingDmg",ContextManager.UncappedActsEnabled ? $"\nCurrent DMG Scaling: x[gold]{ContextManager.Current_ScalingDmg:G3}[/gold]" : string.Empty);
@@ -44,6 +45,8 @@ public class UncappedSpireModifier : ModifierModel
     [SavedProperty] 
     public bool UncappedUpgradesEnabled { get; set; } = true;
 
+    [SavedProperty]
+    public bool ActThreeBossRewardsEnabled { get; set; } = true;
     [SavedProperty] 
     public int CurrentChapter { get; set; } = 1;
     
@@ -91,6 +94,8 @@ public class UncappedSpireModifier : ModifierModel
         UncappedActsEnabled = UncappedConfig.UncappedActsEnabled;
         UncappedEnchantmentsEnabled = UncappedConfig.UncappedEnchantmentsEnabled;
         UncappedUpgradesEnabled = UncappedConfig.UncappedUpgradesEnabled;
+        
+        ActThreeBossRewardsEnabled = UncappedConfig.ActThreeBossRewardsEnabled;
         
         SerializedScalingHpIncrement = UncappedConfig.HpScaling.ToString("R", CultureInfo.InvariantCulture);
         SerializedScalingDmgIncrement = UncappedConfig.DmgScaling.ToString("R", CultureInfo.InvariantCulture);
