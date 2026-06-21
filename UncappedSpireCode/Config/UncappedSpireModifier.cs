@@ -17,7 +17,7 @@ public class UncappedSpireModifier : ModifierModel
         SavedPropertiesTypeCache.InjectTypeIntoCache(typeof(UncappedSpireModifier));
     }
     
-    protected override string IconPath => "res://UncappedSpire/images/modifiers/uncapped_acts.png";
+    protected override string IconPath => "res://images/ui/main_menu/patch_notes_icon.png";
     
     public override LocString Description
     {

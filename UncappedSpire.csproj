@@ -68,10 +68,6 @@
       <Content Include="UncappedSpireCode\UncappedUpgrades\UI\InspectCardScreen\inspect_card_uncapped_upgrade_input.tscn" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="UncappedSpire\images\modifiers\" />
-    </ItemGroup>
-
     <Target Name="CheckDependencyPaths">
         <Error
                 Text=" Slay the Spire 2 data not found at path '$(Sts2DataDir)'"
