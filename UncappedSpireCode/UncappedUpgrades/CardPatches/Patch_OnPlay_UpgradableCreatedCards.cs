@@ -28,7 +28,8 @@ public class Patch_OnPlay_UpgradableCreatedCards
         typeof(Dirge),
         typeof(Compact),
         typeof(Splash),
-        typeof(Jackpot)
+        typeof(Jackpot),
+        typeof(Begone)
     ];
     
     static IEnumerable<MethodBase> TargetMethods()
