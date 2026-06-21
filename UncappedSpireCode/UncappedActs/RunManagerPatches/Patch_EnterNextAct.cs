@@ -1,58 +1,50 @@
-﻿// using System.Reflection;
-// using HarmonyLib;
-// using MegaCrit.Sts2.Core.Models;
-// using MegaCrit.Sts2.Core.Models.Events;
-// using MegaCrit.Sts2.Core.Multiplayer.Game;
-// using MegaCrit.Sts2.Core.Nodes;
-// using MegaCrit.Sts2.Core.Rooms;
-// using MegaCrit.Sts2.Core.Runs;
-// using UncappedSpire.UncappedSpireCode.Config;
-//
-// namespace UncappedSpire.UncappedSpireCode.UncappedActs.RunManagerPatches;
-//
-// [HarmonyPatch(typeof(RunManager), nameof(RunManager.EnterNextAct))]
-// public class Patch_EnterNextAct
-// {
-//     public static readonly MethodInfo Method_get_State = AccessTools.PropertyGetter(typeof(RunManager), "State");
-//     public static readonly MethodInfo Method_ClearScreens = AccessTools.Method(typeof(RunManager), "ClearScreens");
-//     public static readonly MethodInfo Method_FadeIn = AccessTools.Method(typeof(RunManager), "FadeIn");
-//     public static readonly FieldInfo Field__mapPointHistory = AccessTools.Field(typeof(RunState), "_mapPointHistory");
-//     
-//     [HarmonyPrefix]
-//     public static bool Prefix(RunManager __instance, ref Task __result)
-//     {
-//         if (!ContextManager.UncappedActsEnabled)
-//             return true;
-//         
-//         __result = Replacement(__instance);
-//         return false;
-//     }
-//     
-//     public static async Task Replacement(RunManager __instance)
-//     {
-//         var state = (RunState?)Method_get_State.Invoke(__instance, null);
-//         if (state == null)
-//         {
-//             return;
-//         }
-//         using (new NetLoadingHandle(__instance.NetService))
-//         {
-//             // TODO: Add option to win run at the end of a "Chapter" instead?
-//             if (state.CurrentActIndex < state.Acts.Count - 1)
-//             {
-//                 await __instance.EnterAct(state.CurrentActIndex + 1);
-//             }
-//             else if (state.CurrentRoom != null && state.CurrentRoom.IsVictoryRoom)
-//             {
-//                 await UncappedActsCore.EnterNextChapter();
-//             }
-//             else
-//             {
-//                 await NGame.Instance!.Transition.RoomFadeOut();
-//                 Method_ClearScreens.Invoke(__instance, null);
-//                 await __instance.EnterRoom(new EventRoom(ModelDb.Event<TheArchitect>()));
-//                 await (Task)Method_FadeIn.Invoke(__instance, [true])!;
-//             }
-//         }
-//     }
-// }
+﻿using System.Reflection;
+using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
+using HarmonyLib;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Events;
+using MegaCrit.Sts2.Core.Runs;
+
+namespace UncappedSpire.UncappedSpireCode.UncappedActs.RunManagerPatches;
+
+[HarmonyPatch]
+public class Patch_EnterNextAct
+{
+    static MethodBase TargetMethod()
+    {
+        var m = AccessTools.Method(typeof(RunManager), nameof(RunManager.EnterNextAct));
+        var attr = m.GetCustomAttribute<AsyncStateMachineAttribute>();
+        if (attr == null)
+        {
+            throw new NullReferenceException("OnPlay AsyncStateMachineAttribute attribute not found");
+        }
+        var moveNextMethod = attr.StateMachineType.GetMethod("MoveNext", BindingFlags.NonPublic | BindingFlags.Instance);
+        if (moveNextMethod == null)
+        {
+            throw new NullReferenceException("AsyncStateMachineAttribute state machine method not found");
+        }
+        return moveNextMethod;
+    }
+    
+    public static readonly MethodInfo MethodToFind = AccessTools.Method(typeof(ModelDb), nameof(ModelDb.Event), null, [typeof(TheArchitect)]);
+    public static readonly MethodInfo MethodToReplace = AccessTools.Method(typeof(ModelDb), nameof(ModelDb.Event), null, [typeof(ClosingTheChapter)]);
+    
+    [HarmonyTranspiler]
+    static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+    {
+        var code = new List<CodeInstruction>(instructions);
+        
+        for (var i = 0; i < code.Count; i++)
+        {
+            var instruction = code[i];
+            if (instruction.opcode == OpCodes.Call && instruction.operand is MethodInfo methodInfo && methodInfo == MethodToFind)
+            {
+                code[i].operand = MethodToReplace;
+                break;
+            }
+        }
+
+        return code;
+    }
+}

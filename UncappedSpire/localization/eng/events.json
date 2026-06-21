@@ -1,0 +1,12 @@
+﻿{
+  "UNCAPPEDSPIRE-CLOSING_THE_CHAPTER.title": "Closing the Chapter",
+  "UNCAPPEDSPIRE-CLOSING_THE_CHAPTER.INITIAL.description": "So close to the peak, you face two last choices...",
+  
+  "UNCAPPEDSPIRE-CLOSING_THE_CHAPTER.pages.MEET_THE_ARCHITECT.description": "[WIP] MEET_THE_ARCHITECT",
+  "UNCAPPEDSPIRE-CLOSING_THE_CHAPTER.pages.INITIAL.options.MEET_THE_ARCHITECT.title": "Up the Spiral Staircase",
+  "UNCAPPEDSPIRE-CLOSING_THE_CHAPTER.pages.INITIAL.options.MEET_THE_ARCHITECT.description": "Meet [sine][red]The Architect[/red][/sine]",
+
+  "UNCAPPEDSPIRE-CLOSING_THE_CHAPTER.pages.START_A_NEW_CHAPTER.description": "[WIP] START_A_NEW_CHAPTER",
+  "UNCAPPEDSPIRE-CLOSING_THE_CHAPTER.pages.INITIAL.options.START_A_NEW_CHAPTER.title": "Through the Mysterious Door",
+  "UNCAPPEDSPIRE-CLOSING_THE_CHAPTER.pages.INITIAL.options.START_A_NEW_CHAPTER.description": "Start a new [green]Chapter[/green]"
+}
