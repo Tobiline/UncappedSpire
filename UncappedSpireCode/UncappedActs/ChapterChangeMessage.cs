@@ -31,6 +31,6 @@ public class ChapterChangeMessage : INetMessage, IPacketSerializable, IRunLocati
     
     public override string ToString()
     {
-        return $"SharedChapterChangeOptionChosenMessage seed {seed}";
+        return $"ChapterChangeMessage seed {seed}";
     }
 }

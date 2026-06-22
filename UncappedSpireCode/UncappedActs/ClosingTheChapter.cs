@@ -27,7 +27,7 @@ public class ClosingTheChapter : CustomEventModel
     public override List<(string, string)> Localization => LocManager.Instance.Language switch
     { 
         _ => new EventLoc("Closing the Chapter", 
-            new EventPageLoc("INITIAL", "Initial page.", 
+            new EventPageLoc("INITIAL", "So close to the peak, you face two last choices...", 
                 new EventOptionLoc("MEET_THE_ARCHITECT", "Up the Spiral Staircase", "Meet [sine][red]The Architect[/red][/sine]"), 
                 new EventOptionLoc("START_A_NEW_CHAPTER", "Through the Mysterious Door", "Start a new [green]Chapter[/green]"))
         )
@@ -74,24 +74,23 @@ public class ClosingTheChapter : CustomEventModel
     private static readonly FieldInfo Field__mapPointHistory = AccessTools.Field(typeof(RunState), "_mapPointHistory");
     private async Task StartANewChapter()
     {
-        var state = (RunState)Method_get_State.Invoke(RunManager.Instance, null)!;
-        
-        // TODO: Save the old run history somewhere to display???
-        Field__mapPointHistory.SetValue(state, new List<List<MapPointHistoryEntry>>());
-                
-        if (RunManager.Instance.NetService.Type is NetGameType.Host or NetGameType.Singleplayer)
-        {
-            var chapterChangeSynchronizer = SpireFields_RunManager.ChapterChangeSynchronizer.Get(RunManager.Instance)!;
-            _ = chapterChangeSynchronizer.DoLocalSeedChange(SeedHelper.GetRandomSeed());
-        }
-                
-        var uncappedActsModifier = state.Modifiers.First(m => m is UncappedSpireModifier) as UncappedSpireModifier;
-        uncappedActsModifier!.CurrentChapter++;
-
-        state.CurrentActIndex = -1;
-        
         if (LocalContext.IsMe(Owner))
         {
+            var state = (RunState)Method_get_State.Invoke(RunManager.Instance, null)!;
+        
+            // TODO: Save the old run history somewhere to display???
+            Field__mapPointHistory.SetValue(state, new List<List<MapPointHistoryEntry>>());
+                
+            if (RunManager.Instance.NetService.Type is NetGameType.Host or NetGameType.Singleplayer)
+            {
+                var chapterChangeSynchronizer = SpireFields_RunManager.ChapterChangeSynchronizer.Get(RunManager.Instance)!;
+                _ = chapterChangeSynchronizer.DoLocalSeedChange(SeedHelper.GetRandomSeed());
+            }
+
+            state.CurrentActIndex = -1;
+            var uncappedActsModifier = state.Modifiers.First(m => m is UncappedSpireModifier) as UncappedSpireModifier;
+            uncappedActsModifier!.CurrentChapter++;
+            
             RunManager.Instance.ActChangeSynchronizer.SetLocalPlayerReady();
         }
     }

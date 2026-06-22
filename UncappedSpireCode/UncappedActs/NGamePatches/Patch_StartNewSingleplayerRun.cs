@@ -9,6 +9,7 @@ namespace UncappedSpire.UncappedSpireCode.UncappedActs.NGamePatches;
 [HarmonyPatch(typeof(NGame), nameof(NGame.StartNewSingleplayerRun))]
 public class Patch_StartNewSingleplayerRun
 {
+    [HarmonyPrefix]
     public static void Prefix(CharacterModel character, bool shouldSave, IReadOnlyList<ActModel> acts,
         ref IReadOnlyList<ModifierModel> modifiers, string seed, GameMode gameMode, int ascensionLevel, DateTimeOffset? dailyTime)
     {

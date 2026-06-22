@@ -100,4 +100,15 @@ public class UncappedSpireModifier : ModifierModel
         SerializedScalingHpIncrement = UncappedConfig.HpScaling.ToString("R", CultureInfo.InvariantCulture);
         SerializedScalingDmgIncrement = UncappedConfig.DmgScaling.ToString("R", CultureInfo.InvariantCulture);
     }
+
+    public override string ToString()
+    {
+        return @$"UncappedActsEnabled: {UncappedActsEnabled}
+UncappedEnchantmentsEnabled: {UncappedEnchantmentsEnabled}
+UncappedUpgradesEnabled: {UncappedUpgradesEnabled}
+ActThreeBossRewardsEnabled: {ActThreeBossRewardsEnabled}
+CurrentChapter: {CurrentChapter}
+SerializedScalingHpIncrement: {SerializedScalingHpIncrement}
+SerializedScalingDmgIncrement: {SerializedScalingDmgIncrement}";
+    }
 }
