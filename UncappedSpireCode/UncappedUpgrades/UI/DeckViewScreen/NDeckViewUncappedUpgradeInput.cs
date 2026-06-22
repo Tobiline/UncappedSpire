@@ -13,7 +13,7 @@ public partial class NDeckViewUncappedUpgradeInput : SpinBox
 	private static readonly string _scenePath = "res://UncappedSpireCode/UncappedUpgrades/UI/DeckViewScreen/deck_view_uncapped_upgrade_input.tscn";
 	private static bool isInternalUpdate;
 	private static Action<int>? MultiplierChanged;
-	public static Action EnabledInConfig;
+	public static Action? EnabledInConfig;
 	
 	public static AddedNode<NDeckViewScreen, NDeckViewUncappedUpgradeInput>? Node = new(_scenePath,
 		(parent, node) =>

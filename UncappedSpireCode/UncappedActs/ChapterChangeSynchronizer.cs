@@ -19,7 +19,7 @@ public class ChapterChangeSynchronizer : IDisposable
     
     private readonly ulong _localPlayerId;
 
-    private Player LocalPlayer => _runState.GetPlayer(_localPlayerId);
+    private Player LocalPlayer => _runState.GetPlayer(_localPlayerId)!;
     
     public ChapterChangeSynchronizer(RunLocationTargetedMessageBuffer messageBuffer, INetGameService gameService, RunState runState, ulong localPlayerId)
     {
@@ -49,7 +49,7 @@ public class ChapterChangeSynchronizer : IDisposable
     
     private void HandleChapterChangeMessage(ChapterChangeMessage message, ulong senderId)
     {
-        var player = _runState.GetPlayer(senderId);
+        var player = _runState.GetPlayer(senderId)!;
         if (player == LocalPlayer)
         {
             throw new InvalidOperationException("SeedChangeSynchronizer should not be sent to the Host!");

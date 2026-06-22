@@ -96,7 +96,6 @@ public class MultiEnchantment : CustomEnchantmentModel
 
     protected override string CustomIconPath => "res://images/relics/scroll_boxes.png";
     
-    // TODO: Find a way to remove the primary hover tip
     protected override IEnumerable<IHoverTip> ExtraHoverTips => EnchantmentsOnCards.Select(c => c.Enchantment!).SelectMany(e => e.HoverTips);
     
     public override bool CanEnchant(CardModel card)

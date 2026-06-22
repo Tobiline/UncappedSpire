@@ -16,7 +16,7 @@ public class UncappedSpireModifierSynchronizer : IDisposable
     
     private readonly ulong _localPlayerId;
 
-    private Player LocalPlayer => _runState.GetPlayer(_localPlayerId);
+    private Player LocalPlayer => _runState.GetPlayer(_localPlayerId)!;
     
     public UncappedSpireModifierSynchronizer(RunLocationTargetedMessageBuffer messageBuffer, INetGameService gameService, RunState runState, ulong localPlayerId)
     {
@@ -63,7 +63,7 @@ public class UncappedSpireModifierSynchronizer : IDisposable
     
     private void HandleChapterChangeMessage(UncappedSpireModifierMessage message, ulong senderId)
     {
-        var player = _runState.GetPlayer(senderId);
+        var player = _runState.GetPlayer(senderId)!;
         if (player == LocalPlayer)
         {
             throw new InvalidOperationException("UncappedSpireModifierMessage should not be sent to the Host!");

@@ -8,9 +8,9 @@ namespace UncappedSpire.UncappedSpireCode.UncappedActs;
 
 public class ChapterChangeMessage : INetMessage, IPacketSerializable, IRunLocationTargetedMessage
 {
-    public string seed;
+    public required string seed;
     
-    public RunLocation location;
+    public  required RunLocation location;
     public RunLocation Location => location;
     public bool ShouldBroadcast => true;
     public NetTransferMode Mode => NetTransferMode.Reliable;

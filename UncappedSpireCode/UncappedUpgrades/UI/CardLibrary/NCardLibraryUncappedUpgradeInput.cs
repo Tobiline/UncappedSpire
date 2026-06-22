@@ -13,7 +13,7 @@ public partial class NCardLibraryUncappedUpgradeInput : SpinBox
 	private static readonly string _scenePath = "res://UncappedSpireCode/UncappedUpgrades/UI/CardLibrary/card_library_uncapped_upgrade_input.tscn";
 	private static bool isInternalUpdate;
 	private static Action<int>? MultiplierChanged;
-	public static Action EnabledInConfig;
+	public static Action? EnabledInConfig;
 	
 	public static AddedNode<NCardLibrary, NCardLibraryUncappedUpgradeInput>? Node = new(_scenePath,
 		(parent, node) =>

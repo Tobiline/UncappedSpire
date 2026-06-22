@@ -18,7 +18,7 @@ public class TestSubjectPatches
     public static async Task Replacement(TestSubject __instance, int baseRespawnHp)
     {
         __instance.AssertMutable();
-        int scaledHp = baseRespawnHp * __instance.Creature.CombatState.Players.Count;
+        var scaledHp = baseRespawnHp * __instance.Creature.CombatState!.Players.Count;
         await CreatureCmd.SetMaxHp(__instance.Creature, (int)(scaledHp * ContextManager.Current_ScalingHp));
         await CreatureCmd.Heal(__instance.Creature, scaledHp);
     }

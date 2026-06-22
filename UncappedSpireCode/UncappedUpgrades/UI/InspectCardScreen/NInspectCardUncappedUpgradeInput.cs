@@ -12,7 +12,7 @@ public partial class NInspectCardUncappedUpgradeInput : SpinBox
 	private static readonly string _scenePath = "res://UncappedSpireCode/UncappedUpgrades/UI/InspectCardScreen/inspect_card_uncapped_upgrade_input.tscn";
 	private static bool isInternalUpdate;
 	private static Action<int>? MultiplierChanged;
-	public static Action EnabledInConfig;
+	public static Action? EnabledInConfig;
 	
 	public static AddedNode<NInspectCardScreen, NInspectCardUncappedUpgradeInput>? Node = new(_scenePath,
 		(parent, node) =>

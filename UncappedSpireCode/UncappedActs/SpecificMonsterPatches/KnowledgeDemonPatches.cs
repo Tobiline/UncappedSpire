@@ -35,13 +35,13 @@ public class KnowledgeDemonPatches
         var CurseOfKnowledgeCounter = (int)Method_get_CurseOfKnowledgeCounter.Invoke(__instance, null)!;
         
         var disintegrationDamage = disintegrationDamageValues[CurseOfKnowledgeCounter];
-        var cardModel = await CardSelectCmd.FromChooseACardScreen(new BlockingPlayerChoiceContext(), curseOfKnowledgeSets[CurseOfKnowledgeCounter].Select<KnowledgeDemon.IChoosable, CardModel>((c =>
+        var cardModel = await CardSelectCmd.FromChooseACardScreen(new BlockingPlayerChoiceContext(), curseOfKnowledgeSets[CurseOfKnowledgeCounter].Select<KnowledgeDemon.IChoosable, CardModel>(c =>
         {
-            var card = __instance.CombatState.CreateCard((CardModel) c, target.Player);
+            var card = __instance.CombatState.CreateCard((CardModel) c, target.Player!);
             if (card is Disintegration)
                 card.DynamicVars["DisintegrationPower"].BaseValue = disintegrationDamage * (decimal)ContextManager.Current_ScalingDmg;
             return card;
-        })).ToList(), target.Player);
+        }).ToList(), target.Player!);
         if (cardModel == null)
             return;
         await ((KnowledgeDemon.IChoosable) cardModel).OnChosen();
