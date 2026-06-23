@@ -52,7 +52,8 @@ public static class ContextManager
         
         // This stop temp strength regain from being scaled like from Mangle at end of turn
         if (implementationType == ScalingImplementationType.DataModify && justRemovedPower != null 
-            && PowerScalingImplementationTypes.TryGetValue(justRemovedPower.GetType(), out var removedPowerImpType)
+            && justRemovedPower.TryGetTemporaryPowerBaseClass(out var tempPowerType)
+            && PowerScalingImplementationTypes.TryGetValue(tempPowerType!, out var removedPowerImpType)
             && removedPowerImpType == ScalingImplementationType.TemporaryDataModify)
             return false;
 
@@ -63,6 +64,19 @@ public static class ContextManager
         return true;
     }
 
+    public static bool TryGetTemporaryPowerBaseClass(this PowerModel powerModel, out Type? temporaryClassType)
+    {
+        temporaryClassType = null;
+        var powerModelType = powerModel.GetType();
+        
+        if (!typeof(ITemporaryPower).IsAssignableFrom(powerModelType))
+            return false;
+        
+        temporaryClassType = powerModelType.BaseType == typeof(PowerModel) ? powerModelType : powerModelType.BaseType;
+
+        return true;
+    }
+    
     public static Dictionary<Type, ScalingType> PowerScalingTypes = new()
     {
         // Dmg
