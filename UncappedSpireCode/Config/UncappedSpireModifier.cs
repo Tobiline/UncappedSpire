@@ -27,6 +27,7 @@ public class UncappedSpireModifier : ModifierModel
             baseString.Add("UncappedActsEnabled","Uncapped Acts: " + (ContextManager.UncappedActsEnabled ? "[green]✓[/green]" : "[red]✗[/red]"));
             baseString.Add("UncappedEnchantmentsEnabled","\nUncapped Enchantments: " + (ContextManager.UncappedEnchantmentsEnabled ? "[green]✓[/green]" : "[red]✗[/red]"));
             baseString.Add("UncappedUpgradesEnabled","\nUncapped Upgrades: " + (ContextManager.UncappedUpgradesEnabled ? "[green]✓[/green]" : "[red]✗[/red]"));
+            baseString.Add("UncappedRelicsEnabled","\nUncapped Relics: " + (ContextManager.UncappedRelicsEnabled ? "[green]✓[/green]" : "[red]✗[/red]"));
             baseString.Add("ActThreeBossRewardsEnabled", "\nAct 3 Boss Rewards: " + (ContextManager.ActThreeBossRewardsEnabled ? "[green]✓[/green]" : "[red]✗[/red]"));
             baseString.Add("CurrentChapter",ContextManager.UncappedActsEnabled ? $"\nChapter [green]{CurrentChapter}[/green]" : string.Empty);
             baseString.Add("ScalingHp",ContextManager.UncappedActsEnabled ? $"\nCurrent HP Scaling: x[gold]{ContextManager.Current_ScalingHp:G3}[/gold]" : string.Empty);
@@ -44,6 +45,8 @@ public class UncappedSpireModifier : ModifierModel
     public bool UncappedEnchantmentsEnabled { get; set; } = true;
     [SavedProperty] 
     public bool UncappedUpgradesEnabled { get; set; } = true;
+    [SavedProperty] 
+    public bool UncappedRelicsEnabled { get; set; } = true;
 
     [SavedProperty]
     public bool ActThreeBossRewardsEnabled { get; set; } = true;
@@ -94,6 +97,7 @@ public class UncappedSpireModifier : ModifierModel
         UncappedActsEnabled = UncappedConfig.UncappedActsEnabled;
         UncappedEnchantmentsEnabled = UncappedConfig.UncappedEnchantmentsEnabled;
         UncappedUpgradesEnabled = UncappedConfig.UncappedUpgradesEnabled;
+        UncappedRelicsEnabled = UncappedConfig.UncappedRelicsEnabled;
         
         ActThreeBossRewardsEnabled = UncappedConfig.ActThreeBossRewardsEnabled;
         
@@ -106,6 +110,7 @@ public class UncappedSpireModifier : ModifierModel
         return @$"UncappedActsEnabled: {UncappedActsEnabled}
 UncappedEnchantmentsEnabled: {UncappedEnchantmentsEnabled}
 UncappedUpgradesEnabled: {UncappedUpgradesEnabled}
+UncappedRelicsEnabled: {UncappedRelicsEnabled}
 ActThreeBossRewardsEnabled: {ActThreeBossRewardsEnabled}
 CurrentChapter: {CurrentChapter}
 SerializedScalingHpIncrement: {SerializedScalingHpIncrement}

@@ -66,6 +66,11 @@ internal class UncappedConfig : SimpleModConfig
         }
     }
     #endregion
+    
+    #region Uncapped Relics
+    [ConfigSection("Uncapped Relics")]
+    public static bool UncappedRelicsEnabled { get; set; } = true;
+    #endregion
 }
 
 internal enum ScalingDifficulty

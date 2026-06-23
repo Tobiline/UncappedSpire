@@ -19,6 +19,7 @@ public static class ContextManager
     public static bool UncappedActsEnabled => IsInitializing || (IsCurrentlyInRun ? State!.UncappedActsEnabled : UncappedConfig.UncappedActsEnabled);
     public static bool UncappedEnchantmentsEnabled => IsInitializing || (IsCurrentlyInRun ? State!.UncappedEnchantmentsEnabled : UncappedConfig.UncappedEnchantmentsEnabled);
     public static bool UncappedUpgradesEnabled => IsInitializing || (IsCurrentlyInRun ? State!.UncappedUpgradesEnabled : UncappedConfig.UncappedUpgradesEnabled);
+    public static bool UncappedRelicsEnabled => IsInitializing || (IsCurrentlyInRun ? State!.UncappedRelicsEnabled : UncappedConfig.UncappedRelicsEnabled);
     
     public static bool ActThreeBossRewardsEnabled => IsCurrentlyInRun ? State!.ActThreeBossRewardsEnabled : UncappedConfig.ActThreeBossRewardsEnabled;
     public static int Current_Chapter => IsCurrentlyInRun ? State!.CurrentChapter : 1;
