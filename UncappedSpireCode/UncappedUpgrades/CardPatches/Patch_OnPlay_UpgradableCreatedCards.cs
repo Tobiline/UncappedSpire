@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
+using UncappedSpire.UncappedSpireCode.UncappedUpgrades.CardModelPatches;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedUpgrades.CardPatches;
 
@@ -61,7 +62,8 @@ public class Patch_OnPlay_UpgradableCreatedCards
 
         var methodToFind = AccessTools.Method(typeof(CardCmd), nameof(CardCmd.Upgrade), [typeof(CardModel), typeof(CardPreviewStyle)]);
         var getCurrentUpgradeLevel = AccessTools.PropertyGetter(typeof(CardModel), nameof(CardModel.CurrentUpgradeLevel));
-        var setCurrentUpgradeLevel = AccessTools.PropertySetter(typeof(CardModel), nameof(CardModel.CurrentUpgradeLevel));
+        var Method_SafelySetCurrentUpgradeLevel = AccessTools.Method(typeof(CardModelExtensions),
+            nameof(CardModelExtensions.SafelySetCurrentUpgradeLevel));
         
         for (var i = 0; i < code.Count; i++)
         {
@@ -86,7 +88,7 @@ public class Patch_OnPlay_UpgradableCreatedCards
                     new CodeInstruction(OpCodes.Callvirt, getCurrentUpgradeLevel),
                     new CodeInstruction(OpCodes.Ldc_I4_1),
                     new CodeInstruction(OpCodes.Sub),
-                    new CodeInstruction(OpCodes.Callvirt, setCurrentUpgradeLevel),
+                    new CodeInstruction(OpCodes.Call, Method_SafelySetCurrentUpgradeLevel)
                 ]);
                 i += cardLdRange.Count + 5;
             }

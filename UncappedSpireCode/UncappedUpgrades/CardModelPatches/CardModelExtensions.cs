@@ -20,7 +20,7 @@ public static class CardModelExtensions
         ((Delegate?)Upgraded.GetValue(card))?.DynamicInvoke();
     }
 
-    private static void SafelySetCurrentUpgradeLevel(this CardModel card, int levelsToSet)
+    public static void SafelySetCurrentUpgradeLevel(this CardModel card, int levelsToSet)
     {
         var boundedNewMaxLevel = Math.Min(card.MaxUpgradeLevel, levelsToSet);
         SetCurrentUpgradeLevel.Invoke(card, [boundedNewMaxLevel]);

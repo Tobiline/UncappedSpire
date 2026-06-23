@@ -156,6 +156,7 @@ public static class Patch_MaxUpgradeLevel
         // Special
         [typeof(Enlightenment)] = 1,
         [typeof(HelloWorld)] = 1,
+        [typeof(MadScience)] = 1,
     };
     
     public static void Postfix(CardModel __instance, ref int __result)
