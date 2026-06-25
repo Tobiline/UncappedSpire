@@ -1,6 +1,4 @@
 ﻿using BaseLib.Config;
-using MegaCrit.Sts2.Core.Nodes;
-using UncappedSpire.UncappedSpireCode.UncappedActs;
 using UncappedSpire.UncappedSpireCode.UncappedUpgrades;
 
 namespace UncappedSpire.UncappedSpireCode.Config;
@@ -70,6 +68,14 @@ internal class UncappedConfig : SimpleModConfig
     #region Uncapped Relics
     [ConfigSection("Uncapped Relics")]
     public static bool UncappedRelicsEnabled { get; set; } = true;
+    #endregion
+    
+    #region Uncapped Animations
+    [ConfigSection("Uncapped Animations")]
+    public static bool UncappedAnimationsEnabled { get; set; } = true;
+    [ConfigHoverTip]
+    [ConfigSlider(min: 1, max: 100, step: 1)]
+    public static int AnimationBatchSize { get; set; } = 25;
     #endregion
 }
 

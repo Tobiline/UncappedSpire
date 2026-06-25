@@ -13,5 +13,9 @@
   
   "UNCAPPEDSPIRE-UNCAPPED_UPGRADES_ENABLED.title": "Enabled",
 
-  "UNCAPPEDSPIRE-UNCAPPED_RELICS_ENABLED.title": "Enabled"
+  "UNCAPPEDSPIRE-UNCAPPED_RELICS_ENABLED.title": "Enabled",
+
+  "UNCAPPEDSPIRE-UNCAPPED_ANIMATIONS_ENABLED.title": "Enabled",
+  "UNCAPPEDSPIRE-ANIMATION_BATCH_SIZE.title": "Animation Batch Size",
+  "UNCAPPEDSPIRE-ANIMATION_BATCH_SIZE.hover.desc": "Batches large consecutive instant animations between 0.1 second intervals to stop crashing.\nIf your game is crashing due to animation stacking, lower this number."
 }
