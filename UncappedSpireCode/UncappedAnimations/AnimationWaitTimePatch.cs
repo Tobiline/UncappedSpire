@@ -1,5 +1,8 @@
 ﻿using HarmonyLib;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
 using UncappedSpire.UncappedSpireCode.Config;
@@ -13,7 +16,11 @@ public class AnimationWaitTimePatch
     [HarmonyPrefix]
     public static bool CustomScaledWaitPrefix(float fastSeconds, float standardSeconds, bool ignoreCombatEnd, CancellationToken cancellationToken, ref Task __result)
     {
-        if (UncappedConfig.UncappedAnimationsEnabled)
+        var isPlayerTurn =
+            (LocalContext.GetMe(RunManager.Instance.DebugOnlyGetState())?.PlayerCombatState?.Phase ??
+             PlayerTurnPhase.None) != PlayerTurnPhase.None;
+        
+        if (UncappedConfig.UncappedAnimationsEnabled && isPlayerTurn)
         {
             __result = CustomScaledWaitReplacement(fastSeconds, standardSeconds, ignoreCombatEnd, cancellationToken);
             return false;

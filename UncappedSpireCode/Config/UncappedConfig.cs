@@ -71,11 +71,8 @@ internal class UncappedConfig : SimpleModConfig
     #endregion
     
     #region Uncapped Animations
-    // TODO: Finish
-    [ConfigHideInUI]
-    //[ConfigSection("Uncapped Animations")]
+    [ConfigSection("Uncapped Animations")]
     public static bool UncappedAnimationsEnabled { get; set; } = false;
-    [ConfigHideInUI]
     [ConfigHoverTip]
     [ConfigSlider(min: 1, max: 100, step: 1)]
     public static int AnimationBatchSize { get; set; } = 25;
