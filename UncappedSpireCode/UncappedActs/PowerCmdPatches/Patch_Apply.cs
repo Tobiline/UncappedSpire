@@ -17,13 +17,13 @@ public class Patch_Apply
     [HarmonyPrefix]
     public static void Prefix(PowerModel power, Creature target, ref decimal amount, Creature? applier, CardModel? cardSource, bool silent = false)
     {
-        if (((target != null && target.IsMonster) || (power.Owner != null && power.Owner.IsMonster))
-            && (applier == null || applier.IsMonster)
+        if (((target != null && target.IsEnemy) || (power.Owner != null && power.Owner.IsEnemy))
+            && (applier == null || applier.IsEnemy)
             && power.TryGetScaling(ScalingImplementationType.DataModify, out var scaling))
         {
             amount *= (decimal)scaling;
         }
-        else if (applier != null && applier.IsMonster 
+        else if (applier != null && applier.IsEnemy 
             && power.TryGetScaling(ScalingImplementationType.NonSelfAppliedDataModify, out var scaling2))
         {
             amount *= (decimal)scaling2;

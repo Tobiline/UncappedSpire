@@ -43,8 +43,8 @@ public class Patch_HoverTips
     public static FieldInfo Field__variables = AccessTools.Field(typeof(LocString), "_variables");
     public static void ModifyDisplayAmount(LocString locString, PowerModel powerModel)
     {
-        if (((powerModel.Target != null && powerModel.Target.IsMonster) || (powerModel.Owner != null && powerModel.Owner.IsMonster))
-            && (powerModel.Applier == null || powerModel.Applier.IsMonster)
+        if (((powerModel.Target != null && powerModel.Target.IsEnemy) || (powerModel.Owner != null && powerModel.Owner.IsEnemy))
+            && (powerModel.Applier == null || powerModel.Applier.IsEnemy)
             && powerModel.TryGetScaling(ScalingImplementationType.DisplayModify, out var scaling))
         {
             var variables = (Dictionary<string, object>)Field__variables.GetValue(locString)!;

@@ -16,7 +16,7 @@ public class Patch_GainBlock
     [HarmonyPrefix]
     public static void Prefix(Creature creature, ref decimal amount, ValueProp props, CardPlay? cardPlay, bool fast)
     {
-        if (creature.IsMonster)
+        if (creature.IsEnemy)
         {
             amount *= (decimal)ContextManager.Current_ScalingHp;
         }

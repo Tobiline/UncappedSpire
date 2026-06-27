@@ -72,7 +72,7 @@ internal class UncappedConfig : SimpleModConfig
     
     #region Uncapped Animations
     [ConfigSection("Uncapped Animations")]
-    public static bool UncappedAnimationsEnabled { get; set; } = false;
+    public static bool UncappedAnimationsEnabled { get; set; } = true;
     [ConfigHoverTip]
     [ConfigSlider(min: 1, max: 100, step: 1)]
     public static int AnimationBatchSize { get; set; } = 25;

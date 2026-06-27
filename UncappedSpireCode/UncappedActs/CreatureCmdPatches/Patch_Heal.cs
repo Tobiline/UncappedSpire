@@ -11,7 +11,7 @@ public class Patch_Heal
     [HarmonyPrefix]
     public static void Prefix(Creature creature, ref decimal amount, bool playAnim)
     {
-        if (creature.IsMonster)
+        if (creature.IsEnemy)
         {
             amount *= (decimal)ContextManager.Current_ScalingHp;
         }

@@ -30,8 +30,8 @@ public class Patch_DisplayAmount
     [HarmonyPostfix]
     public static void Postfix(PowerModel __instance, ref int __result)
     {
-        if (((__instance.Target != null && __instance.Target.IsMonster) || (__instance.Owner != null && __instance.Owner.IsMonster))
-            && (__instance.Applier == null || __instance.Applier.IsMonster)
+        if (((__instance.Target != null && __instance.Target.IsEnemy) || (__instance.Owner != null && __instance.Owner.IsEnemy))
+            && (__instance.Applier == null || __instance.Applier.IsEnemy)
             && __instance.TryGetScaling(ScalingImplementationType.DisplayModify, out var scaling))
         {
             __result = (int)(__result * scaling);
