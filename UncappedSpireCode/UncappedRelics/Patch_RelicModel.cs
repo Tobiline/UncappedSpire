@@ -10,7 +10,7 @@ public class Patch_RelicModel
     [HarmonyPostfix]
     public static void Postfix(RelicModel __instance, ref bool __result)
     {
-        if (ContextManager.UncappedRelicsEnabled)
+        if (ContextManager.UncappedRelicsEnabled && !RelicContext.IsNotStackable.Contains(__instance.GetType()))
         {
             __result = true;
         }
