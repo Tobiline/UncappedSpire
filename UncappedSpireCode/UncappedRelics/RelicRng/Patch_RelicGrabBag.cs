@@ -1,14 +1,15 @@
 ﻿using System.Reflection;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.Entities.Rngs;
 using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Rooms;
+using MegaCrit.Sts2.Core.Random;
 using MegaCrit.Sts2.Core.Runs;
 using UncappedSpire.UncappedSpireCode.Config;
 using UncappedSpire.UncappedSpireCode.Util;
 
-namespace UncappedSpire.UncappedSpireCode.UncappedRelics;
+namespace UncappedSpire.UncappedSpireCode.UncappedRelics.RelicRng;
 
 [HarmonyPatch(typeof(RelicGrabBag), "GetDeque")]
 public class Patch_RelicGrabBag
@@ -21,13 +22,8 @@ public class Patch_RelicGrabBag
         if (!ContextManager.UncappedRelicsEnabled)
             return;
 
-        var rng = RunUtil.GetLocalPlayer()!.PlayerRng.Rewards;
-        
-        // TODO: Find a better way to do this...
-        if (RunUtil.GetLocalPlayer()!.RunState.CurrentRoom is TreasureRoom)
-        {
-            rng = RunUtil.GetLocalPlayer()!.RunState.Rng.UpFront;
-        }
+        var runRngSet = RunUtil.GetLocalPlayer()!.RunState.Rng;
+        var rng = runRngSet.UpFront;
         
         var deques = (Dictionary<RelicRarity, List<RelicModel>>)Field__deques.GetValue(__instance)!;
         foreach (var value2 in deques.Values)
