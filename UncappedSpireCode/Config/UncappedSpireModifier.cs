@@ -24,16 +24,18 @@ public class UncappedSpireModifier : ModifierModel
         get
         {
             var baseString = new LocString("modifiers", Id.Entry + ".description");
-            baseString.Add("UncappedActsEnabled","Uncapped Acts: " + (ContextManager.UncappedActsEnabled ? "[green]✓[/green]" : "[red]✗[/red]"));
-            baseString.Add("UncappedEnchantmentsEnabled","\nUncapped Enchantments: " + (ContextManager.UncappedEnchantmentsEnabled ? "[green]✓[/green]" : "[red]✗[/red]"));
-            baseString.Add("UncappedUpgradesEnabled","\nUncapped Upgrades: " + (ContextManager.UncappedUpgradesEnabled ? "[green]✓[/green]" : "[red]✗[/red]"));
-            baseString.Add("UncappedRelicsEnabled","\nUncapped Relics: " + (ContextManager.UncappedRelicsEnabled ? "[green]✓[/green]" : "[red]✗[/red]"));
-            baseString.Add("ActThreeBossRewardsEnabled", "\nAct 3 Boss Rewards: " + (ContextManager.ActThreeBossRewardsEnabled ? "[green]✓[/green]" : "[red]✗[/red]"));
-            baseString.Add("CurrentChapter",ContextManager.UncappedActsEnabled ? $"\nChapter [green]{CurrentChapter}[/green]" : string.Empty);
-            baseString.Add("ScalingHp",ContextManager.UncappedActsEnabled ? $"\nCurrent HP Scaling: x[gold]{ContextManager.Current_ScalingHp:G3}[/gold]" : string.Empty);
-            baseString.Add("ScalingDmg",ContextManager.UncappedActsEnabled ? $"\nCurrent DMG Scaling: x[gold]{ContextManager.Current_ScalingDmg:G3}[/gold]" : string.Empty);
-            baseString.Add("ScalingHpIncrement",ContextManager.UncappedActsEnabled ? $"\nHP Scaling Increment: x[red]{ScalingHpIncrement:F1}[/red]" : string.Empty);
-            baseString.Add("ScalingDmgIncrement",ContextManager.UncappedActsEnabled ? $"\nDMG Scaling Increment: x[red]{ScalingDmgIncrement:F1}[/red]" : string.Empty);
+            baseString.Add("UncappedActsEnabled",ContextManager.UncappedActsEnabled ? "[green]✓[/green]" : "[red]✗[/red]");
+            baseString.Add("UncappedEnchantmentsEnabled",ContextManager.UncappedEnchantmentsEnabled ? "[green]✓[/green]" : "[red]✗[/red]");
+            baseString.Add("UncappedUpgradesEnabled",ContextManager.UncappedUpgradesEnabled ? "[green]✓[/green]" : "[red]✗[/red]");
+            baseString.Add("UncappedRelicsEnabled",ContextManager.UncappedRelicsEnabled ? "[green]✓[/green]" : "[red]✗[/red]");
+            baseString.Add("ActThreeBossRewardsEnabled", ContextManager.ActThreeBossRewardsEnabled ? "[green]✓[/green]" : "[red]✗[/red]");
+            
+            baseString.Add("ActsEnabled", ContextManager.UncappedActsEnabled);
+            baseString.Add("CurrentChapter", CurrentChapter.ToString());
+            baseString.Add("ScalingHp",ContextManager.Current_ScalingHp.ToString("G3"));
+            baseString.Add("ScalingDmg",ContextManager.Current_ScalingDmg.ToString("G3"));
+            baseString.Add("ScalingHpIncrement",ScalingHpIncrement.ToString("F1"));
+            baseString.Add("ScalingDmgIncrement",ScalingDmgIncrement.ToString("F1"));
             
             return baseString;
         }

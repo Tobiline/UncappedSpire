@@ -1,0 +1,1 @@
+﻿Created using https://www.deepl.com/en/translator?utm_source=chatgpt.com

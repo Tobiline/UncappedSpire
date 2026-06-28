@@ -1,0 +1,30 @@
+﻿{
+  "UNCAPPEDSPIRE.mod_title": "UncappedSpire",
+
+  "UNCAPPEDSPIRE-UNCAPPED_ACTS.title": "Uncapped 阶段",
+  "UNCAPPEDSPIRE-UNCAPPED_ACTS_ENABLED.title": "启用",
+  "UNCAPPEDSPIRE-SCALING_DIFFICULTY.title": "调整预设难度",
+  "UNCAPPEDSPIRE-SCALING_DIFFICULTY.hover.title": "调整预设难度:",
+  "UNCAPPEDSPIRE-SCALING_DIFFICULTY.hover.desc": "[[green]简单[/green]] 生命值: x[green]3[/green], 伤害: x[green]1.2[/green]\n[[gold]普通[/gold]] 生命值: x[gold]6[/gold], 伤害: x[gold]2.4[/gold]\n[[red]难[/red]] 生命值: x[red]9[/red], 伤害: x[red]3.6[/red]",
+  "UNCAPPEDSPIRE-SCALING_DIFFICULTY.Easy": "简单",
+  "UNCAPPEDSPIRE-SCALING_DIFFICULTY.Normal": "普通",
+  "UNCAPPEDSPIRE-SCALING_DIFFICULTY.Hard": "难",
+  "UNCAPPEDSPIRE-SCALING_DIFFICULTY.Custom": "自定义",
+  "UNCAPPEDSPIRE-CUSTOM_HP_SCALING.title": "生命值提升比例",
+  "UNCAPPEDSPIRE-CUSTOM_DMG_SCALING.title": "伤害提升比例",
+  "UNCAPPEDSPIRE-ACT_THREE_BOSS_REWARDS_ENABLED.title": "第三阶段首领奖励",
+
+  "UNCAPPEDSPIRE-UNCAPPED_ENCHANTMENTS.title": "Uncapped 附魔",
+  "UNCAPPEDSPIRE-UNCAPPED_ENCHANTMENTS_ENABLED.title": "启用",
+
+  "UNCAPPEDSPIRE-UNCAPPED_UPGRADES.title": "Uncapped 升级",
+  "UNCAPPEDSPIRE-UNCAPPED_UPGRADES_ENABLED.title": "启用",
+
+  "UNCAPPEDSPIRE-UNCAPPED_RELICS.title": "Uncapped 圣物",
+  "UNCAPPEDSPIRE-UNCAPPED_RELICS_ENABLED.title": "启用",
+
+  "UNCAPPEDSPIRE-UNCAPPED_ANIMATIONS.title": "Uncapped 动画",
+  "UNCAPPEDSPIRE-UNCAPPED_ANIMATIONS_ENABLED.title": "启用",
+  "UNCAPPEDSPIRE-ANIMATION_BATCH_SIZE.title": "动画批量大小",
+  "UNCAPPEDSPIRE-ANIMATION_BATCH_SIZE.hover.desc": "将大量连续的瞬时动画以0.1秒的间隔批量处理，以防止游戏崩溃。\n如果你的游戏因动画堆叠而崩溃，请降低此数值。"
+}

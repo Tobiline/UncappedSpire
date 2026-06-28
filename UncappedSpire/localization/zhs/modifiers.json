@@ -1,0 +1,4 @@
+﻿{
+  "UNCAPPED_SPIRE_MODIFIER.title": "UncappedSpire",
+  "UNCAPPED_SPIRE_MODIFIER.description": "Uncapped 阶段: {UncappedActsEnabled}\nUncapped 魔法: {UncappedEnchantmentsEnabled}\nUncapped 升级: {UncappedUpgradesEnabled}\nUncapped 圣物: {UncappedRelicsEnabled}\n第三幕首领奖励: {ActThreeBossRewardsEnabled}{ActsEnabled:cond:\n章节 [green]{CurrentChapter}[/green]\n当前生命值倍率: x[gold]{ScalingHp}[/gold]\n当前伤害倍率: x[gold]{ScalingDmg}[/gold]\n生命值倍率增量: x[red]{ScalingHpIncrement}[/red]\n伤害倍率增量: x[red]{ScalingDmgIncrement}[/red]|}"
+}

@@ -1,20 +1,29 @@
 ﻿{
   "UNCAPPEDSPIRE.mod_title": "UncappedSpire",
 
+  "UNCAPPEDSPIRE-UNCAPPED_ACTS.title": "Uncapped Acts",
   "UNCAPPEDSPIRE-UNCAPPED_ACTS_ENABLED.title": "Enabled",
   "UNCAPPEDSPIRE-SCALING_DIFFICULTY.title": "Scaling Difficulty Preset",
   "UNCAPPEDSPIRE-SCALING_DIFFICULTY.hover.title": "Scaling Difficulty Presets:",
   "UNCAPPEDSPIRE-SCALING_DIFFICULTY.hover.desc": "[[green]Easy[/green]] HP: x[green]3[/green], DMG: x[green]1.2[/green]\n[[gold]Normal[/gold]] HP: x[gold]6[/gold], DMG: x[gold]2.4[/gold]\n[[red]Hard[/red]] HP: x[red]9[/red], DMG: x[red]3.6[/red]",
+  "UNCAPPEDSPIRE-SCALING_DIFFICULTY.Easy": "Easy",
+  "UNCAPPEDSPIRE-SCALING_DIFFICULTY.Normal": "Normal",
+  "UNCAPPEDSPIRE-SCALING_DIFFICULTY.Hard": "Hard",
+  "UNCAPPEDSPIRE-SCALING_DIFFICULTY.Custom": "Custom",
   "UNCAPPEDSPIRE-CUSTOM_HP_SCALING.title": "HP Scaling",
   "UNCAPPEDSPIRE-CUSTOM_DMG_SCALING.title": "DMG Scaling",
   "UNCAPPEDSPIRE-ACT_THREE_BOSS_REWARDS_ENABLED.title": "Act 3 Boss Rewards Enabled",
-
-  "UNCAPPEDSPIRE-UNCAPPED_ENCHANTMENTS_ENABLED.title": "Enabled",
   
+  "UNCAPPEDSPIRE-UNCAPPED_ENCHANTMENTS.title": "Uncapped Enchantments",
+  "UNCAPPEDSPIRE-UNCAPPED_ENCHANTMENTS_ENABLED.title": "Enabled",
+
+  "UNCAPPEDSPIRE-UNCAPPED_UPGRADES.title": "Uncapped Upgrades",
   "UNCAPPEDSPIRE-UNCAPPED_UPGRADES_ENABLED.title": "Enabled",
 
+  "UNCAPPEDSPIRE-UNCAPPED_RELICS.title": "Uncapped Relics",
   "UNCAPPEDSPIRE-UNCAPPED_RELICS_ENABLED.title": "Enabled",
 
+  "UNCAPPEDSPIRE-UNCAPPED_ANIMATIONS.title": "Uncapped Animations",
   "UNCAPPEDSPIRE-UNCAPPED_ANIMATIONS_ENABLED.title": "Enabled",
   "UNCAPPEDSPIRE-ANIMATION_BATCH_SIZE.title": "Animation Batch Size",
   "UNCAPPEDSPIRE-ANIMATION_BATCH_SIZE.hover.desc": "Batches large consecutive instant animations between 0.1 second intervals to stop crashing.\nIf your game is crashing due to animation stacking, lower this number."

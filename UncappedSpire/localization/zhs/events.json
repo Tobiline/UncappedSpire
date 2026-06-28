@@ -1,0 +1,12 @@
+﻿{
+  "UNCAPPEDSPIRE-CLOSING_THE_CHAPTER.title": "结束人生中的这一章",
+  "UNCAPPEDSPIRE-CLOSING_THE_CHAPTER.INITIAL.description": "距离塔顶仅一步之遥，你面临着最后两个选择...",
+  
+  "UNCAPPEDSPIRE-CLOSING_THE_CHAPTER.pages.MEET_THE_ARCHITECT.description": "[WIP] MEET_THE_ARCHITECT",
+  "UNCAPPEDSPIRE-CLOSING_THE_CHAPTER.pages.INITIAL.options.MEET_THE_ARCHITECT.title": "沿着螺旋楼梯向上走",
+  "UNCAPPEDSPIRE-CLOSING_THE_CHAPTER.pages.INITIAL.options.MEET_THE_ARCHITECT.description": "认识 [sine][red]建筑师[/red][/sine]",
+
+  "UNCAPPEDSPIRE-CLOSING_THE_CHAPTER.pages.START_A_NEW_CHAPTER.description": "[WIP] START_A_NEW_CHAPTER",
+  "UNCAPPEDSPIRE-CLOSING_THE_CHAPTER.pages.INITIAL.options.START_A_NEW_CHAPTER.title": "穿越神秘之门",
+  "UNCAPPEDSPIRE-CLOSING_THE_CHAPTER.pages.INITIAL.options.START_A_NEW_CHAPTER.description": "开启新 [green]篇章[/green]"
+}

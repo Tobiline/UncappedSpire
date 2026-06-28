@@ -1,4 +1,4 @@
 ﻿{
   "UNCAPPED_SPIRE_MODIFIER.title": "UncappedSpire",
-  "UNCAPPED_SPIRE_MODIFIER.description": "{UncappedActsEnabled}{UncappedEnchantmentsEnabled}{UncappedUpgradesEnabled}{UncappedRelicsEnabled}{ActThreeBossRewardsEnabled}{CurrentChapter}{ScalingHp}{ScalingDmg}{ScalingHpIncrement}{ScalingDmgIncrement}"
+  "UNCAPPED_SPIRE_MODIFIER.description": "Uncapped Acts: {UncappedActsEnabled}\nUncapped Enchantments: {UncappedEnchantmentsEnabled}\nUncapped Upgrades: {UncappedUpgradesEnabled}\nUncapped Relics: {UncappedRelicsEnabled}\nAct 3 Boss Rewards: {ActThreeBossRewardsEnabled}{ActsEnabled:cond:\nChapter [green]{CurrentChapter}[/green]\nCurrent HP Scaling: x[gold]{ScalingHp}[/gold]\nCurrent DMG Scaling: x[gold]{ScalingDmg}[/gold]\nHP Scaling Increment: x[red]{ScalingHpIncrement}[/red]\nDMG Scaling Increment: x[red]{ScalingDmgIncrement}[/red]|}"
 }
