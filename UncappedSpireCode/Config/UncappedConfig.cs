@@ -66,8 +66,10 @@ internal class UncappedConfig : SimpleModConfig
     #endregion
     
     #region Uncapped Relics
-    [ConfigSection("Uncapped Relics")]
-    public static bool UncappedRelicsEnabled { get; set; } = true;
+    //[ConfigSection("Uncapped Relics")]
+    // TODO: Fix desync
+    [ConfigIgnore]
+    public static bool UncappedRelicsEnabled { get; set; } = false;
     #endregion
     
     #region Uncapped Animations
