@@ -17,6 +17,7 @@ public static class RelicContext
         typeof(RunicPyramid),
         typeof(PaperKrane),
         typeof(PaperPhrog),
-        typeof(WhisperingEarring)
+        typeof(WhisperingEarring),
+        typeof(UnceasingTop)
     ];
 }
