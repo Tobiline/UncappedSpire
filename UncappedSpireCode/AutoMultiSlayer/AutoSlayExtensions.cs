@@ -7,7 +7,8 @@
 //
 // public static class AutoSlayExtensions
 // {
-//     public static async Task PlayMultiplayerMenuAsync(CancellationToken ct)
+//     // TODO: Add wait sync for other players?
+//     public static async Task PlayMultiplayerMenuAsync(this AutoSlayer autoSlayer, CancellationToken ct)
 //     {
 //         AutoSlayLog.Action("Playing multiplayer menu");
 //         Node root = ((SceneTree)Engine.GetMainLoop()).Root;

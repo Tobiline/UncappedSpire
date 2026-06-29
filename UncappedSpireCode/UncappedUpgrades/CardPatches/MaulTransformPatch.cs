@@ -50,8 +50,6 @@ public class MaulTransformPatch
                 break;
             }
         }
-        
-        code.PrintDebug();
     
         return code;
     }

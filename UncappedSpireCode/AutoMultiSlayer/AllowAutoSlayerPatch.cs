@@ -1,7 +1,7 @@
 ﻿// using HarmonyLib;
 // using MegaCrit.Sts2.Core.Nodes;
 //
-// namespace UncappedSpire.UncappedSpireCode.DebugTools;
+// namespace UncappedSpire.UncappedSpireCode.AutoMultiSlayer;
 //
 // [HarmonyPatch(typeof(NGame), nameof(NGame.IsReleaseGame))]
 // public class AllowAutoSlayerPatch

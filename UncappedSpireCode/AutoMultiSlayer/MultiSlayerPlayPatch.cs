@@ -1,46 +1,43 @@
 ﻿// using System.Reflection;
 // using System.Reflection.Emit;
-// using System.Runtime.CompilerServices;
 // using HarmonyLib;
 // using MegaCrit.Sts2.Core.AutoSlay;
-// using MegaCrit.Sts2.Core.Runs;
-// using UncappedSpire.UncappedSpireCode.Config;
-// using UncappedSpire.UncappedSpireCode.Util;
 //
 // namespace UncappedSpire.UncappedSpireCode.AutoMultiSlayer;
 //
-// [HarmonyPatch]
+// [HarmonyPatch(typeof(AutoSlayer), "PlayRunAsync", MethodType.Async)]
 // public class MultiSlayerPlayPatch
 // {
-//     static MethodBase TargetMethod()
-//     {
-//         return AccessTools.Method(typeof(AutoSlayer), "PlayRunAsync").GetAsyncInnerMethodIfExists();
-//     }
+//     private static MethodInfo OriginalPlayMainMenuAsync = AccessTools.Method(typeof(AutoSlayer), "PlayMainMenuAsync");
 //     
 //     [HarmonyTranspiler]
 //     static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 //     {
 //         var code = new List<CodeInstruction>(instructions);
 //         
-//         var methodToFind = AccessTools.PropertyGetter(typeof(ExtraRunFields), nameof(ExtraRunFields.StartedWithNeow));
-//         var methodToCall = AccessTools.PropertyGetter(typeof(ContextManager), nameof(ContextManager.Current_Chapter));
+//         var methodToCall = AccessTools.Method(typeof(MultiSlayerPlayPatch), nameof(PlayMainMenuAsync));
 //         
 //         for (var i = 0; i < code.Count; i++)
 //         {
-//             if (code[i].opcode == OpCodes.Callvirt && code[i].operand is MethodInfo methodInfo && methodInfo == methodToFind)
+//             if (code[i].opcode == OpCodes.Call && code[i].operand is MethodInfo methodInfo && methodInfo == OriginalPlayMainMenuAsync)
 //             {
-//                 var jumpLabel = code[i + 1].operand;
-//                 
-//                 code.InsertRange(i + 2, [
-//                     new CodeInstruction(OpCodes.Call, methodToCall),
-//                     new CodeInstruction(OpCodes.Ldc_I4_1),
-//                     new CodeInstruction(OpCodes.Cgt),
-//                     new CodeInstruction(OpCodes.Brtrue, jumpLabel)
-//                 ]);
+//                 code[i].operand = methodToCall;
 //                 break;
 //             }
 //         }
 //
 //         return code;
+//     }
+//
+//     public static async Task PlayMainMenuAsync(AutoSlayer autoSlayer, CancellationToken ct)
+//     {
+//         if (AutoSlayerFields.IsMultiplayer.Get(autoSlayer))
+//         {
+//             await autoSlayer.PlayMultiplayerMenuAsync(ct);
+//         }
+//         else
+//         {
+//             await (Task)OriginalPlayMainMenuAsync.Invoke(autoSlayer, [ct])!;
+//         }
 //     }
 // }
