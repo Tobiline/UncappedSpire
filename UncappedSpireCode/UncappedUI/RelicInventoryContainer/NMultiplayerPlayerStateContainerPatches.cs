@@ -2,7 +2,7 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Nodes.Multiplayer;
 
-namespace UncappedSpire.UncappedSpireCode.UncappedUI;
+namespace UncappedSpire.UncappedSpireCode.UncappedUI.RelicInventoryContainer;
 
 [HarmonyPatch(typeof(NMultiplayerPlayerStateContainer), "GetTargetPosition")]
 public class NMultiplayerPlayerStateContainerPatches

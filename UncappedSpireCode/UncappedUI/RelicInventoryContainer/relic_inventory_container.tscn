@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dy6lnmmonlxlx"]
 
-[ext_resource type="Script" uid="uid://i1dsdsbeajch" path="res://UncappedSpireCode/UncappedUI/NRelicInvetoryContainer.cs" id="1_j4kwb"]
+[ext_resource type="Script" uid="uid://i1dsdsbeajch" path="res://UncappedSpireCode/UncappedUI/RelicInventoryContainer/NRelicInvetoryContainer.cs" id="1_j4kwb"]
 
 [node name="RelicInventoryContainer" type="Control"]
 layout_mode = 1

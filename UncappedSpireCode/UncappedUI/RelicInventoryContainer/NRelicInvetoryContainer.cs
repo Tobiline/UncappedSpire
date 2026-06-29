@@ -2,11 +2,11 @@ using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 
-namespace UncappedSpire.UncappedSpireCode.UncappedUI;
+namespace UncappedSpire.UncappedSpireCode.UncappedUI.RelicInventoryContainer;
 
 public partial class NRelicInvetoryContainer : Control
 {
-	private static readonly string _scenePath = "res://UncappedSpireCode/UncappedUI/relic_inventory_container.tscn";
+	private static readonly string _scenePath = "res://UncappedSpireCode/UncappedUI/RelicInventoryContainer/relic_inventory_container.tscn";
 
 	public static AddedNode<NGlobalUi, NRelicInvetoryContainer>? Node = new(_scenePath,
 		(parent, node) =>

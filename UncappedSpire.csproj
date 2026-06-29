@@ -62,7 +62,7 @@
 
     <ItemGroup>
       <Content Include="UncappedSpireCode\UncappedEnchantments\UI\enchantment_tab_container.tscn" />
-      <Content Include="UncappedSpireCode\UncappedUI\relic_inventory_container.tscn" />
+      <Content Include="UncappedSpireCode\UncappedUI\RelicInventoryContainer\relic_inventory_container.tscn" />
       <Content Include="UncappedSpireCode\UncappedUpgrades\UI\CardLibrary\card_library_uncapped_upgrade_input.tscn" />
       <Content Include="UncappedSpireCode\UncappedUpgrades\UI\DeckViewScreen\deck_view_uncapped_upgrade_input.tscn" />
       <Content Include="UncappedSpireCode\UncappedUpgrades\UI\InspectCardScreen\inspect_card_uncapped_upgrade_input.tscn" />
