@@ -21,6 +21,8 @@
   "UNCAPPEDSPIRE-UNCAPPED_UPGRADES_ENABLED.title": "Enabled",
 
   "UNCAPPEDSPIRE-UNCAPPED_RELICS.title": "Uncapped Relics",
+  "UNCAPPEDSPIRE-UNCAPPED_RELICS_ENABLED.hover.title": "NOTICE",
+  "UNCAPPEDSPIRE-UNCAPPED_RELICS_ENABLED.hover.desc": "Temporarily disabled in multiplayer until I can solve the desync issues",
   "UNCAPPEDSPIRE-UNCAPPED_RELICS_ENABLED.title": "Enabled",
 
   "UNCAPPEDSPIRE-UNCAPPED_ANIMATIONS.title": "Uncapped Animations",
