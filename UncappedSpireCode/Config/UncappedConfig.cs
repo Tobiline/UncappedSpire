@@ -12,10 +12,10 @@ internal class UncappedConfig : SimpleModConfig
     public static ScalingDifficulty ScalingDifficulty { get; set; } = ScalingDifficulty.Normal;
     [ConfigVisibleIf(nameof(ScalingDifficulty), ScalingDifficulty.Custom)]
     [ConfigSlider(min: 1, max: 20, step: 0.1, Format = "x{0:F1}")]
-    public static float CustomHpScaling { get; set; } = 6f;
+    public static float CustomHpScaling { get; set; } = 5f;
     [ConfigVisibleIf(nameof(ScalingDifficulty), ScalingDifficulty.Custom)]
     [ConfigSlider(min: 1, max: 20, step: 0.1, Format = "x{0:F1}")]
-    public static float CustomDmgScaling { get; set; } = 2.4f;
+    public static float CustomDmgScaling { get; set; } = 2f;
     public static bool ActThreeBossRewardsEnabled { get; set; } = true;
     
     [ConfigIgnore]
@@ -39,9 +39,9 @@ internal class UncappedConfig : SimpleModConfig
     
     private static Dictionary<ScalingDifficulty, (float hpScaling, float dmgScaling)> _scalingDiffultyDefaults = new()
     {
-        [ScalingDifficulty.Easy] = (3f, 1.2f),
-        [ScalingDifficulty.Normal] = (6f, 2.4f),
-        [ScalingDifficulty.Hard] = (9f, 3.6f)
+        [ScalingDifficulty.Easy] = (3f, 1.4f),
+        [ScalingDifficulty.Normal] = (5f, 2.0f),
+        [ScalingDifficulty.Hard] = (7f, 2.6f)
     };
     #endregion
     

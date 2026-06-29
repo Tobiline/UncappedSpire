@@ -70,18 +70,6 @@
 
     <ItemGroup>
       <Folder Include="UncappedSpire\images\events\" />
-      <Folder Include="UncappedSpire\localization\deu\" />
-      <Folder Include="UncappedSpire\localization\esp\" />
-      <Folder Include="UncappedSpire\localization\fra\" />
-      <Folder Include="UncappedSpire\localization\ita\" />
-      <Folder Include="UncappedSpire\localization\jpn\" />
-      <Folder Include="UncappedSpire\localization\kor\" />
-      <Folder Include="UncappedSpire\localization\pol\" />
-      <Folder Include="UncappedSpire\localization\ptb\" />
-      <Folder Include="UncappedSpire\localization\rus\" />
-      <Folder Include="UncappedSpire\localization\spa\" />
-      <Folder Include="UncappedSpire\localization\tha\" />
-      <Folder Include="UncappedSpire\localization\tur\" />
       <Folder Include="UncappedSpire\localization\zhs\" />
     </ItemGroup>
 

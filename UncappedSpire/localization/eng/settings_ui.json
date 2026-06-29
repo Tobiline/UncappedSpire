@@ -5,7 +5,7 @@
   "UNCAPPEDSPIRE-UNCAPPED_ACTS_ENABLED.title": "Enabled",
   "UNCAPPEDSPIRE-SCALING_DIFFICULTY.title": "Scaling Difficulty Preset",
   "UNCAPPEDSPIRE-SCALING_DIFFICULTY.hover.title": "Scaling Difficulty Presets:",
-  "UNCAPPEDSPIRE-SCALING_DIFFICULTY.hover.desc": "[[green]Easy[/green]] HP: x[green]3[/green], DMG: x[green]1.2[/green]\n[[gold]Normal[/gold]] HP: x[gold]6[/gold], DMG: x[gold]2.4[/gold]\n[[red]Hard[/red]] HP: x[red]9[/red], DMG: x[red]3.6[/red]",
+  "UNCAPPEDSPIRE-SCALING_DIFFICULTY.hover.desc": "[[green]Easy[/green]] HP: x[green]3[/green], DMG: x[green]1.4[/green]\n[[gold]Normal[/gold]] HP: x[gold]5[/gold], DMG: x[gold]2[/gold]\n[[red]Hard[/red]] HP: x[red]7[/red], DMG: x[red]2.6[/red]",
   "UNCAPPEDSPIRE-SCALING_DIFFICULTY.Easy": "Easy",
   "UNCAPPEDSPIRE-SCALING_DIFFICULTY.Normal": "Normal",
   "UNCAPPEDSPIRE-SCALING_DIFFICULTY.Hard": "Hard",

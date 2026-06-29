@@ -5,7 +5,7 @@
   "UNCAPPEDSPIRE-UNCAPPED_ACTS_ENABLED.title": "启用",
   "UNCAPPEDSPIRE-SCALING_DIFFICULTY.title": "调整预设难度",
   "UNCAPPEDSPIRE-SCALING_DIFFICULTY.hover.title": "调整预设难度:",
-  "UNCAPPEDSPIRE-SCALING_DIFFICULTY.hover.desc": "[[green]简单[/green]] 生命值: x[green]3[/green], 伤害: x[green]1.2[/green]\n[[gold]普通[/gold]] 生命值: x[gold]6[/gold], 伤害: x[gold]2.4[/gold]\n[[red]难[/red]] 生命值: x[red]9[/red], 伤害: x[red]3.6[/red]",
+  "UNCAPPEDSPIRE-SCALING_DIFFICULTY.hover.desc": "[[green]简单[/green]] 生命值: x[green]3[/green], 伤害: x[green]1.4[/green]\n[[gold]普通[/gold]] 生命值: x[gold]5[/gold], 伤害: x[gold]2[/gold]\n[[red]难[/red]] 生命值: x[red]7[/red], 伤害: x[red]2.6[/red]",
   "UNCAPPEDSPIRE-SCALING_DIFFICULTY.Easy": "简单",
   "UNCAPPEDSPIRE-SCALING_DIFFICULTY.Normal": "普通",
   "UNCAPPEDSPIRE-SCALING_DIFFICULTY.Hard": "难",
