@@ -2,6 +2,7 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Enchantments;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedUpgrades.CardEnergyCostPatches;
 
@@ -15,7 +16,8 @@ public class Patch_UpgradeBy
     static void Prefix(CardEnergyCost __instance, ref int addend)
     {
         var card = (CardModel?)getOwner.GetValue(__instance);
-        if (card != null)
+        var isTezcatarasEmber = card?.Rarity == CardRarity.Basic && card.Tags.Contains(CardTag.Strike);
+        if (card != null && !isTezcatarasEmber)
         {
             getBase.SetValue(__instance, __instance.Canonical);
             addend *= card.CurrentUpgradeLevel;
