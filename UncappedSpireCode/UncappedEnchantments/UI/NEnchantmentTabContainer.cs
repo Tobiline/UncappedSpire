@@ -1,6 +1,7 @@
 using BaseLib.Utils;
 using Godot;
 using MegaCrit.Sts2.Core.Nodes.Cards;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedEnchantments.UI;
 
@@ -11,6 +12,9 @@ public partial class NEnchantmentTabContainer : HBoxContainer
 	public static AddedNode<NCard, NEnchantmentTabContainer>? Node = new(_scenePath,
 		(parent, node) =>
 		{
+			if (!ContextManager.UncappedEnchantmentsEnabled)
+				return;
+			
 			var cardContainer = parent.GetNode<Control>("%CardContainer");
 			cardContainer.AddChild(node);
 			

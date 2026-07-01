@@ -76,6 +76,9 @@ public class Patch_CanEnchant
     
     public static bool HasUselessSameEnchantments(EnchantmentModel enchantment, CardModel card)
     {
+        if (!ContextManager.UncappedEnchantmentsEnabled)
+            return false;
+        
         var enchantmentType = enchantment.GetType();
         if (card.Enchantment == null || !EnchantmentsToNotDuplicate.Contains(enchantmentType))
             return false;

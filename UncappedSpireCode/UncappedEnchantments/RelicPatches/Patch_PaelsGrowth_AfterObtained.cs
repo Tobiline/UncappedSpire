@@ -3,43 +3,41 @@ using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Models.Relics;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedEnchantments.RelicPatches;
 
-[HarmonyPatch]
-public class Patch_PaelsGrowth_AfterObtained
+[HarmonyPatch(typeof(PaelsGrowth), "AfterObtained", MethodType.Async)]
+public static class Patch_PaelsGrowth_AfterObtained
 {
-    static MethodBase TargetMethod()
-    {
-        var m = AccessTools.Method(typeof(PaelsGrowth), "AfterObtained");
-        var attr = m.GetCustomAttribute<AsyncStateMachineAttribute>();
-        if (attr == null)
-        {
-            throw new NullReferenceException("OnPlay AsyncStateMachineAttribute attribute not found");
-        }
-        var moveNextMethod = attr.StateMachineType.GetMethod("MoveNext", BindingFlags.NonPublic | BindingFlags.Instance);
-        if (moveNextMethod == null)
-        {
-            throw new NullReferenceException("AsyncStateMachineAttribute state machine method not found");
-        }
-        return moveNextMethod;
-    }
-    
     [HarmonyTranspiler]
     public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
         var code = new List<CodeInstruction>(instructions);
+        
+        var methodToCall = AccessTools.Method(typeof(Patch_PaelsGrowth_AfterObtained), nameof(GetPaelsGrowthAmount));
         
         for (var i = 0; i < code.Count; i++)
         {
             var instruction = code[i];
             if (instruction.opcode == OpCodes.Ldc_I4_4)
             {
-                instruction.opcode = OpCodes.Ldc_I4_1;
+                instruction.opcode = OpCodes.Call;
+                instruction.operand = methodToCall;
                 break;
             }
         }
 
         return code;
+    }
+
+    public static int GetPaelsGrowthAmount()
+    {
+        if (ContextManager.UncappedEnchantmentsEnabled)
+        {
+            return 1;
+        }
+
+        return 4;
     }
 }

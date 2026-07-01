@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
+using UncappedSpire.UncappedSpireCode.Config;
 using UncappedSpire.UncappedSpireCode.UncappedEnchantments.EnchantmentModelPatches;
 using Vector2 = Godot.Vector2;
 
@@ -26,6 +27,9 @@ public class Patch__Ready
     [HarmonyPrefix]
     public static bool Prefix(NCardEnchantVfx __instance)
     {
+        if (!ContextManager.UncappedEnchantmentsEnabled)
+            return true;
+        
         Field__enchantmentSparkles.SetValue(__instance, __instance.GetNode<GpuParticles2D>("%EnchantmentAppearSparkles"));
         Field__enchantmentIcon.SetValue(__instance, __instance.GetNode<TextureRect>("%EnchantmentInViewport/Icon"));
         Field__enchantmentLabel.SetValue(__instance, __instance.GetNode<MegaLabel>("%EnchantmentInViewport/Label"));

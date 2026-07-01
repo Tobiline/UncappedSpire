@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Entities.RestSite;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Enchantments;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedEnchantments.CloneRestSiteOptionPatches;
 
@@ -18,8 +19,13 @@ public class Patch_OnSelect
     [HarmonyPrefix]
     public static bool Prefix(CloneRestSiteOption __instance, ref Task<bool> __result)
     {
-        __result = Replacement(__instance);
-        return false;
+        if (ContextManager.UncappedEnchantmentsEnabled)
+        {
+            __result = Replacement(__instance);
+            return false;
+        }
+
+        return true;
     }
 
     public static async Task<bool> Replacement(CloneRestSiteOption __instance)

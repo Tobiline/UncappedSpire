@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
@@ -25,7 +26,7 @@ public static class ContextManager
     // TODO: Remove
     private static bool TEMP_UncappedRelicsEnabled()
     {
-        if (RunManager.Instance.NetService.Type == NetGameType.Singleplayer)
+        if (RunManager.Instance.NetService.Type == NetGameType.Singleplayer || CommandLineHelper.HasArg("fastmp"))
         {
             return IsCurrentlyInRun ? State!.UncappedRelicsEnabled : UncappedConfig.UncappedRelicsEnabled;
         }

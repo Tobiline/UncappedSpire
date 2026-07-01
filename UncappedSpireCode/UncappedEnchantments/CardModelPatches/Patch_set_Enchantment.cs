@@ -2,6 +2,7 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Models;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedEnchantments.CardModelPatches;
 
@@ -13,6 +14,9 @@ public class Patch_set_Enchantment
     [HarmonyPrefix]
     public static bool Prefix(CardModel __instance, EnchantmentModel? value)
     {
+        if (!ContextManager.UncappedEnchantmentsEnabled)
+            return true;
+        
         if (value == null) 
             return false;
         

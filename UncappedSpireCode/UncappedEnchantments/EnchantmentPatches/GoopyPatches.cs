@@ -3,6 +3,7 @@ using System.Reflection.Emit;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Enchantments;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedEnchantments.EnchantmentPatches;
 
@@ -37,8 +38,15 @@ public class GoopyPatches
 
     public static void AddAmountToGoopyFromMulti(EnchantmentModel enchantmentModel)
     {
-        var multiEnchantment = (MultiEnchantment)enchantmentModel;
-        var goopyEnchantment = multiEnchantment.EnchantmentsOnCards.Find(c => c.Enchantment is Goopy)!.Enchantment;
-        goopyEnchantment!.Amount++;
+        if (ContextManager.UncappedEnchantmentsEnabled)
+        {
+            var multiEnchantment = (MultiEnchantment)enchantmentModel;
+            var goopyEnchantment = multiEnchantment.EnchantmentsOnCards.Find(c => c.Enchantment is Goopy)!.Enchantment;
+            goopyEnchantment!.Amount++;
+        }
+        else
+        {
+            enchantmentModel.Amount++;
+        }
     }
 }

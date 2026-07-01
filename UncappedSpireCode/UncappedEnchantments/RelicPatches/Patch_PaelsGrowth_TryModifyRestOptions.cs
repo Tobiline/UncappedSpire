@@ -2,6 +2,7 @@
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.RestSite;
 using MegaCrit.Sts2.Core.Models.Relics;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedEnchantments.RelicPatches;
 
@@ -11,6 +12,9 @@ public class Patch_PaelsGrowth_TryModifyRestOptions
     [HarmonyPrefix]
     public static bool Prefix(PaelsGrowth __instance, Player player, ICollection<RestSiteOption> options)
     {
+        if (!ContextManager.UncappedEnchantmentsEnabled)
+            return true;
+        
         return options.All(o => o.OptionId != "CLONE");
     }
 }

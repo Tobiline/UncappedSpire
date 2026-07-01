@@ -2,9 +2,11 @@
 using System.Reflection.Emit;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Runs;
 using UncappedSpire.UncappedSpireCode.Config;
+using UncappedSpire.UncappedSpireCode.Util;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedRelics;
 
@@ -22,6 +24,24 @@ public static class DequePatches
         ];
     }
 
+    private static FieldInfo Field__deques = AccessTools.Field(typeof(RelicGrabBag), "_deques");
+    
+    [HarmonyPostfix]
+    public static void Postfix(RelicGrabBag __instance)
+    {
+        if (!ContextManager.UncappedRelicsEnabled)
+            return;
+
+        var runRngSet = RunUtil.GetLocalPlayer()!.RunState.Rng;
+        var rng = runRngSet.UpFront;
+        
+        var deques = (Dictionary<RelicRarity, List<RelicModel>>)Field__deques.GetValue(__instance)!;
+        foreach (var value2 in deques.Values)
+        {
+            value2.UnstableShuffle(rng);
+        }
+    }
+    
     [HarmonyTranspiler]
     static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {

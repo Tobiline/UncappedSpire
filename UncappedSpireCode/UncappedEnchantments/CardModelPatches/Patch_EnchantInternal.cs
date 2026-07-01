@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Models;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedEnchantments.CardModelPatches;
 
@@ -13,6 +14,9 @@ public class Patch_EnchantInternal
     [HarmonyPrefix]
     public static bool Prefix(CardModel __instance, EnchantmentModel enchantment, decimal amount)
     {
+        if (!ContextManager.UncappedEnchantmentsEnabled)
+            return true;
+        
         enchantment.Amount = (int)amount;
         __instance.AssertMutable();
         enchantment.AssertMutable();
