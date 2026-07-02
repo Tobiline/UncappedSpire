@@ -28,6 +28,7 @@ public class UncappedSpireModifier : ModifierModel
             baseString.Add("UncappedEnchantmentsEnabled",ContextManager.UncappedEnchantmentsEnabled ? "[green]✓[/green]" : "[red]✗[/red]");
             baseString.Add("UncappedUpgradesEnabled",ContextManager.UncappedUpgradesEnabled ? "[green]✓[/green]" : "[red]✗[/red]");
             baseString.Add("UncappedRelicsEnabled",ContextManager.UncappedRelicsEnabled ? "[green]✓[/green]" : "[red]✗[/red]");
+            baseString.Add("AscensionIncreaseEnabled", ContextManager.AscensionIncreaseEnabled ? "[green]✓[/green]" : "[red]✗[/red]");
             baseString.Add("ActThreeBossRewardsEnabled", ContextManager.ActThreeBossRewardsEnabled ? "[green]✓[/green]" : "[red]✗[/red]");
             
             baseString.Add("ActsEnabled", ContextManager.UncappedActsEnabled);
@@ -50,6 +51,8 @@ public class UncappedSpireModifier : ModifierModel
     [SavedProperty] 
     public bool UncappedRelicsEnabled { get; set; } = true;
 
+    [SavedProperty]
+    public bool AscensionIncreaseEnabled { get; set; } = true;
     [SavedProperty]
     public bool ActThreeBossRewardsEnabled { get; set; } = true;
     [SavedProperty] 
@@ -101,6 +104,7 @@ public class UncappedSpireModifier : ModifierModel
         UncappedUpgradesEnabled = UncappedConfig.UncappedUpgradesEnabled;
         UncappedRelicsEnabled = UncappedConfig.UncappedRelicsEnabled;
         
+        AscensionIncreaseEnabled = UncappedConfig.AscensionIncreaseEnabled;
         ActThreeBossRewardsEnabled = UncappedConfig.ActThreeBossRewardsEnabled;
         
         SerializedScalingHpIncrement = UncappedConfig.HpScaling.ToString("R", CultureInfo.InvariantCulture);
@@ -113,6 +117,7 @@ public class UncappedSpireModifier : ModifierModel
 UncappedEnchantmentsEnabled: {UncappedEnchantmentsEnabled}
 UncappedUpgradesEnabled: {UncappedUpgradesEnabled}
 UncappedRelicsEnabled: {UncappedRelicsEnabled}
+AscensionIncreaseEnabled: {AscensionIncreaseEnabled}
 ActThreeBossRewardsEnabled: {ActThreeBossRewardsEnabled}
 CurrentChapter: {CurrentChapter}
 SerializedScalingHpIncrement: {SerializedScalingHpIncrement}

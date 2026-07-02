@@ -31,6 +31,7 @@ public class Patch_StartNewMultiplayerRun
                 UncappedConfig.UncappedActsEnabled,
                 UncappedConfig.UncappedEnchantmentsEnabled,
                 UncappedConfig.UncappedUpgradesEnabled,
+                UncappedConfig.AscensionIncreaseEnabled,
                 UncappedConfig.ActThreeBossRewardsEnabled,
                 UncappedConfig.HpScaling,
                 UncappedConfig.DmgScaling);

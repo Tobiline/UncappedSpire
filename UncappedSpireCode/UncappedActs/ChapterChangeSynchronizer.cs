@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Random;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Unlocks;
+using UncappedSpire.UncappedSpireCode.Config;
 
 namespace UncappedSpire.UncappedSpireCode.UncappedActs;
 
@@ -72,11 +73,17 @@ public class ChapterChangeSynchronizer : IDisposable
         {
             act.AssertMutable();
         }
-        
         var actsSetter = AccessTools.PropertySetter(typeof(RunState), nameof(RunState.Acts));
         actsSetter.Invoke(player.RunState, [mutableActs]);
         
+        if (ContextManager.AscensionIncreaseEnabled)
+        {
+            AscensionIncrease.IncrementAscension(player);
+        }
+        
         RunManager.Instance.GenerateRooms();
+        
+        ChapterChangeUIRefresh.RefreshTopBar(player);
         
         return true;
     }

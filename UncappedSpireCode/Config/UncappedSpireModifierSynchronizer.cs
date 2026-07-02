@@ -37,6 +37,7 @@ public class UncappedSpireModifierSynchronizer : IDisposable
         bool uncappedActsEnabled,
         bool uncappedEnchantmentsEnabled,
         bool uncappedUpgradesEnabled,
+        bool ascensionIncreaseEnabled,
         bool actThreeBossRewardsEnabled,
         float scalingHpIncrement,
         float scalingDmgIncrement)
@@ -46,6 +47,7 @@ public class UncappedSpireModifierSynchronizer : IDisposable
             uncappedActsEnabled = uncappedActsEnabled,
             uncappedEnchantmentsEnabled = uncappedEnchantmentsEnabled,
             uncappedUpgradesEnabled = uncappedUpgradesEnabled,
+            ascensionIncreaseEnabled = ascensionIncreaseEnabled,
             actThreeBossRewardsEnabled = actThreeBossRewardsEnabled,
             scalingHpIncrement = scalingHpIncrement,
             scalingDmgIncrement = scalingDmgIncrement,
@@ -56,6 +58,7 @@ public class UncappedSpireModifierSynchronizer : IDisposable
             uncappedActsEnabled,
             uncappedEnchantmentsEnabled,
             uncappedUpgradesEnabled,
+            ascensionIncreaseEnabled,
             actThreeBossRewardsEnabled,
             scalingHpIncrement,
             scalingDmgIncrement);
@@ -72,6 +75,7 @@ public class UncappedSpireModifierSynchronizer : IDisposable
             message.uncappedActsEnabled,
             message.uncappedEnchantmentsEnabled,
             message.uncappedUpgradesEnabled,
+            message.ascensionIncreaseEnabled,
             message.actThreeBossRewardsEnabled,
             message.scalingHpIncrement,
             message.scalingDmgIncrement);
@@ -81,6 +85,7 @@ public class UncappedSpireModifierSynchronizer : IDisposable
         bool uncappedActsEnabled,
         bool uncappedEnchantmentsEnabled,
         bool uncappedUpgradesEnabled,
+        bool ascensionIncreaseEnabled,
         bool actThreeBossRewardsEnabled,
         float scalingHpIncrement,
         float scalingDmgIncrement)
@@ -94,6 +99,7 @@ public class UncappedSpireModifierSynchronizer : IDisposable
         uncappedSpireModifier.UncappedActsEnabled = uncappedActsEnabled;
         uncappedSpireModifier.UncappedEnchantmentsEnabled = uncappedEnchantmentsEnabled;
         uncappedSpireModifier.UncappedUpgradesEnabled = uncappedUpgradesEnabled;
+        uncappedSpireModifier.AscensionIncreaseEnabled = ascensionIncreaseEnabled;
         uncappedSpireModifier.ActThreeBossRewardsEnabled = actThreeBossRewardsEnabled;
         uncappedSpireModifier.ScalingHpIncrement = scalingHpIncrement;
         uncappedSpireModifier.ScalingDmgIncrement = scalingDmgIncrement;

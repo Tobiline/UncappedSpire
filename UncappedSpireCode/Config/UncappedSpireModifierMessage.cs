@@ -11,6 +11,7 @@ public class UncappedSpireModifierMessage : INetMessage, IPacketSerializable, IR
     public bool uncappedActsEnabled;
     public bool uncappedEnchantmentsEnabled;
     public bool uncappedUpgradesEnabled;
+    public bool ascensionIncreaseEnabled;
     public bool actThreeBossRewardsEnabled;
     public float scalingHpIncrement;
     public float scalingDmgIncrement;
@@ -28,6 +29,7 @@ public class UncappedSpireModifierMessage : INetMessage, IPacketSerializable, IR
         writer.WriteBool(uncappedActsEnabled);
         writer.WriteBool(uncappedEnchantmentsEnabled);
         writer.WriteBool(uncappedUpgradesEnabled);
+        writer.WriteBool(ascensionIncreaseEnabled);
         writer.WriteBool(actThreeBossRewardsEnabled);
         writer.WriteFloat(scalingHpIncrement);
         writer.WriteFloat(scalingDmgIncrement);
@@ -40,6 +42,7 @@ public class UncappedSpireModifierMessage : INetMessage, IPacketSerializable, IR
         uncappedActsEnabled = reader.ReadBool();
         uncappedEnchantmentsEnabled = reader.ReadBool();
         uncappedUpgradesEnabled = reader.ReadBool();
+        ascensionIncreaseEnabled = reader.ReadBool();
         actThreeBossRewardsEnabled = reader.ReadBool();
         scalingHpIncrement = reader.ReadFloat();
         scalingDmgIncrement = reader.ReadFloat();
@@ -53,6 +56,7 @@ public class UncappedSpireModifierMessage : INetMessage, IPacketSerializable, IR
 uncappedActsEnabled {uncappedActsEnabled}
 uncappedEnchantmentsEnabled {uncappedEnchantmentsEnabled}
 uncappedUpgradesEnabled {uncappedUpgradesEnabled}
+ascensionIncreaseEnabled {ascensionIncreaseEnabled}
 actThreeBossRewardsEnabled {actThreeBossRewardsEnabled}
 scalingHpIncrement {scalingHpIncrement}
 serializedScalingDmgIncrement {scalingDmgIncrement}";

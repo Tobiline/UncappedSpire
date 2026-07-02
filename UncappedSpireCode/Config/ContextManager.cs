@@ -34,6 +34,7 @@ public static class ContextManager
         return false;
     }
     
+    public static bool AscensionIncreaseEnabled => IsCurrentlyInRun ? State!.AscensionIncreaseEnabled : UncappedConfig.AscensionIncreaseEnabled;
     public static bool ActThreeBossRewardsEnabled => IsCurrentlyInRun ? State!.ActThreeBossRewardsEnabled : UncappedConfig.ActThreeBossRewardsEnabled;
     public static int Current_Chapter => IsCurrentlyInRun ? State!.CurrentChapter : 1;
     public static float Current_ScalingHp => IsCurrentlyInRun ? State!.GetHpScaling() : 1;
